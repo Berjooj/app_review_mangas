@@ -2,65 +2,86 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Usuario;
-use App\Http\Requests\StoreUsuarioRequest;
-use App\Http\Requests\UpdateUsuarioRequest;
+use App\Models\User;
+use App\Http\Requests\UsuarioRequest\StoreUsuarioRequest;
+use App\Http\Requests\UsuarioRequest\UpdateUsuarioRequest;
+use App\Utils\APIResponse;
+use Illuminate\Support\Facades\Hash;
 
-class UsuarioController extends Controller
-{
+class UsuarioController extends Controller {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
-    }
+    public function index(): \Illuminate\Http\JsonResponse {
+        try {
+            $usuarios = User::all();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+            return APIResponse::success($usuarios);
+        } catch (\Exception $e) {
+            return APIResponse::error($e->getMessage());
+        }
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUsuarioRequest $request)
-    {
-        //
+    public function store(StoreUsuarioRequest $request): \Illuminate\Http\JsonResponse {
+        try {
+            $requestValidatedFields = $request->validated();
+            $requestValidatedFields['password'] = bcrypt($requestValidatedFields['password']);
+
+            $usuario = User::create($requestValidatedFields);
+
+            return APIResponse::success($usuario, 'Usuário criado com sucesso!');
+        } catch (\Exception $e) {
+            return APIResponse::error($e->getMessage());
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Usuario $usuario)
-    {
-        //
-    }
+    public function show(int $idUsuario): \Illuminate\Http\JsonResponse {
+        try {
+            $usuario = User::findOrFail($idUsuario);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Usuario $usuario)
-    {
-        //
+            return APIResponse::success($usuario);
+        } catch (\Exception $e) {
+            return APIResponse::error($e->getMessage());
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUsuarioRequest $request, Usuario $usuario)
-    {
-        //
+    public function update(UpdateUsuarioRequest $request, int $idUsuario): \Illuminate\Http\JsonResponse {
+        try {
+            if (!$request->validate()) {
+                throw new \Exception('Erro ao validar os dados do usuário!');
+            }
+
+            $usuario = User::findOrFail($idUsuario);
+
+            $usuario->update($request->validated());
+
+            return APIResponse::success($usuario, 'Usuário atualizado com sucesso!');
+        } catch (\Exception $e) {
+            return APIResponse::error($e->getMessage());
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Usuario $usuario)
-    {
-        //
+    public function destroy(int $idUsuario): \Illuminate\Http\JsonResponse {
+        try {
+            $usuario = User::findOrFail($idUsuario);
+
+            $usuario->delete();
+
+            return APIResponse::success(null, 'Usuário deletado com sucesso!');
+        } catch (\Exception $e) {
+            return APIResponse::error($e->getMessage());
+        }
     }
 }

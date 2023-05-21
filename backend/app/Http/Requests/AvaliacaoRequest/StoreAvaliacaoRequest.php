@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\AvaliacaoRequest;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUsuarioRequest extends FormRequest
+class StoreAvaliacaoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
