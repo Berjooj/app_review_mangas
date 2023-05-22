@@ -11,8 +11,8 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('avaliacao_curtidas', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_avaliacao');
-            $table->bigInteger('id_usuario');
+            $table->unsignedBigInteger('id_avaliacao');
+            $table->unsignedBigInteger('id_usuario');
 
             $table->foreign('id_avaliacao')->references('id')->on('avaliacaos');
             $table->foreign('id_usuario')->references('id')->on('users');

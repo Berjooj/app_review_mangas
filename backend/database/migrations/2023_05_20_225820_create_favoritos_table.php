@@ -11,8 +11,8 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('favoritos', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_usuario');
-            $table->bigInteger('id_obra');
+            $table->unsignedBigInteger('id_usuario');
+            $table->unsignedBigInteger('id_obra');
 
             $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('id_obra')->references('id')->on('obras')->onDelete('cascade');
