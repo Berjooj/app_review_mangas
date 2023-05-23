@@ -10,8 +10,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Obra extends Model {
     use HasFactory, SoftDeletes;
 
-    use HasFactory, SoftDeletes;
-
     /**
      * Os atributos e os tipos nativos (Serão convertidos automaticamente)
      *

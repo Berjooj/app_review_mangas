@@ -54,13 +54,9 @@ class UsuarioController extends Controller {
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUsuarioRequest $request, int $idUsuario): \Illuminate\Http\JsonResponse {
+    public function update(UpdateUsuarioRequest $request): \Illuminate\Http\JsonResponse {
         try {
-            if (!$request->validate()) {
-                throw new \Exception('Erro ao validar os dados do usuário!');
-            }
-
-            $usuario = User::findOrFail($idUsuario);
+            $usuario = User::findOrFail($request->validated()['id']);
 
             $usuario->update($request->validated());
 

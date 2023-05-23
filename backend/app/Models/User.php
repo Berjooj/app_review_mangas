@@ -61,14 +61,8 @@ class User extends Authenticatable {
      * @var array
      */
     protected $fillable = [
-        // ID do usuário
-        'id',
-
         // Nome do usuário
         'nome',
-
-        // E-mail do usuário
-        'email',
 
         // Senha do usuário
         'password',
@@ -76,14 +70,8 @@ class User extends Authenticatable {
         // ID foto de perfil
         'id_foto_perfil',
 
-        // Data em que o registro foi criado
-        'created_at',
-
         // Data em que o registro foi atualizado
         'updated_at',
-
-        // Data que o registro foi excluido lógicamente
-        'deleted_at',
     ];
 
 

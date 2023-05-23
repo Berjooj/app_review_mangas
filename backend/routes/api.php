@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FeedController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,4 +32,8 @@ Route::middleware(['auth:api'])->prefix('usuario')->group(function () {
     Route::put('/', [UsuarioController::class, 'update']);
 
     Route::delete('/{idUsuario}', [UsuarioController::class, 'destroy']);
+});
+
+Route::middleware(['auth:api'])->prefix('feed')->group(function () {
+    Route::get('/', [FeedController::class, 'index']);
 });
