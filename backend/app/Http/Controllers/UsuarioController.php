@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Http\Requests\UsuarioRequest\StoreUsuarioRequest;
 use App\Http\Requests\UsuarioRequest\UpdateUsuarioRequest;
 use App\Utils\APIResponse;
-use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller {
     /**

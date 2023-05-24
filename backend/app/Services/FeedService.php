@@ -52,6 +52,10 @@ class FeedService {
 
         unset($data['tipoFiltro']);
 
+        $data['filter[text]'] = $data['filtro'] ?? '';
+
+        unset($data['filtro']);
+
         $data['include'] = 'categories';
 
         $animes = $this->getAPI('anime', $data);
@@ -62,8 +66,12 @@ class FeedService {
         $categorias = [];
 
         foreach ($obras as $obra) {
+            /** @var \App\Models\Obra */
             $obraLocal = Obra::firstOrCreate(['id_externo' => $obra['id'], 'id_tipo' => $obra['type'] == 'anime' ? 1 : 2]);
 
+            $jsonLocal = json_decode($obraLocal->json_info);
+
+            /** @var array */
             $obraCategorias = $obra['relationships']['categories']['data'] ?? [];
 
             foreach ($obraCategorias as &$categoria) {
@@ -88,7 +96,7 @@ class FeedService {
 
             $obraCategorias = array_column(array_values($obraCategorias), 'nome');
 
-            $feed[] = [
+            $feeInfo = [
                 'id' => $obraLocal->id,
                 'id_externo' => $obra['id'],
                 'titulo' => $obra['attributes']['titles']['en']
@@ -102,15 +110,24 @@ class FeedService {
                     ?? null,
                 'qtVolumes' => $obra['attributes']['pageCount']
                     ?? rand(90, 400),
-                'favCount' => $obra['attributes']['favoritesCount'],
-                'nota' => $obra['attributes']['averageRating']
-                    ? round((($obra['attributes']['averageRating'] * 5) / 100), 1)
-                    : 0,
+                'favCount' => $jsonLocal->favCount
+                    ?? $obra['attributes']['favoritesCount'],
+                'nota' => $jsonLocal->nota ??
+                    ($obra['attributes']['averageRating']
+                        ? round((($obra['attributes']['averageRating'] * 5) / 100), 1)
+                        : 0
+                    ),
                 'categorias' => count($obraCategorias) > 3
                     ? array_slice($obraCategorias, 0, 3)
                     : $obraCategorias,
                 'imagem' => $obra['attributes']['posterImage']['original'],
             ];
+
+            $jsonLocal = json_encode($feeInfo);
+            $obraLocal->json_info = $jsonLocal;
+            $obraLocal->update();
+
+            $feed[] = $feeInfo;
         }
 
         return $feed;

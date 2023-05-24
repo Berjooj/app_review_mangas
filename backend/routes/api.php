@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AvaliacaoController;
+use App\Http\Controllers\AvaliacaoCurtidaController;
+use App\Http\Controllers\FavoritoController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
@@ -36,4 +39,21 @@ Route::middleware(['auth:api'])->prefix('usuario')->group(function () {
 
 Route::middleware(['auth:api'])->prefix('feed')->group(function () {
     Route::get('/', [FeedController::class, 'index']);
+});
+
+Route::middleware(['auth:api'])->prefix('favoritos')->group(function () {
+    Route::get('/', [FavoritoController::class, 'index']);
+    Route::post('/', [FavoritoController::class, 'store']);
+    Route::delete('/{idFavorito}', [FavoritoController::class, 'destroy']);
+});
+
+Route::middleware(['auth:api'])->prefix('avaliar')->group(function () {
+    Route::get('/{idObra}', [AvaliacaoController::class, 'index']);
+    Route::post('/', [AvaliacaoController::class, 'store']);
+});
+
+// TODO
+Route::middleware(['auth:api'])->prefix('curtir')->group(function () {
+    Route::post('/', [AvaliacaoCurtidaController::class, 'store']);
+    Route::destroy('/', [AvaliacaoCurtidaController::class, 'destroy']);
 });

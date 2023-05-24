@@ -22,7 +22,8 @@ class GetFeedRequest extends FormRequest {
     public function rules() {
         return [
             'page' => 'required|integer|min:0',
-            'tipoFiltro' => 'sometimes|required|string|in:em_alta,lancamentos,em_breve'
+            'tipoFiltro' => 'sometimes|required|string|in:em_alta,lancamentos,em_breve',
+            'filtro' => 'sometimes|required|string'
         ];
     }
 

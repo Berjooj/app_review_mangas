@@ -11,6 +11,7 @@ class FeedController extends Controller {
     public function index(GetFeedRequest $request): \Illuminate\Http\JsonResponse {
         try {
             $validado = $request->validated();
+
             if (empty($validado['tipoFiltro'])) {
                 $validado['tipoFiltro'] = 'em_alta';
             }

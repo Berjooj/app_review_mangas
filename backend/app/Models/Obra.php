@@ -25,6 +25,9 @@ class Obra extends Model {
         // Tipo da obra
         'id_tipo' => 'integer',
 
+        // JSON com as informações da obra vindas da API externa
+        'json_info' => 'object',
+
         // Data em que o registro foi criado
         'created_at' => 'datetime',
 
@@ -60,6 +63,9 @@ class Obra extends Model {
 
         // Tipo da obra
         'id_tipo',
+
+        // JSON com as informações da obra vindas da API externa
+        'json_info',
 
         // Data em que o registro foi criado
         'created_at',

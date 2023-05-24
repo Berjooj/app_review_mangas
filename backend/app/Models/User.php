@@ -64,6 +64,9 @@ class User extends Authenticatable {
         // Nome do usuário
         'nome',
 
+        // E-mail do usuário
+        'email',
+
         // Senha do usuário
         'password',
 

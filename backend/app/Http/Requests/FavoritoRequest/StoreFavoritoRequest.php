@@ -4,14 +4,12 @@ namespace App\Http\Requests\FavoritoRequest;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreFavoritoRequest extends FormRequest
-{
+class StoreFavoritoRequest extends FormRequest {
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
-    {
-        return false;
+    public function authorize(): bool {
+        return true;
     }
 
     /**
@@ -19,10 +17,19 @@ class StoreFavoritoRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
-    public function rules(): array
-    {
+    public function rules(): array {
         return [
-            //
+            'id_obra' => 'required|integer',
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     */
+    public function messages(): array {
+        return [
+            'id_obra.required' => 'O campo id_obra é obrigatório',
+            'id_obra.integer' => 'O campo id_obra deve ser um inteiro',
         ];
     }
 }
