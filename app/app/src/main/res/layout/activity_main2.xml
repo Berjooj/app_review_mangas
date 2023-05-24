@@ -38,13 +38,14 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/enviarId"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="30dp"
         android:backgroundTint="#FFFFFF"
+        android:clickable="true"
         android:text="Embarcar na Jornada"
         android:textAlignment="center"
         android:textColor="#262626"
@@ -64,13 +65,13 @@
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="315dp"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/enviarId"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:boxStrokeColor="#FFFFFF">
 
         <EditText
-            android:id="@+id/editTextTextEmailAddress4"
+            android:id="@+id/newNameId"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:drawableTint="#FFFFFF"
@@ -89,11 +90,12 @@
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="230dp"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/enviarId"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <EditText
+            android:id="@+id/newEmailId"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:backgroundTint="@color/white"
@@ -101,7 +103,7 @@
             android:inputType="textEmailAddress"
             android:textColor="#FFFFFF"
             android:textColorHint="#FFFCFC"
-            app:layout_constraintBottom_toTopOf="@+id/button2"
+            app:layout_constraintBottom_toTopOf="@+id/enviarId"
             app:layout_constraintStart_toStartOf="parent" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -114,13 +116,14 @@
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="135dp"
         android:ems="10"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/enviarId"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:passwordToggleEnabled="true"
         app:passwordToggleTint="@color/white">
 
         <EditText
+            android:id="@+id/newSenhaId"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ems="10"
@@ -128,7 +131,7 @@
             android:textColor="#FFFFFF"
             android:textColorHint="#FFFCFC"
             app:backgroundTint="#FFFFFF"
-            app:layout_constraintBottom_toTopOf="@+id/button2"
+            app:layout_constraintBottom_toTopOf="@+id/enviarId"
             app:layout_constraintEnd_toEndOf="@+id/textView11"
             app:layout_constraintEnd_toStartOf="@+id/olhoCSenha"
             app:layout_constraintStart_toStartOf="parent"
@@ -143,13 +146,14 @@
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/enviarId"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:passwordToggleEnabled="true"
         app:passwordToggleTint="@color/white">
 
         <EditText
+            android:id="@+id/newSenhaCId"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:backgroundTint="@color/white"
@@ -157,7 +161,7 @@
             android:inputType="textPassword"
             android:textColor="#FFFFFF"
             android:textColorHint="#FFFCFC"
-            app:layout_constraintBottom_toTopOf="@+id/button2"
+            app:layout_constraintBottom_toTopOf="@+id/enviarId"
             app:layout_constraintStart_toStartOf="parent" />
     </com.google.android.material.textfield.TextInputLayout>
 
