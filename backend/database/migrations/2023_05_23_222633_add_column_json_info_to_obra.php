@@ -12,7 +12,7 @@ return new class extends Migration {
      */
     public function up() {
         Schema::table('obras', function (Blueprint $table) {
-            $table->jsonb('json_info')->nullable()->after('id_usuario');
+            $table->jsonb('json_info')->nullable();
         });
     }
 
