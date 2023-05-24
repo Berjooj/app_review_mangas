@@ -52,6 +52,14 @@ class FavoritoController extends Controller {
                 ->where('id', $idFavorito)
                 ->firstOrFail();
 
+            $obra = Obra::findOrFail($favorito->id_obra);
+
+            $jsonObra = json_decode($obra->json_info);
+            $jsonObra->favCount--;
+
+            $obra->json_info = json_encode($jsonObra);
+            $obra->save();
+
             $favorito->delete();
 
             return APIResponse::success([], 'Obra desfavoritada com sucesso!');

@@ -9,7 +9,7 @@ class StoreAvaliacaoCurtidaRequest extends FormRequest {
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool {
-        return false;
+        return true;
     }
 
     /**
@@ -19,7 +19,17 @@ class StoreAvaliacaoCurtidaRequest extends FormRequest {
      */
     public function rules(): array {
         return [
-            //
+            'id_avaliacao' => 'required|numeric'
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     */
+    public function messages(): array {
+        return [
+            'id_avaliacao.required' => 'O campo id_avaliacao é obrigatório',
+            'id_avaliacao.numeric' => 'O campo id_avaliacao deve ser numérico'
         ];
     }
 }

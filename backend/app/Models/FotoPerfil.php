@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class FotoPerfil extends Model {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'foto_perfis';
+
     /**
      * Os atributos e os tipos nativos (Serão convertidos automaticamente)
      *
@@ -21,6 +23,12 @@ class FotoPerfil extends Model {
 
         // Caminho do arquivo
         'caminho_arquivo' => 'string',
+
+        // Ordem
+        'ordem' => 'integer',
+
+        // Grupo
+        'grupo' => 'integer',
 
         // Data em que o registro foi criado
         'created_at' => 'datetime',
@@ -50,6 +58,12 @@ class FotoPerfil extends Model {
 
         // Caminho do arquivo
         'caminho_arquivo',
+
+        // Ordem
+        'ordem',
+
+        // Grupo
+        'grupo',
 
         // Data em que o registro foi criado
         'created_at',

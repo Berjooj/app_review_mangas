@@ -20,7 +20,6 @@ class StoreAvaliacaoRequest extends FormRequest {
     public function rules(): array {
         return [
             'id_obra' => 'required|integer',
-            'id_usuario' => 'required|integer',
             'nota' => 'required|integer|min:0|max:5',
             'comentario' => 'sometimes|required|string'
         ];
@@ -33,8 +32,6 @@ class StoreAvaliacaoRequest extends FormRequest {
         return [
             'id_obra.required' => 'O campo id_obra é obrigatório',
             'id_obra.integer' => 'O campo id_obra deve ser um inteiro',
-            'id_usuario.required' => 'O campo id_usuario é obrigatório',
-            'id_usuario.integer' => 'O campo id_usuario deve ser um inteiro',
             'nota.required' => 'O campo nota é obrigatório',
             'nota.integer' => 'O campo nota deve ser um inteiro',
             'nota.min' => 'O campo nota deve ser maior ou igual a 0',

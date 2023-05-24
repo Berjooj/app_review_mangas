@@ -112,11 +112,13 @@ class FeedService {
                     ?? rand(90, 400),
                 'favCount' => $jsonLocal->favCount
                     ?? $obra['attributes']['favoritesCount'],
-                'nota' => $jsonLocal->nota ??
-                    ($obra['attributes']['averageRating']
+                'nota' => $jsonLocal->nota
+                    ?? ($obra['attributes']['averageRating']
                         ? round((($obra['attributes']['averageRating'] * 5) / 100), 1)
                         : 0
                     ),
+                'qtAvaliacoes' => $jsonLocal->qtAvaliacoes
+                    ?? rand(1, 1000),
                 'categorias' => count($obraCategorias) > 3
                     ? array_slice($obraCategorias, 0, 3)
                     : $obraCategorias,
