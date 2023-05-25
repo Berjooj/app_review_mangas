@@ -39,8 +39,7 @@ public class MainActivity2 extends AppCompatActivity {
 
         ImageButton voltarActivity = findViewById(R.id.voltarId);
         voltarActivity.setOnClickListener(view -> {
-            Intent intentVoltar = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intentVoltar);
+            finish();
         });
 
         Button botaoEnviar = findViewById(R.id.enviarId);
@@ -51,18 +50,27 @@ public class MainActivity2 extends AppCompatActivity {
 
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("name", newName);
-                //jsonObject.put("email", newEmail);
+                jsonObject.put("nome", newName);
+                jsonObject.put("email", newEmail);
                 jsonObject.put("password", newSenha);
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
             String url = "https://api.berjooj.cloud/api/auth/register";
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonObject,
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST,url, jsonObject,
                     response -> {
-                        Toast.makeText(MainActivity2.this, "Solicitação bem-sucedida", Toast.LENGTH_SHORT).show();
+                        try {
+                            final int status = response.getInt("status");
+                            String message = response.getString("message");
+                            Toast.makeText(MainActivity2.this, status + ": " + message, Toast.LENGTH_SHORT).show();
+                            if(status==200){
+                                    finish();
+                            }
+
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
                     },
                     error -> {
                         int statusCode = error.networkResponse.statusCode;
