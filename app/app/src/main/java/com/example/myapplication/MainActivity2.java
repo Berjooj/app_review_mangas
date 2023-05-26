@@ -53,38 +53,39 @@ public class MainActivity2 extends AppCompatActivity {
                 jsonObject.put("nome", newName);
                 jsonObject.put("email", newEmail);
                 jsonObject.put("password", newSenha);
+
+                String url = "https://api.berjooj.cloud/api/auth/register";
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonObject,
+                        response -> {
+                            try {
+                                final int status = response.getInt("status");
+                                String message = response.getString("message");
+                                Toast.makeText(MainActivity2.this, status + ": " + message, Toast.LENGTH_SHORT).show();
+                                if (status == 200) {
+                                    finish();
+                                }
+
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+                        },
+                        error -> {
+                            int statusCode = error.networkResponse.statusCode;
+                            Toast.makeText(MainActivity2.this, "Erro: " + statusCode, Toast.LENGTH_SHORT).show();
+                        }) {
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        Map<String, String> headers = new HashMap<>();
+                        headers.put("Content-Type", "application/json");
+                        return headers;
+                    }
+                };
+                RequestQueue requestQueue = Volley.newRequestQueue(MainActivity2.this);
+                requestQueue.add(request);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-            String url = "https://api.berjooj.cloud/api/auth/register";
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST,url, jsonObject,
-                    response -> {
-                        try {
-                            final int status = response.getInt("status");
-                            String message = response.getString("message");
-                            Toast.makeText(MainActivity2.this, status + ": " + message, Toast.LENGTH_SHORT).show();
-                            if(status==200){
-                                    finish();
-                            }
-
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-                    },
-                    error -> {
-                        int statusCode = error.networkResponse.statusCode;
-                        Toast.makeText(MainActivity2.this, "Erro: " + statusCode, Toast.LENGTH_SHORT).show();
-                    }) {
-                @Override
-                public Map<String, String> getHeaders() {
-                    Map<String, String> headers = new HashMap<>();
-                    headers.put("Content-Type", "application/json");
-                    return headers;
-                }
-            };
-            RequestQueue requestQueue = Volley.newRequestQueue(MainActivity2.this);
-            requestQueue.add(request);
         });
     }
 
