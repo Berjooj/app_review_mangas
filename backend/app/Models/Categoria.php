@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Categoria extends Model {
     use HasFactory;
@@ -55,4 +56,14 @@ class Categoria extends Model {
         // Data em que o registro foi atualizado
         'updated_at',
     ];
+
+    /**
+     * Get all of the obras for the Categoria
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function obras(): HasManyThrough
+    {
+        return $this->hasManyThrough(Obra::class, ObraCategoria::class, 'id_categoria', 'id', 'id', 'id_obra');
+    }
 }

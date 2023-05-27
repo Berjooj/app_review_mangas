@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Obra extends Model {
@@ -25,8 +26,32 @@ class Obra extends Model {
         // Tipo da obra
         'id_tipo' => 'integer',
 
-        // JSON com as informações da obra vindas da API externa
-        'json_info' => 'object',
+        // Título da obra
+        'titulo' => 'string',
+
+        // Subtítulo da obra
+        'subtitulo' => 'string',
+
+        // Quantidade de episódios da obra
+        'qt_episodios' => 'integer',
+
+        // Quantidade de volumes da obra
+        'qt_volumes' => 'integer',
+
+        // Quantidade de favoritos da obra
+        'qt_favoritos' => 'float',
+
+        // Nota da obra
+        'nota' => 'float',
+
+        // Quantidade de avaliações da obra
+        'qt_avaliacoes' => 'integer',
+
+        // URL da imagem da obra
+        'url_imagem' => 'string',
+
+        // Data de lançamento
+        'data_lancamento' => 'datetime',
 
         // Data em que o registro foi criado
         'created_at' => 'datetime',
@@ -47,6 +72,7 @@ class Obra extends Model {
         'created_at',
         'updated_at',
         'deleted_at',
+        'data_lancamento'
     ];
 
     /**
@@ -64,8 +90,32 @@ class Obra extends Model {
         // Tipo da obra
         'id_tipo',
 
-        // JSON com as informações da obra vindas da API externa
-        'json_info',
+        // Título da obra
+        'titulo',
+
+        // Subtítulo da obra
+        'subtitulo',
+
+        // Quantidade de episódios da obra
+        'qt_episodios',
+
+        // Quantidade de volumes da obra
+        'qt_volumes',
+
+        // Quantidade de avaliações da obra
+        'qt_avaliacoes',
+
+        // Quantidade de favoritos da obra
+        'qt_favoritos',
+
+        // Nota da obra
+        'nota',
+
+        // Data de lançamento
+        'data_lancamento',
+
+        // URL da imagem da obra
+        'url_imagem',
 
         // Data em que o registro foi criado
         'created_at',
@@ -103,5 +153,14 @@ class Obra extends Model {
      */
     public function avaliacoes(): HasMany {
         return $this->hasMany(Avaliacao::class, 'id_obra', 'id');
+    }
+
+    /**
+     * Get all of the categorias for the Obra
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function categorias(): HasManyThrough {
+        return $this->hasManyThrough(Categoria::class, ObraCategoria::class, 'id_obra', 'id', 'id', 'id_categoria');
     }
 }
