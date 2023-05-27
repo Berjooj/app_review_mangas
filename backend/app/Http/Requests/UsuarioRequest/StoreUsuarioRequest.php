@@ -22,7 +22,7 @@ class StoreUsuarioRequest extends FormRequest {
      */
     public function rules(): array {
         return [
-            'nome' => 'required|string|min:5',
+            'nome' => 'required|string|min:4',
             'email' => 'required|string|email',
             'password' => 'required|string|min:6',
             'id_foto_perfil' => 'sometimes|nullable|integer|min:1',
