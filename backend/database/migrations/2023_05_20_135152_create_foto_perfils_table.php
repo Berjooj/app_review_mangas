@@ -12,8 +12,8 @@ return new class extends Migration {
         Schema::create('foto_perfis', function (Blueprint $table) {
             $table->id();
             $table->string('caminho_arquivo');
-            $table->integer('ordem')->after('caminho_arquivo')->default(0);
-            $table->integer('grupo')->after('ordem')->default(0);
+            $table->integer('ordem')->default(0);
+            $table->integer('grupo')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
