@@ -1,6 +1,5 @@
-package com.example.myapplication;
+package com.example.myapplication.views;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +12,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.myapplication.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,7 +20,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity2 extends AppCompatActivity {
+public class Cadastro extends AppCompatActivity {
 
     private EditText newNameEditText;
     private EditText newEmailEditText;
@@ -30,7 +30,7 @@ public class MainActivity2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.cadastro);
 
         newNameEditText = findViewById(R.id.newNameId);
         newEmailEditText = findViewById(R.id.newEmailId);
@@ -60,7 +60,7 @@ public class MainActivity2 extends AppCompatActivity {
                             try {
                                 final int status = response.getInt("status");
                                 String message = response.getString("message");
-                                Toast.makeText(MainActivity2.this, status + ": " + message, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Cadastro.this, status + ": " + message, Toast.LENGTH_SHORT).show();
                                 if (status == 200) {
                                     finish();
                                 }
@@ -71,7 +71,7 @@ public class MainActivity2 extends AppCompatActivity {
                         },
                         error -> {
                             int statusCode = error.networkResponse.statusCode;
-                            Toast.makeText(MainActivity2.this, "Erro: " + statusCode, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Cadastro.this, "Erro: " + statusCode, Toast.LENGTH_SHORT).show();
                         }) {
                     @Override
                     public Map<String, String> getHeaders() {
@@ -80,7 +80,7 @@ public class MainActivity2 extends AppCompatActivity {
                         return headers;
                     }
                 };
-                RequestQueue requestQueue = Volley.newRequestQueue(MainActivity2.this);
+                RequestQueue requestQueue = Volley.newRequestQueue(Cadastro.this);
                 requestQueue.add(request);
 
             } catch (JSONException e) {

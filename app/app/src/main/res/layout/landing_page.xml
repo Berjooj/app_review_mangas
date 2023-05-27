@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#262626"
-    tools:context=".MainActivity">
+    tools:context=".views.LandingPage">
 
     <ImageView
         android:id="@+id/imageView"
@@ -30,7 +30,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="40dp"
         android:fontFamily="@font/robotoblack"
-        android:text="BlablaOtaku"
+        android:text="@string/app_name"
         android:textColor="#FFFFFF"
         android:textSize="50sp"
         app:flow_horizontalAlign="center"
@@ -46,7 +46,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="40dp"
-        android:text="Explore, descubra, avalie e compartilhe suas obras favoritas de animes e mangas."
+        android:text="@string/landing.intro"
         android:textAlignment="center"
         android:textColor="#A8A8A8"
         android:textSize="15sp"
@@ -60,13 +60,15 @@
         android:layout_width="28dp"
         android:layout_height="22dp"
         android:layout_marginTop="28dp"
-        android:text="Ou"
+        android:text="@string/landing.ou"
         android:textAlignment="center"
         android:textColor="#A8A8A8"
         android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cadastroId"
+        app:layout_constraintVertical_bias="0.0"
         tools:flow_verticalAlign="center" />
 
     <Button
@@ -78,7 +80,7 @@
         android:layout_marginEnd="40dp"
         android:backgroundTint="#FFFFFF"
         android:fontFamily="@font/outfitregular"
-        android:text="Cadastre-se agora"
+        android:text="@string/landing.cadastre_se"
         android:textAlignment="center"
         android:textColor="#262626"
         android:textSize="22sp"
@@ -120,37 +122,20 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="40dp"
-        android:text="Já possui conta?"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        tools:textAlignment="center" />
-
-    <TextView
         android:id="@+id/loginId"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="40dp"
         android:clickable="true"
-        android:text="Realizar Login"
-        android:textAlignment="center"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/landing.login"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.0"
-        tools:textAlignment="center" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imageView3"

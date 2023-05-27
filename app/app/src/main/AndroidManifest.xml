@@ -18,13 +18,13 @@
             android:name=".MainActivity5"
             android:exported="false" />
         <activity
-            android:name=".MainActivity3"
+            android:name=".views.Login"
             android:exported="false" />
         <activity
-            android:name=".MainActivity2"
+            android:name=".views.Cadastro"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".views.LandingPage"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
