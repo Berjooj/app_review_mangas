@@ -11,11 +11,14 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('avaliacaos', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_usuario');
-            $table->bigInteger('id_obra');
+            $table->unsignedBigInteger('id_usuario');
+            $table->unsignedBigInteger('id_obra');
             $table->integer('nota');
             $table->string('comentario')->nullable();
             $table->timestamps();
+
+            $table->foreign('id_usuario')->references('id')->on('users');
+            $table->foreign('id_obra')->references('id')->on('obras');
         });
     }
 

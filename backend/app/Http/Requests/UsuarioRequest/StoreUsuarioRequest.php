@@ -22,17 +22,10 @@ class StoreUsuarioRequest extends FormRequest {
      */
     public function rules(): array {
         return [
-            'nome' => 'required|string|min:5',
+            'nome' => 'required|string|min:4',
             'email' => 'required|string|email',
             'password' => 'required|string|min:6',
             'id_foto_perfil' => 'sometimes|nullable|integer|min:1',
-            'nome.required' => 'Nome deve ser informado',
-            'email.required' => 'Email deve ser informado',
-            'password.required' => 'Senha deve ser informada',
-            'nome.min' => 'Nome deve ter no mínimo 5 caracteres',
-            'password.min' => 'Senha deve ter no mínimo 6 caracteres',
-            'email.email' => 'Email inválido',
-            'id_foto_perfil.min' => 'ID da foto de perfil deve ser maior que 0',
         ];
     }
 

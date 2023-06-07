@@ -33,35 +33,53 @@ class FeedService {
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getFeed(array $data): array {
-        $data['page[limit]'] = 10;
-        $data['page[offset]'] = $data['page'] ?? 0;
+        $data['page[limit]'] = 5;
+        $data['page[offset]'] = $data['page'] ? ($data['page'] * 10) : 0;
 
-        unset($data['page']);
+        $obras = Obra::with('categorias')
+            ->offset($data['page[offset]'])
+            ->limit(10);
 
         switch ($data['tipoFiltro']) {
             case 'em_alta':
                 $data['sort'] = '-averageRating';
+                $obras->orderBy('nota', 'desc')
+                    ->orderBy('qt_favoritos', 'desc');
                 break;
             case 'lancamentos':
                 $data['sort'] = '-createdAt';
+                $obras->orderBy('data_lancamento', 'desc');
                 break;
             case 'em_breve':
                 $data['sort'] = '-startDate';
+                $obras->whereNull('data_lancamento')
+                    ->orderBy('id', 'desc');
                 break;
         }
 
-        unset($data['tipoFiltro']);
+        if (!empty($data['filtro'])) {
+            $obras->where('lower(titulo)', 'like', '%' . mb_strtolower($data['filtro']) . '%');
+        }
+
+        $obras = $obras->get();
+
+        if ($obras->count() == 10) {
+            return $obras->toArray();
+        }
 
         $data['filter[text]'] = $data['filtro'] ?? '';
 
-        unset($data['filtro']);
-
         $data['include'] = 'categories';
+
+        unset($data['tipoFiltro']);
+        unset($data['page']);
 
         $animes = $this->getAPI('anime', $data);
         $mangas = $this->getAPI('manga', $data);
 
-        $obras = array_merge($animes, $mangas);
+        $obras = array_filter(array_merge($animes['data'] ?? [], $mangas['data'] ?? []));
+        $categoriasIncluidas = array_filter(array_merge($animes['included'] ?? [], $mangas['included'] ?? []));
+
         $feed = [];
         $categorias = [];
 
@@ -74,62 +92,70 @@ class FeedService {
             /** @var array */
             $obraCategorias = $obra['relationships']['categories']['data'] ?? [];
 
-            foreach ($obraCategorias as &$categoria) {
-                if (!array_key_exists($categoria['id'], $categorias)) {
+            foreach ($obraCategorias as $categoria) {
+                if (!in_array($categoria['id'], $categorias)) {
                     $categoriaLocal = Categoria::find($categoria['id']);
 
                     if (!$categoriaLocal) {
-                        $categoriasAPI = $this->getAPI(
-                            'categories/' . $categoria['id'],
-                            ['fieldsHeader' => '[categories]=slug']
-                        );
+                        $categoriasAPI = array_filter($categoriasIncluidas, function ($item) use ($categoria) {
+                            return $item['id'] == $categoria['id'];
+                        });
 
-                        $categorias[$categoria['id']] = $categoriasAPI['attributes']['slug'];
-                        $categoria['nome'] = ucfirst($categoriasAPI['attributes']['slug']);
-
-                        Categoria::firstOrCreate(['id' => $categoria['id'], 'nome' => $categoria['nome']]);
-                    } else {
-                        $categoria['nome'] = $categoriaLocal->nome;
+                        if (count($categoriasAPI)) {
+                            $categoriaLocal = Categoria::create([
+                                'id' => $categoria['id'],
+                                'nome' => ucfirst(head($categoriasAPI)['attributes']['title'])
+                            ]);
+                        }
                     }
+
+                    $categorias[] = $categoria['id'];
+                    $obraLocal->categorias[] = $categoriaLocal;
                 }
             }
 
             $obraCategorias = array_column(array_values($obraCategorias), 'nome');
 
-            $feeInfo = [
-                'id' => $obraLocal->id,
-                'id_externo' => $obra['id'],
-                'titulo' => $obra['attributes']['titles']['en']
-                    ?? $obra['attributes']['titles']['en_jp']
-                    ?? $obra['attributes']['titles']['canonicalTitle']
-                    ?? null,
-                'subtitulo' => $obra['attributes']['titles']['ja_jp']
-                    ?? $obra['attributes']['titles']['en_jp']
-                    ?? null,
-                'qtEpisodios' => $obra['attributes']['episodeCount']
-                    ?? null,
-                'qtVolumes' => $obra['attributes']['pageCount']
-                    ?? rand(90, 400),
-                'favCount' => $jsonLocal->favCount
-                    ?? $obra['attributes']['favoritesCount'],
-                'nota' => $jsonLocal->nota
-                    ?? ($obra['attributes']['averageRating']
-                        ? round((($obra['attributes']['averageRating'] * 5) / 100), 1)
-                        : 0
-                    ),
-                'qtAvaliacoes' => $jsonLocal->qtAvaliacoes
-                    ?? rand(1, 1000),
-                'categorias' => count($obraCategorias) > 3
-                    ? array_slice($obraCategorias, 0, 3)
-                    : $obraCategorias,
-                'imagem' => $obra['attributes']['posterImage']['original'],
-            ];
+            $obraLocal->id = $obraLocal->id;
 
-            $jsonLocal = json_encode($feeInfo);
-            $obraLocal->json_info = $jsonLocal;
+            $obraLocal->id_externo = $obra['id'];
+
+            $obraLocal->titulo = $obra['attributes']['titles']['en']
+                ?? $obra['attributes']['titles']['en_jp']
+                ?? $obra['attributes']['titles']['canonicalTitle']
+                ?? null;
+
+            $obraLocal->subtitulo = $obra['attributes']['titles']['ja_jp']
+                ?? $obra['attributes']['titles']['en_jp']
+                ?? null;
+
+            $obraLocal->data_lancamento = $obra['attributes']['startDate']
+                ?? $obra['attributes']['startDate']
+                ?? null;
+
+            $obraLocal->qt_episodios = $obra['attributes']['episodeCount']
+                ?? null;
+
+            $obraLocal->qt_volumes = $obra['attributes']['pageCount']
+                ?? rand(90, 400);
+
+            $obraLocal->qt_favoritos = $jsonLocal->favCount
+                ?? $obra['attributes']['favoritesCount'];
+
+            $obraLocal->nota = $jsonLocal->nota
+                ?? ($obra['attributes']['averageRating']
+                    ? round((($obra['attributes']['averageRating'] * 5) / 100), 2)
+                    : 0
+                );
+
+            $obraLocal->qt_avaliacoes = $jsonLocal->qtAvaliacoes
+                ?? rand(1, 1000);
+
+            $obraLocal->url_imagem = $obra['attributes']['posterImage']['original'];
+
             $obraLocal->update();
 
-            $feed[] = $feeInfo;
+            $feed[] = $obraLocal;
         }
 
         return $feed;
@@ -143,14 +169,17 @@ class FeedService {
      */
     private function getAPI(string $tipo, array $data): array {
         try {
+            $data = array_filter($data);
+
             $response = $this->client->request('GET', $this->url . '/' . $tipo, [
                 'query' => $data
             ]);
 
-            $obra = json_decode($response->getBody()->getContents(), true)['data'];
+            $obra = json_decode($response->getBody()->getContents(), true);
 
             return $obra;
         } catch (\Exception $e) {
+            dd($e->getMessage());
             throw new \Exception('Erro ao buscar a obra');
         }
     }

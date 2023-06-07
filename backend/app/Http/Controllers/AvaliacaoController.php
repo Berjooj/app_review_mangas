@@ -26,13 +26,10 @@ class AvaliacaoController extends Controller {
         try {
             $obra = Obra::findOrFail($request->validated()['id_obra']);
 
-            $jsonObra = json_decode($obra->json_info);
-
             // Calcula a média das notas
-            $jsonObra->nota = (($jsonObra->nota * $jsonObra->qtAvaliacoes) + $request->validated()['nota']) / ($jsonObra->qtAvaliacoes + 1);
-            $jsonObra->qtAvaliacoes++;
+            $obra->nota = (($obra->nota * $obra->qt_avaliacoes) + $request->validated()['nota']) / ($obra->qt_avaliacoes + 1);
+            $obra->qt_avaliacoes++;
 
-            $obra->json_info = json_encode($jsonObra);
             $obra->save();
 
             $avaliacao = Avaliacao::firstOrCreate(array_merge($request->validated(), ['id_usuario' => auth()->user()->id]));
@@ -50,12 +47,9 @@ class AvaliacaoController extends Controller {
 
             $obra = Obra::findOrFail($avaliacao->id_obra);
 
-            $jsonObra = json_decode($obra->json_info);
-
             // Calcula a média das notas
-            $jsonObra->nota = (($jsonObra->nota * $jsonObra->qtAvaliacoes) + $request->validated()['nota']) / ($jsonObra->qtAvaliacoes + 1);
+            $obra->nota = (($obra->nota * $obra->qt_avaliacoes) + $request->validated()['nota']) / ($obra->qt_avaliacoes + 1);
 
-            $obra->json_info = json_encode($jsonObra);
             $obra->save();
 
             $avaliacao->update($request->validated());

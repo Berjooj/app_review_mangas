@@ -15,10 +15,6 @@ class FavoritoController extends Controller {
                 ->with('obra')
                 ->get();
 
-            foreach ($obras as &$obra) {
-                $obra->obra->json_info = json_decode($obra->obra->json_info);
-            }
-
             return APIResponse::success($obras, 'Favoritos carregados com sucesso');
         } catch (\Exception $e) {
             return APIResponse::error($e->getMessage());
@@ -29,10 +25,8 @@ class FavoritoController extends Controller {
         try {
             $obra = Obra::findOrFail($request->validated()['id_obra']);
 
-            $jsonObra = json_decode($obra->json_info);
-            $jsonObra->favCount++;
+            $obra->qt_favoritos++;
 
-            $obra->json_info = json_encode($jsonObra);
             $obra->save();
 
             $favorito = Favorito::firstOrCreate([
@@ -54,10 +48,8 @@ class FavoritoController extends Controller {
 
             $obra = Obra::findOrFail($favorito->id_obra);
 
-            $jsonObra = json_decode($obra->json_info);
-            $jsonObra->favCount--;
+            $obra->qt_favoritos--;
 
-            $obra->json_info = json_encode($jsonObra);
             $obra->save();
 
             $favorito->delete();
