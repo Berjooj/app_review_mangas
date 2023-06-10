@@ -7,8 +7,8 @@ public class RepositorioUsuario {
     private static RepositorioUsuario instance;
     private Usuario usuario;
 
-    public RepositorioUsuario() {
-        this.usuario = usuario;
+    private RepositorioUsuario() {
+        this.usuario = new Usuario();
     }
 
     public static RepositorioUsuario getInstance() {
@@ -24,5 +24,9 @@ public class RepositorioUsuario {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public Usuario updateUsuario(Usuario usuario){
+        return usuario;
     }
 }

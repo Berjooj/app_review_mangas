@@ -106,11 +106,14 @@
         app:srcCompat="@drawable/animaritter" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/horizontalRv"
-        android:layout_width="414dp"
-        android:layout_height="160dp"
-        android:scrollbars="horizontal"
-        tools:layout_editor_absoluteX="-2dp"
-        tools:layout_editor_absoluteY="194dp" />
+        android:id="@+id/recyclerViewId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
