@@ -11,6 +11,7 @@ import android.util.Log;
 import com.example.myapplication.R;
 import com.example.myapplication.models.Usuario;
 import com.example.myapplication.repositories.RepositorioUsuario;
+import com.example.myapplication.services.ApplicationService;
 import com.example.myapplication.services.ServicosUsuario;
 
 public class SplashPage extends AppCompatActivity {
@@ -23,12 +24,15 @@ public class SplashPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_page);
         this.repoUsuario = RepositorioUsuario.getInstance();
+        ApplicationService.context = this;
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                pref = getSharedPreferences("MyPreferencias", MODE_PRIVATE);
-                if (pref.contains("email") && pref.contains("senha")) {
+                Usuario u = repoUsuario.getUsuario();
+                if (u == null) {
+                    mostrarLandingPage();
+                } else {
                     int id = pref.getInt("id", 0);
                     String nome = pref.getString("nome", null);
                     String email = pref.getString("email", null);
@@ -38,8 +42,6 @@ public class SplashPage extends AppCompatActivity {
                     repoUsuario.setUsuario(new Usuario(id, nome, email, senha, idFotoPerfil, token));
 
                     mostrarLogado();
-                } else {
-                    mostrarLandingPage();
                 }
             }
         }, 2000);
