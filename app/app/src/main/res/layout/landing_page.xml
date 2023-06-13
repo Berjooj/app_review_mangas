@@ -19,8 +19,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ffb6abf5e1e0819ba97c5230d354ead8_4703256876095394546"
-        tools:srcCompat="@drawable/ffb6abf5e1e0819ba97c5230d354ead8_4703256876095394546" />
+        app:srcCompat="@drawable/icone_fofo"
+        tools:srcCompat="@drawable/icone_fofo" />
 
     <TextView
         android:id="@+id/textView"

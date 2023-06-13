@@ -9,6 +9,7 @@ public class RepositorioFavoritos extends RepositorioObras {
 
     private static RepositorioFavoritos instance;
     private RepositorioFavoritos() {
+        super();
     }
 
     public static RepositorioFavoritos getInstance() {

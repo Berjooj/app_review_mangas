@@ -16,6 +16,7 @@ public class LandingPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.landing_page);
 
+
         Button activityCadastro = findViewById(R.id.cadastroId);
         activityCadastro.setOnClickListener(view -> {
             Intent intentCadastro = new Intent(getApplicationContext(), Cadastro.class);

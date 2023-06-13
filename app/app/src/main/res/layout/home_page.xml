@@ -27,6 +27,35 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/animaritter" />
+
+        <Button
+            android:id="@+id/logoutId"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="#FFFFFF"
+            android:fontFamily="@font/outfitregular"
+            android:text="Log-out"
+            android:textAlignment="center"
+            android:textColor="#262626"
+            android:textSize="14sp"
+            app:cornerRadius="12dp"
+            app:iconTint="#AF0000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            app:layout_constraintVertical_bias="0.050000012" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="130dp"
@@ -49,7 +78,7 @@
                 app:layout_constraintHorizontal_bias="0.86"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ffb6abf5e1e0819ba97c5230d354ead8_4703256876095394546" />
+                app:srcCompat="@drawable/icone_fofo" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
@@ -65,7 +94,7 @@
             app:layout_constraintVertical_bias="0.68" />
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/nomeUsuarioId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -73,6 +102,7 @@
             android:textColor="#FFFFFF"
             app:layout_constraintStart_toEndOf="@+id/constraintLayout"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
@@ -92,18 +122,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.606" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="70dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/animaritter" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewId"

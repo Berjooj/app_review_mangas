@@ -1,5 +1,9 @@
 package com.example.myapplication.repositories;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
+
 import com.example.myapplication.models.Usuario;
 
 public class RepositorioUsuario {
@@ -7,7 +11,11 @@ public class RepositorioUsuario {
     private static RepositorioUsuario instance;
     private Usuario usuario;
 
-    private RepositorioUsuario() {
+
+
+
+
+    public RepositorioUsuario() {
         this.usuario = new Usuario();
     }
 

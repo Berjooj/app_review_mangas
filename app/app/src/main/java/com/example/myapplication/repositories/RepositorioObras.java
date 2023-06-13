@@ -12,7 +12,7 @@ public class RepositorioObras {
     private static RepositorioObras instance;
     protected Map<Integer, Obra> obraMap;
 
-    private RepositorioObras() {
+    protected RepositorioObras() {
         obraMap = new HashMap<>();
     }
 
