@@ -2,6 +2,8 @@ package com.example.myapplication.services;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -9,6 +11,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.myapplication.models.Usuario;
+import com.example.myapplication.repositories.RepositorioUsuario;
 import com.example.myapplication.views.HomePage;
 import com.example.myapplication.views.Login;
 
@@ -20,11 +23,11 @@ import java.util.Map;
 
 public class ServicosUsuario {
 
-
-
     public static void getLogin(Context contexto, String email, String senha,ServiceDone callback){
+
         JSONObject jsonObject = new JSONObject();
         try {
+
             jsonObject.put("email", email);
             jsonObject.put("password", senha);
 
@@ -37,6 +40,15 @@ public class ServicosUsuario {
                             Toast.makeText(contexto, status + ": " + message, Toast.LENGTH_SHORT).show();
                             if (status == 200) {
                                 if (callback != null) {
+                                    JSONObject data = response.getJSONObject("data");
+                                    JSONObject user = data.getJSONObject("user");
+                                    int id = user.getInt("id");
+                                    String nome = user.getString("nome");
+                                    String userEmail = user.getString("email");
+                                    int idFotoPerfil = user.optInt("id_foto_perfil");
+                                    String accessToken = data.getString("access_token");
+                                    RepositorioUsuario repositorioUsuario = RepositorioUsuario.getInstance();
+                                    repositorioUsuario.setUsuario(new Usuario(id,nome,email,senha,idFotoPerfil,accessToken));
                                     callback.onServiceDone();
                                 }
                             }
@@ -58,6 +70,7 @@ public class ServicosUsuario {
             };
             RequestQueue requestQueue = Volley.newRequestQueue(contexto);
             requestQueue.add(request);
+
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -22,7 +22,7 @@ public class RepositorioAvalicao {
         }
         return instance;
     }
-    //Metodo de adicioanar avaliação em uma Obra
+    //Metodo de adicionar avaliação em uma Obra
 
     public void addAvaliacao(int idObra, Avaliacao avaliacao) {
         if (!this.avaliacaoMap.containsKey(idObra)) {
