@@ -10,4 +10,5 @@
     <color name="vermelho">#FF3030</color>
     <color name="sombra">#129BA9B4</color>
     <color name="verde">#03A64A</color>
+    <color name="mtrl_textinput_default_box_stroke_color">#fff</color>
 </resources>

@@ -3,6 +3,7 @@ package com.example.myapplication.adapters;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,19 +20,20 @@ import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
-    private Map<Integer, Obra> obras;
+    private List<Obra> obras;
 
     public Context context;
 
 
 
-    public CardAdapter(Context context, Map<Integer, Obra> obras) {
+    public CardAdapter(Context context, List<Obra> obras) {
         this.context = context;
         this.obras = obras;
     }
@@ -45,9 +47,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull CardAdapter.ViewHolder holder, int position) {
-        Obra obra = Objects.requireNonNull(obras.get((obras.keySet().toArray())[position]));
-        holder.textView.setText(obra.titulo);
-        String imageUrl = obra.urlImagem;
+        //Obra obra = Objects.requireNonNull(obras.get((obras.keySet().toArray())[position]));
+        Log.wtf("Banana", obras.get(position).titulo );
+        holder.textView.setText(obras.get(position).titulo);
+        String imageUrl = obras.get(position).urlImagem;
         Picasso.get().load(imageUrl).into(holder.imageView);
     }
 

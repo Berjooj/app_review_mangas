@@ -64,4 +64,6 @@
     <string name="visualizar.suaavaliacao">Sua avaliação</string>
     <string name="visualizar.suaavaliacaoplaceholder">Deixar uma avaliação</string>
     <string name="visualizar.publicar">Publicar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

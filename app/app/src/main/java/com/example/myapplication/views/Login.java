@@ -8,7 +8,6 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.interfaces.InitContext;
@@ -28,9 +27,8 @@ public class Login extends AppCompatActivity implements InitContext {
 
         this.setInstance();
 
-        newEmailEditText = findViewById(R.id.emailLoginId);
-        newSenhaEditText = findViewById(R.id.newSenhaCId);
-//        ImageButton voltarActivity = findViewById(R.id.voltarId);
+        newEmailEditText = findViewById(R.id.emailId);
+        newSenhaEditText = findViewById(R.id.SenhaId);
 
 //        voltarActivity.setOnClickListener(view -> {
 //            finish();

@@ -27,14 +27,10 @@ public class Cadastro extends AppCompatActivity implements InitContext {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cadastro);
 
-        this.setInstance();
-
-        newNameEditText = findViewById(R.id.newNameId);
-        newEmailEditText = findViewById(R.id.newEmailId);
-
-        // TODO: comparar as 2 senhas
-        newSenhaEditText = findViewById(R.id.newSenhaId);
-        newSenhaCEditText = findViewById(R.id.newSenhaCId);
+        newNameEditText = findViewById(R.id.NameCadastroId);
+        newEmailEditText = findViewById(R.id.EmailCadastroId);
+        newSenhaEditText = findViewById(R.id.SenhaCadastroId);
+        newSenhaCEditText = findViewById(R.id.confSenhaCadastroId);
 
         ImageButton voltarActivity = findViewById(R.id.voltarId);
         voltarActivity.setOnClickListener(view -> {

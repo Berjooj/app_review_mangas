@@ -9,7 +9,7 @@
 
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textViewSplashApp"
         android:layout_width="wrap_content"
         android:layout_height="67dp"
         android:layout_marginStart="40dp"
@@ -41,7 +41,7 @@
         tools:srcCompat="@drawable/icone_fofo" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imageViewRitterLogo"
         android:layout_width="70dp"
         android:layout_height="30dp"
         android:layout_marginTop="15dp"
