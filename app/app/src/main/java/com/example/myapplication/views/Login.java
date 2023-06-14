@@ -2,7 +2,6 @@ package com.example.myapplication.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,22 +9,10 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.myapplication.R;
 import com.example.myapplication.repositories.RepositorioUsuario;
-import com.example.myapplication.services.ServiceDone;
 import com.example.myapplication.services.ServicosUsuario;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class Login extends AppCompatActivity {
 
@@ -44,8 +31,8 @@ public class Login extends AppCompatActivity {
         preferencias = getSharedPreferences("MyPreferencias",MODE_PRIVATE);
         editor = preferencias.edit();
 
-        newEmailEditText = findViewById(R.id.emailLoginId);
-        newSenhaEditText = findViewById(R.id.emailSenhaId);
+        newEmailEditText = findViewById(R.id.emailId);
+        newSenhaEditText = findViewById(R.id.SenhaId);
 
         ImageButton voltarActivity = findViewById(R.id.voltarId);
         voltarActivity.setOnClickListener(view -> {

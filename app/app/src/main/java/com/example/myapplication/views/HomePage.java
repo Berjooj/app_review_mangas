@@ -1,5 +1,6 @@
 package com.example.myapplication.views;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,17 +9,23 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapters.CardAdapter;
+import com.example.myapplication.models.Manga;
 import com.example.myapplication.models.Obra;
 import com.example.myapplication.models.Usuario;
 import com.example.myapplication.repositories.RepositorioFavoritos;
 import com.example.myapplication.repositories.RepositorioObras;
 import com.example.myapplication.repositories.RepositorioUsuario;
+import com.example.myapplication.services.ApplicationService;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,33 +39,71 @@ public class HomePage extends AppCompatActivity {
     TextView nomeUsuario;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.repoObras = RepositorioObras.getInstance();
         this.repoFavoritos = RepositorioFavoritos.getInstance();
+        HomeFragment homeFragment = new HomeFragment();
+        BuscaFragment buscaFragment = new BuscaFragment();
+        FavoritosFragment favoritosFragment = new FavoritosFragment();
+        PerfilFragment perfilFragment = new PerfilFragment();
 
-        pref = getSharedPreferences("MyPreferencias",MODE_PRIVATE);
-        editor = pref.edit();
-        Map<Integer, Obra> favoritos = this.repoFavoritos.getObras();
         setContentView(R.layout.home_page);
 
-        TextView nomeUsuario = findViewById(R.id.nomeUsuarioId);
-        nomeUsuario.setText(pref.getString("nome",null));
-        Button voltarActivity = findViewById(R.id.logoutId);
-        voltarActivity.setOnClickListener(view ->{
-            editor.clear();
-            editor.commit();
+        //RecyclerView recyclerView = findViewById(R.id.recyclerViewId);
+        List<Obra> obras = new ArrayList<Obra>();
 
-            Intent intent = new Intent(getApplicationContext(), LandingPage.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //recyclerView.setAdapter(new CardAdapter(getApplicationContext(), obras));
+        bottomNavigationView = findViewById(R.id.bottomNavigationViewId);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.layoutId, homeFragment).commit();
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                switch (id) {
+                    case R.id.home:
+                        getSupportFragmentManager().beginTransaction().setCustomAnimations(
+                                R.anim.slide_in,  // enter
+                                R.anim.fade_out,  // exit
+                                R.anim.fade_in,   // popEnter
+                                R.anim.slide_out  // popExit
+                        ).replace(R.id.layoutId, homeFragment).commit();
+                        return true;
+                    case R.id.busca:
+                        getSupportFragmentManager().beginTransaction().setCustomAnimations(
+                                R.anim.slide_in,  // enter
+                                R.anim.fade_out,  // exit
+                                R.anim.fade_in,   // popEnter
+                                R.anim.slide_out  // popExit
+                        ).replace(R.id.layoutId, buscaFragment).commit();
+                        return true;
+                    case R.id.favoritos:
+                        getSupportFragmentManager().beginTransaction().setCustomAnimations(
+                                R.anim.slide_in,  // enter
+                                R.anim.fade_out,  // exit
+                                R.anim.fade_in,   // popEnter
+                                R.anim.slide_out  // popExit
+                        ).replace(R.id.layoutId, favoritosFragment).commit();
+
+                        return true;
+                    case R.id.perfil:
+                        getSupportFragmentManager().beginTransaction().setCustomAnimations(
+                                R.anim.slide_in,  // enter
+                                R.anim.fade_out,  // exit
+                                R.anim.fade_in,   // popEnter
+                                R.anim.slide_out  // popExit
+                        ).replace(R.id.layoutId, perfilFragment).commit();
+                        return true;
+                }
+                return false;
+            }
         });
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerViewId);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new CardAdapter(getApplicationContext(), favoritos));
     }
 }
+

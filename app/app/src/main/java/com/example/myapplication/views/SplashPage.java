@@ -24,15 +24,13 @@ public class SplashPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_page);
         this.repoUsuario = RepositorioUsuario.getInstance();
-        ApplicationService.context = this;
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Usuario u = repoUsuario.getUsuario();
-                if (u == null) {
-                    mostrarLandingPage();
-                } else {
+                pref = getSharedPreferences("MyPreferencias", MODE_PRIVATE);
+                if (pref.contains("email") && pref.contains("senha")) {
+                    Log.wtf("pizza", pref.getString("email","nada"));
                     int id = pref.getInt("id", 0);
                     String nome = pref.getString("nome", null);
                     String email = pref.getString("email", null);
@@ -40,8 +38,9 @@ public class SplashPage extends AppCompatActivity {
                     int idFotoPerfil = pref.getInt("id_foto_perfil", 0);
                     String token = pref.getString("token", null);
                     repoUsuario.setUsuario(new Usuario(id, nome, email, senha, idFotoPerfil, token));
-
                     mostrarLogado();
+                } else {
+                    mostrarLandingPage();
                 }
             }
         }, 2000);

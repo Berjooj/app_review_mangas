@@ -8,7 +8,7 @@
     tools:context=".views.Cadastro">
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/textViewBemVindo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -21,18 +21,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewAcessar" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/textViewCSenha"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="43dp"
         android:layout_marginEnd="40dp"
-        android:text="Confirme sua Senha"
+        android:text="@string/cadastro.confirmasenha"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/idCSenha"
+        app:layout_constraintBottom_toTopOf="@+id/confSenhaLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
@@ -59,63 +59,71 @@
 
     <!--Nome-->
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
+        android:id="@+id/nomeLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="315dp"
+        android:textColorHint="@color/white"
+        app:boxStrokeColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/enviarId"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:boxStrokeColor="#FFFFFF">
+        >
 
         <EditText
-            android:id="@+id/newNameId"
+            android:id="@+id/NameCadastroId"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:drawableTint="#FFFFFF"
             android:ems="10"
+            android:hint="teste"
             android:inputType="textEmailAddress"
             android:textColor="#FFFFFF"
-            app:backgroundTint="#FFFFFF"
-            tools:textColorHint="#FFFFFF" />
+            android:textColorHint="@color/white"
+            app:backgroundTint="#FFFFFF"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <!--E-mail-->
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextText"
+        android:id="@+id/emailLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="230dp"
+        android:textColorHint="@color/white"
+        app:boxStrokeColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/enviarId"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <EditText
-            android:id="@+id/newEmailId"
+            android:id="@+id/EmailCadastroId"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:backgroundTint="@color/white"
             android:ems="10"
             android:inputType="textEmailAddress"
             android:textColor="#FFFFFF"
-            android:textColorHint="#FFFCFC"
+            android:textColorHint="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/enviarId"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <!--Senha-->
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/idSenha"
+        android:id="@+id/fragSenhaLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="135dp"
         android:ems="10"
+        android:textColorHint="@color/white"
+        app:boxStrokeColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/enviarId"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -123,29 +131,30 @@
         app:passwordToggleTint="@color/white">
 
         <EditText
-            android:id="@+id/newSenhaId"
+            android:id="@+id/SenhaCadastroId"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ems="10"
             android:inputType="textPassword"
             android:textColor="#FFFFFF"
-            android:textColorHint="#FFFCFC"
+            android:textColorHint="@color/white"
             app:backgroundTint="#FFFFFF"
             app:layout_constraintBottom_toTopOf="@+id/enviarId"
-            app:layout_constraintEnd_toEndOf="@+id/textView11"
+            app:layout_constraintEnd_toEndOf="@+id/textViewCSenha"
             app:layout_constraintEnd_toStartOf="@+id/olhoCSenha"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:textColorHint="#FFFFFF" />
+            app:layout_constraintStart_toStartOf="parent" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!--Confirme a Senha-->
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/idCSenha"
+        android:id="@+id/confSenhaLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="40dp"
+        android:textColorHint="@color/white"
+        app:boxStrokeColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/enviarId"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -153,7 +162,7 @@
         app:passwordToggleTint="@color/white">
 
         <EditText
-            android:id="@+id/newSenhaCId"
+            android:id="@+id/confSenhaCadastroId"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:backgroundTint="@color/white"
@@ -166,35 +175,35 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/textViewEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="43dp"
         android:layout_marginEnd="40dp"
-        android:text="Seu E-mail"
+        android:text="@string/cadastro.email"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextText"
+        app:layout_constraintBottom_toTopOf="@+id/emailLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/textViewNome"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="43dp"
         android:layout_marginEnd="40dp"
-        android:text="Nome"
+        android:text="@string/cadastro.nome"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
+        app:layout_constraintBottom_toTopOf="@+id/nomeLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/textViewSenha"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="43dp"
@@ -202,13 +211,13 @@
         android:text="Senha"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/idSenha"
+        app:layout_constraintBottom_toTopOf="@+id/fragSenhaLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/textViewAcessar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -235,12 +244,12 @@
         android:background="#00FFFFFF"
         android:src="?attr/actionModeCloseDrawable"
         android:textStyle="bold"
-        app:tint="#FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#FFFFFF" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/ritterAnimaLogo"
         android:layout_width="70dp"
         android:layout_height="30dp"
         android:layout_marginTop="15dp"

@@ -32,10 +32,10 @@ public class Cadastro extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cadastro);
 
-        newNameEditText = findViewById(R.id.newNameId);
-        newEmailEditText = findViewById(R.id.newEmailId);
-        newSenhaEditText = findViewById(R.id.newSenhaId);
-        newSenhaCEditText = findViewById(R.id.newSenhaCId);
+        newNameEditText = findViewById(R.id.NameCadastroId);
+        newEmailEditText = findViewById(R.id.EmailCadastroId);
+        newSenhaEditText = findViewById(R.id.SenhaCadastroId);
+        newSenhaCEditText = findViewById(R.id.confSenhaCadastroId);
 
         ImageButton voltarActivity = findViewById(R.id.voltarId);
         voltarActivity.setOnClickListener(view -> {

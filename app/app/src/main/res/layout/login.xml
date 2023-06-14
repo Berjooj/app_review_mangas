@@ -9,14 +9,14 @@
 
 
     <TextView
-        android:id="@+id/loginId2"
+        android:id="@+id/textViewEsqueceuSenha"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="40dp"
         android:clickable="true"
-        android:text="Esqueceu sua Senha?"
+        android:text="@string/login.esqueceusenha"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,20 +28,20 @@
         tools:textAlignment="center" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/textViewBemVindo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
-        android:text="Bem vindo de volta!\nRealize o login para acessar sua conta!"
+        android:text="@string/login.bemvinde"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewAcessar" />
 
     <Button
         android:id="@+id/enviarId"
@@ -51,7 +51,7 @@
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="60dp"
         android:backgroundTint="#FFFFFF"
-        android:text="Entrar"
+        android:text="@string/login.entrar"
         android:textAlignment="center"
         android:textColor="#262626"
         android:textSize="22sp"
@@ -66,7 +66,7 @@
 
     <!--E-mail-->
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextText"
+        android:id="@+id/emailLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -77,7 +77,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <EditText
-            android:id="@+id/emailLoginId"
+            android:id="@+id/emailId"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:backgroundTint="@color/white"
@@ -92,7 +92,7 @@
 
     <!--Senha-->
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/idSenha"
+        android:id="@+id/fragSenhaLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -106,7 +106,7 @@
         app:passwordToggleTint="@color/white">
 
         <EditText
-            android:id="@+id/emailSenhaId"
+            android:id="@+id/SenhaId"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ems="10"
@@ -116,7 +116,7 @@
             android:textColorHint="#FFFCFC"
             app:backgroundTint="#FFFFFF"
             app:layout_constraintBottom_toTopOf="@+id/enviarId"
-            app:layout_constraintEnd_toEndOf="@+id/textView11"
+            app:layout_constraintEnd_toEndOf="@+id/textViewCSenha"
             app:layout_constraintEnd_toStartOf="@+id/olhoCSenha"
             app:layout_constraintStart_toStartOf="parent"
             tools:textColorHint="#FFFFFF" />
@@ -125,41 +125,41 @@
     <!--Confirme a Senha-->
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/textViewEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="43dp"
         android:layout_marginEnd="40dp"
-        android:text="Seu E-mail"
+        android:text="@string/cadastro.email"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextText"
+        app:layout_constraintBottom_toTopOf="@+id/emailLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/textViewSenha"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="43dp"
         android:layout_marginEnd="40dp"
-        android:text="Senha"
+        android:text="@string/cadastro.senha"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/idSenha"
+        app:layout_constraintBottom_toTopOf="@+id/fragSenhaLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/textViewAcessar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="120dp"
         android:layout_marginEnd="40dp"
-        android:text="Acessar BlablaOtaku"
+        android:text="@string/login.acessar"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
@@ -185,7 +185,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/ritterAnimaLogo"
         android:layout_width="70dp"
         android:layout_height="30dp"
         android:layout_marginTop="15dp"

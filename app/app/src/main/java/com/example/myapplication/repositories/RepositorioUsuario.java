@@ -22,7 +22,6 @@ public class RepositorioUsuario {
 
     public static RepositorioUsuario getInstance() {
         if (instance == null) {
-            ApplicationService.context.getSharedPreferences("MyPreferencias", MODE_PRIVATE);
             instance = new RepositorioUsuario();
         }
         return instance;
