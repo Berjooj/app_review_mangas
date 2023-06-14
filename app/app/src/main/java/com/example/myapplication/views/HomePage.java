@@ -53,11 +53,7 @@ public class HomePage extends AppCompatActivity {
 
         setContentView(R.layout.home_page);
 
-        //RecyclerView recyclerView = findViewById(R.id.recyclerViewId);
-        List<Obra> obras = new ArrayList<Obra>();
 
-        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //recyclerView.setAdapter(new CardAdapter(getApplicationContext(), obras));
         bottomNavigationView = findViewById(R.id.bottomNavigationViewId);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.layoutId, homeFragment).commit();

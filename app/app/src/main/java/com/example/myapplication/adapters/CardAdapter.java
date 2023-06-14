@@ -3,6 +3,7 @@ package com.example.myapplication.adapters;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull CardAdapter.ViewHolder holder, int position) {
         //Obra obra = Objects.requireNonNull(obras.get((obras.keySet().toArray())[position]));
+        Log.wtf("Banana", obras.get(position).titulo );
         holder.textView.setText(obras.get(position).titulo);
         String imageUrl = obras.get(position).urlImagem;
         Picasso.get().load(imageUrl).into(holder.imageView);
