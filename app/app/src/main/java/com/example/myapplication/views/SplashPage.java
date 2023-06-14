@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 
 import com.example.myapplication.R;
@@ -22,11 +23,15 @@ public class SplashPage extends AppCompatActivity implements InitContext {
 
         RepositorioUsuario repositorioUsuario = RepositorioUsuario.getInstance();
 
-        if (repositorioUsuario.getUsuario() != null) {
-            mostrarLandingPage();
-        } else {
-            mostrarLogado();
-        }
+        Handler handler = new Handler();
+
+        handler.postDelayed(() -> {
+            if (repositorioUsuario.getUsuario() != null) {
+                mostrarLogado();
+            } else {
+                mostrarLandingPage();
+            }
+        }, 2000);
     }
 
     private void mostrarLandingPage() {

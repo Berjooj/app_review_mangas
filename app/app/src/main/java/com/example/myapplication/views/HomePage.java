@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapters.CardAdapter;
+import com.example.myapplication.interfaces.InitContext;
 import com.example.myapplication.models.Manga;
 import com.example.myapplication.models.Obra;
 import com.example.myapplication.models.Usuario;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class HomePage extends AppCompatActivity {
+public class HomePage extends AppCompatActivity implements InitContext {
 
     public RepositorioObras repoObras;
     public RepositorioFavoritos repoFavoritos;
@@ -44,6 +45,9 @@ public class HomePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.setInstance();
+
         this.repoObras = RepositorioObras.getInstance();
         this.repoFavoritos = RepositorioFavoritos.getInstance();
         HomeFragment homeFragment = new HomeFragment();
@@ -100,6 +104,12 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void setInstance() {
+        ApplicationService service = ApplicationService.getInstance();
+        service.setContext(this);
     }
 }
 

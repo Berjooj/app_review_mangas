@@ -47,7 +47,7 @@ public class UsuarioService {
                         }.getType());
 
                         usuarioLogado.password = usuario.password;
-                        usuarioLogado.token = response.getString("data");
+                        usuarioLogado.token = data.getString("access_token");
 
                         RepositorioUsuario repositorioUsuario = RepositorioUsuario.getInstance();
                         repositorioUsuario.setUsuario(usuarioLogado);

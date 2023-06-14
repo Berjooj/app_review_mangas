@@ -35,6 +35,8 @@ public class RepositorioUsuario {
                 Log.e("UserData", exception.getMessage());
                 this.usuario = null;
             }
+        } else {
+            this.usuario = null;
         }
     }
 
@@ -62,5 +64,11 @@ public class RepositorioUsuario {
 
     public Usuario updateUsuario(Usuario usuario) {
         return usuario;
+    }
+
+    public void logout() {
+        SharedPreferences pref = this.appService.getContext().getSharedPreferences("AuthUser", MODE_PRIVATE);
+
+        pref.edit().clear().apply();
     }
 }

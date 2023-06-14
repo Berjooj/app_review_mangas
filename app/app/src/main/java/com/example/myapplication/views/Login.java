@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.interfaces.InitContext;
@@ -30,28 +31,27 @@ public class Login extends AppCompatActivity implements InitContext {
         newEmailEditText = findViewById(R.id.emailId);
         newSenhaEditText = findViewById(R.id.SenhaId);
 
-//        voltarActivity.setOnClickListener(view -> {
-//            finish();
-//        });
+        ImageButton voltarActivity = findViewById(R.id.voltarId);
+        voltarActivity.setOnClickListener(view -> {
+            finish();
+        });
 
         Button botaoEnviar = findViewById(R.id.enviarId);
-        Log.wtf("BlablaLogCat", "hm?");
         botaoEnviar.setOnClickListener(view -> {
             String newEmail = newEmailEditText.getText().toString();
             String newSenha = newSenhaEditText.getText().toString();
-            Log.wtf("BlablaLogCat", newEmail);
-            Log.wtf("BlablaLogCat", newSenha);
+
             try {
                 UsuarioService.loginRequest(
                         new Usuario(newEmail, newSenha),
                         success -> {
                             Log.wtf("BlablaLogCat", "ok");
 
-//                            Intent intentSplashPage = new Intent(getApplicationContext(), SplashPage.class);
-//                            intentSplashPage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                            startActivity(intentSplashPage);
+                            Intent intentSplashPage = new Intent(getApplicationContext(), SplashPage.class);
+                            intentSplashPage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intentSplashPage);
 
-//                            finish();
+                            finish();
                         }, error -> {
                             Toast.makeText(this, "Erro ao autenticar o usuário", Toast.LENGTH_LONG).show();
                         });
