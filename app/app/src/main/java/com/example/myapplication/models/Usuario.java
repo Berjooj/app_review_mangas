@@ -20,6 +20,17 @@ public class Usuario {
         this.token = token;
     }
 
+    public Usuario(String nome, String email, String password) {
+        this.nome = nome;
+        this.email = email;
+        this.password = password;
+    }
+
+    public Usuario(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     public Usuario() {
     }
 }

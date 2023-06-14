@@ -1,4 +1,4 @@
 package com.example.myapplication.services;
 
-public class ServicosFavoritos {
+public class CommentService {
 }

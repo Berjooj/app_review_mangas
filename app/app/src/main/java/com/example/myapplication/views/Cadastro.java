@@ -1,5 +1,6 @@
 package com.example.myapplication.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -8,19 +9,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.myapplication.R;
+import com.example.myapplication.interfaces.InitContext;
+import com.example.myapplication.models.Usuario;
+import com.example.myapplication.services.ApplicationService;
+import com.example.myapplication.services.UsuarioService;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
-
-public class Cadastro extends AppCompatActivity {
+public class Cadastro extends AppCompatActivity implements InitContext {
 
     private EditText newNameEditText;
     private EditText newEmailEditText;
@@ -32,8 +27,12 @@ public class Cadastro extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cadastro);
 
+        this.setInstance();
+
         newNameEditText = findViewById(R.id.newNameId);
         newEmailEditText = findViewById(R.id.newEmailId);
+
+        // TODO: comparar as 2 senhas
         newSenhaEditText = findViewById(R.id.newSenhaId);
         newSenhaCEditText = findViewById(R.id.newSenhaCId);
 
@@ -48,45 +47,39 @@ public class Cadastro extends AppCompatActivity {
             String newEmail = newEmailEditText.getText().toString();
             String newSenha = newSenhaEditText.getText().toString();
 
-            JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("nome", newName);
-                jsonObject.put("email", newEmail);
-                jsonObject.put("password", newSenha);
-
-                String url = "https://api.berjooj.cloud/api/auth/register";
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonObject,
-                        response -> {
+                UsuarioService.cadastroUsuario(
+                        new Usuario(newName, newEmail, newSenha),
+                        onSuccess -> {
                             try {
-                                final int status = response.getInt("status");
-                                String message = response.getString("message");
-                                Toast.makeText(Cadastro.this, status + ": " + message, Toast.LENGTH_SHORT).show();
-                                if (status == 200) {
-                                    finish();
-                                }
+                                UsuarioService.loginRequest(
+                                        onSuccess.data,
+                                        success -> {
+                                            Intent intentSplashPage = new Intent(getApplicationContext(), SplashPage.class);
+                                            intentSplashPage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            startActivity(intentSplashPage);
 
-                            } catch (JSONException e) {
-                                throw new RuntimeException(e);
+                                            finish();
+                                        }, error -> {
+                                            Toast.makeText(this, "Erro ao autenticar o usuário", Toast.LENGTH_LONG).show();
+                                        });
+                            } catch (Exception e) {
+                                Toast.makeText(this, "Puts ai deu ruim :/", Toast.LENGTH_LONG).show();
                             }
                         },
-                        error -> {
-                            int statusCode = error.networkResponse.statusCode;
-                            Toast.makeText(Cadastro.this, "Erro: " + statusCode, Toast.LENGTH_SHORT).show();
-                        }) {
-                    @Override
-                    public Map<String, String> getHeaders() {
-                        Map<String, String> headers = new HashMap<>();
-                        headers.put("Content-Type", "application/json");
-                        return headers;
-                    }
-                };
-                RequestQueue requestQueue = Volley.newRequestQueue(Cadastro.this);
-                requestQueue.add(request);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
+                        onError -> {
+                            Toast.makeText(this, "Erro ao cadastrar o usuário", Toast.LENGTH_LONG).show();
+                        }
+                );
+            } catch (Exception exception) {
+                Toast.makeText(this, exception.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
 
+    @Override
+    public void setInstance() {
+        ApplicationService service = ApplicationService.getInstance();
+        service.setContext(this);
+    }
 }
