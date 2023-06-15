@@ -1,23 +1,23 @@
 package com.example.myapplication.models;
 
-public abstract class Obra {
+public class Obra {
     public int id;
-    public int idExterno;
+    public int idFavorito;
     public int idTipo;
     public String titulo;
     public String subtitulo;
     public int qtEpisodios;
     public int qtVolumes;
     public float qtFavoritos;
-    public float nota;
+    public double nota;
     public int qtAvaliacoes;
     public String urlImagem;
     public String dataLancamento;
     public String criacao;
 
-    public Obra(int id, int idExterno, int idTipo, String titulo, String subtitulo, int qtEpisodios, int qtVolumes, float qtFavoritos, float nota, int qtAvaliacoes, String urlImagem, String dataLancamento, String criacao) {
+    public Obra(int id, int idFavorito, int idTipo, String titulo, String subtitulo, int qtEpisodios, int qtVolumes, float qtFavoritos, double nota, int qtAvaliacoes, String urlImagem, String dataLancamento, String criacao) {
         this.id = id;
-        this.idExterno = idExterno;
+        this.idFavorito = idFavorito;
         this.idTipo = idTipo;
         this.titulo = titulo;
         this.subtitulo = subtitulo;

@@ -2,35 +2,19 @@ package com.example.myapplication.views;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.adapters.CardAdapter;
 import com.example.myapplication.interfaces.InitContext;
-import com.example.myapplication.models.Manga;
-import com.example.myapplication.models.Obra;
-import com.example.myapplication.models.Usuario;
 import com.example.myapplication.repositories.RepositorioFavoritos;
 import com.example.myapplication.repositories.RepositorioObras;
-import com.example.myapplication.repositories.RepositorioUsuario;
 import com.example.myapplication.services.ApplicationService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class HomePage extends AppCompatActivity implements InitContext {
 
