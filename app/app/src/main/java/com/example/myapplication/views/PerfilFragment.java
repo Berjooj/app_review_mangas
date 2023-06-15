@@ -30,6 +30,12 @@ public class PerfilFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.perfil_fragment, container, false);
+        TextView nomeUsuario = view.findViewById(R.id.textViewPerfilNome);
+        TextView emailUsuario = view.findViewById(R.id.textViewPerfilEmail);
+        nomeUsuario.setText(RepositorioUsuario.getInstance().getUsuario().nome);
+        emailUsuario.setText(RepositorioUsuario.getInstance().getUsuario().email);
+
+
 
         ImageButton voltarActivity = view.findViewById(R.id.sairId);
         voltarActivity.setOnClickListener(view1 -> {

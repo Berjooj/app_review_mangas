@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/emAltaId"
+        android:title="@string/home.emalta" />
+    <item
+        android:id="@+id/lancamentoId"
+        android:title="@string/home.lancamentos" />
+    <item
+        android:id="@+id/emBreveId"
+        android:title="@string/home.embreve" />
+</menu>

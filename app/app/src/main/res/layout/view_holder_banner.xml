@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="20dp">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            app:srcCompat="@drawable/banner" />
+
+        <ImageView
+            android:id="@+id/bannerImagemId"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView3"></ImageView>
+
+        <TextView
+            android:id="@+id/nomeObraId"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="50dp"
+            android:text="Spy x Family"
+            android:textAlignment="textStart"
+            android:textColor="@color/branco"
+            app:layout_constraintStart_toEndOf="@+id/bannerImagemId"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
+
+        <TextView
+            android:id="@+id/criadorObraId"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Tatsuya Endo"
+            android:textAlignment="textStart"
+            android:textColor="#E4E4E4"
+            android:textSize="12dp"
+            app:layout_constraintStart_toEndOf="@+id/bannerImagemId"
+            app:layout_constraintTop_toBottomOf="@+id/nomeObraId"></TextView>
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="70dp"
+            app:layout_constraintStart_toEndOf="@+id/bannerImagemId"
+            app:layout_constraintTop_toBottomOf="@+id/criadorObraId"
+            app:srcCompat="@drawable/paginas" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="70dp"
+            app:layout_constraintStart_toEndOf="@+id/numPaginasId"
+            app:layout_constraintTop_toBottomOf="@+id/criadorObraId"
+            app:srcCompat="@drawable/curtido" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="70dp"
+            app:layout_constraintStart_toEndOf="@+id/numCurtidasId"
+            app:layout_constraintTop_toBottomOf="@+id/criadorObraId"
+            app:srcCompat="@drawable/favorito" />
+
+        <TextView
+            android:id="@+id/numPaginasId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="70dp"
+            android:text="216p"
+            android:textAlignment="textStart"
+            android:textColor="@color/branco"
+            app:layout_constraintStart_toEndOf="@+id/imageView6"
+            app:layout_constraintTop_toBottomOf="@+id/criadorObraId"></TextView>
+
+        <TextView
+            android:id="@+id/numCurtidasId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="70dp"
+            android:text="12k"
+            android:textAlignment="textStart"
+            android:textColor="@color/branco"
+            app:layout_constraintStart_toEndOf="@+id/imageView7"
+            app:layout_constraintTop_toBottomOf="@+id/criadorObraId"></TextView>
+
+        <TextView
+            android:id="@+id/numNotaId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="70dp"
+            android:text="4.9/5"
+            android:textAlignment="textStart"
+            android:textColor="@color/branco"
+            app:layout_constraintStart_toEndOf="@+id/imageView8"
+            app:layout_constraintTop_toBottomOf="@+id/criadorObraId"></TextView>
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/baseline_bookmark_24" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>
