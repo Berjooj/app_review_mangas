@@ -67,7 +67,7 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.ViewHolder
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            bannerImagem = itemView.findViewById(R.id.bannerImagemId);
+            bannerImagem = itemView.findViewById(R.id.cardViewId);
             nomeObra = itemView.findViewById(R.id.nomeObraId);
             criadorObra = itemView.findViewById(R.id.criadorObraId);
             numPaginas = itemView.findViewById(R.id.numPaginasId);
