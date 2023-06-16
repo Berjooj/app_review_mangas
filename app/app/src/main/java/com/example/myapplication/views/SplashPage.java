@@ -62,7 +62,7 @@ public class SplashPage extends AppCompatActivity implements InitContext {
 
             Log.wtf("BRUH", seconds + " segundos.");
 
-//            this.initHomeActivity();
+           this.initHomeActivity();
         });
     }
 

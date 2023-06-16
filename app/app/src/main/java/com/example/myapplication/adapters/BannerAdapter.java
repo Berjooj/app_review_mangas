@@ -64,7 +64,7 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.ViewHolder
 
         holder.bannerImagem.setOnClickListener(view -> {
             Intent intentObra = new Intent(context, ObraPage.class);
-            intentObra.putExtra("id_obra", obras.get(position).id);
+            intentObra.putExtra("id_obra",obras.get(position).id);
             context.startActivity(intentObra);
         });
 
