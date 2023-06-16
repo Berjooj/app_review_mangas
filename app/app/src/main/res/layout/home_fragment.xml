@@ -115,9 +115,13 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewId"
+                    clipToPadding="false"
                     android:layout_width="match_parent"
-                    android:layout_height="170dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="35dp"
+                    android:clipToPadding="false"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:scrollbarThumbHorizontal="@color/cinza_2"
                     android:scrollbars="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -127,30 +131,28 @@
                 </androidx.recyclerview.widget.RecyclerView>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/menuListaId"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/sombra"
+                app:itemActiveIndicatorStyle="@android:color/transparent"
+                app:itemTextColor="@drawable/icon_tint"
+                app:menu="@menu/lista_menu"
+                tools:layout_marginTop="10dp">
+
+            </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+            <FrameLayout
+                android:id="@+id/frameLayoutId"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="0dp">
+
+            </FrameLayout>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/menuListaId"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/nestedScrollViewId"
-        android:background="@color/sombra"
-        app:itemActiveIndicatorStyle="@android:color/transparent"
-        app:itemTextColor="@drawable/icon_tint"
-        app:menu="@menu/lista_menu"
-        tools:layout_marginTop="10dp">
-
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
-
-    <FrameLayout
-        android:id="@+id/frameLayoutId"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/menuListaId"
-        android:layout_marginTop="0dp">
-
-    </FrameLayout>
 
 
 </RelativeLayout>

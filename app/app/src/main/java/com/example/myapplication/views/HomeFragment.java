@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.adapters.CardAdapter;
 import com.example.myapplication.models.Obra;
 import com.example.myapplication.models.Usuario;
+import com.example.myapplication.repositories.RepositorioFavoritos;
 import com.example.myapplication.repositories.RepositorioUsuario;
 import com.example.myapplication.services.ApplicationService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -34,6 +36,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+        RepositorioFavoritos repositorioFavoritos = RepositorioFavoritos.getInstance();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.home_fragment, container, false);
         TextView nomeUsuario = view.findViewById(R.id.nomeUsuarioId);
@@ -41,19 +44,8 @@ public class HomeFragment extends Fragment {
         nomeUsuario.setText(RepositorioUsuario.getInstance().getUsuario().nome);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewId);
-        List<Obra> obras = new ArrayList<Obra>();
-        obras.add(new Obra(500, 100, 1, "Magia Rosa", "2", 1, 1, 50, 10, 10,
-                "https://media.kitsu.io/anime/45249/poster_image/2ec6301aa7db25544d2f18edd73d23fe.jpg", "10/10/2000",
-                "Ribeiro Productions"));
-        obras.add(new Obra(501, 100, 1, "Magia Preta", "", 1, 1, 50, 10, 10,
-                "https://upload.wikimedia.org/wikipedia/pt/3/3f/OnePunchMan_manga_capa.png", "10/10/2000",
-                "Ribeiro Productions"));
-        obras.add(new Obra(502, 100, 1, "Magia Magenta", "2", 1, 1, 50, 10, 10,
-                "https://upload.wikimedia.org/wikipedia/pt/3/3f/OnePunchMan_manga_capa.png", "10/10/2000",
-                "Ribeiro Productions"));
-        obras.add(new Obra(503, 100, 1, "Magia Azul", "2", 1, 1, 50, 10, 10,
-                "https://upload.wikimedia.org/wikipedia/pt/3/3f/OnePunchMan_manga_capa.png", "10/10/2000",
-                "Ribeiro Productions"));
+        List<Obra> obras = repositorioFavoritos.getObras();
+
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false) {
             @Override

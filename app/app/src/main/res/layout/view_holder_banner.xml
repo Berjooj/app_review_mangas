@@ -128,12 +128,13 @@
             app:layout_constraintTop_toBottomOf="@+id/criadorObraId"></TextView>
 
         <ImageView
-            android:id="@+id/imageView9"
+            android:id="@+id/favoritosId"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="16dp"
             android:layout_marginRight="20dp"
+            android:clickable="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/baseline_bookmark_24" />
