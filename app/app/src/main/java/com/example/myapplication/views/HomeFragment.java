@@ -44,7 +44,7 @@ public class HomeFragment extends Fragment {
         nomeUsuario.setText(RepositorioUsuario.getInstance().getUsuario().nome);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewId);
-        List<Obra> obras = repositorioFavoritos.getObras();
+        List<Obra> obras = repositorioFavoritos.obraLista;
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false) {

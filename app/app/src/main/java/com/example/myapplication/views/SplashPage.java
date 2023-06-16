@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.interfaces.InitContext;
+import com.example.myapplication.models.Avaliacao;
 import com.example.myapplication.repositories.RepositorioFavoritos;
 import com.example.myapplication.repositories.RepositorioObras;
 import com.example.myapplication.repositories.RepositorioUsuario;
@@ -17,6 +18,9 @@ import com.example.myapplication.services.ApplicationService;
 import com.example.myapplication.services.FavoritoService;
 
 import org.json.JSONException;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 public class SplashPage extends AppCompatActivity implements InitContext {
 
@@ -27,17 +31,13 @@ public class SplashPage extends AppCompatActivity implements InitContext {
 
         this.setInstance();
 
-        Handler handler = new Handler();
+        RepositorioUsuario repositorioUsuario = RepositorioUsuario.getInstance();
 
-        handler.postDelayed(() -> {
-            RepositorioUsuario repositorioUsuario = RepositorioUsuario.getInstance();
-
-            if (repositorioUsuario.getUsuario() != null) {
-                mostrarLogado();
-            } else {
-                mostrarLandingPage();
-            }
-        }, 2000);
+        if (repositorioUsuario.getUsuario() != null) {
+            mostrarLogado();
+        } else {
+            mostrarLandingPage();
+        }
     }
 
     private void mostrarLandingPage() {
@@ -49,8 +49,20 @@ public class SplashPage extends AppCompatActivity implements InitContext {
     private void mostrarLogado() {
         ApplicationService service = ApplicationService.getInstance();
 
+        LocalDateTime currentDate = LocalDateTime.now();
+
+        // Exibição do resultado
         service.initApp(onServiceDone -> {
-            this.initHomeActivity();
+            Log.wtf("BRUH", "ok");
+
+            LocalDateTime postDate = LocalDateTime.now();
+            Duration duration = Duration.between(currentDate, postDate);
+
+            long seconds = duration.getSeconds();
+
+            Log.wtf("BRUH", seconds + " segundos.");
+
+//            this.initHomeActivity();
         });
     }
 

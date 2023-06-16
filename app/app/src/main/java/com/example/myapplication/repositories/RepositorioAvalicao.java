@@ -1,19 +1,19 @@
 package com.example.myapplication.repositories;
 
+import com.example.myapplication.interfaces.SharedObra;
 import com.example.myapplication.models.Avaliacao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RepositorioAvalicao {
+public class RepositorioAvalicao implements SharedObra {
     private static RepositorioAvalicao instance;
-
-    // Lista de Avaliações em que a Key é a Obra e a Avalicao é o valor
-    private Map<Integer, ArrayList<Avaliacao>> avaliacaoMap;
+    public ArrayList<Avaliacao> avaliacaoLista;
+    public Avaliacao comentarioUsuarioLogado;
 
     private RepositorioAvalicao() {
-        avaliacaoMap = new HashMap<>();
+        avaliacaoLista = new ArrayList<>();
     }
 
     public static synchronized RepositorioAvalicao getInstance() {
@@ -23,16 +23,14 @@ public class RepositorioAvalicao {
         return instance;
     }
 
-    // Metodo de adicionar avaliação em uma Obra
-    public void addAvaliacao(int idObra, Avaliacao avaliacao) {
-        if (!this.avaliacaoMap.containsKey(idObra)) {
-            this.avaliacaoMap.put(idObra, new ArrayList<>());
-        }
-        this.avaliacaoMap.get(idObra).add(avaliacao);
+    @Override
+    public void sync() {
+
     }
 
-    // Metodo de buscar todos as avaliações de uma Obra
-    public ArrayList<Avaliacao> getAvaliacoesByIdObra(int idObra) {
-        return this.avaliacaoMap.getOrDefault(idObra, null);
+    @Override
+    public void clear() {
+        this.comentarioUsuarioLogado = new Avaliacao();
+        this.avaliacaoLista = new ArrayList<>();
     }
 }
