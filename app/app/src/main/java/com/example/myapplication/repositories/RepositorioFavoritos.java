@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.myapplication.interfaces.SharedObra;
 import com.example.myapplication.models.Obra;
 import com.example.myapplication.models.Usuario;
 import com.example.myapplication.services.ApplicationService;
@@ -15,12 +16,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RepositorioFavoritos extends RepositorioObras {
+public class RepositorioFavoritos implements SharedObra {
 
     private static RepositorioFavoritos instance;
+    protected ApplicationService appService;
+    public ArrayList<Obra> obraLista;
 
     private RepositorioFavoritos() {
-        super();
+        this.appService = ApplicationService.getInstance();
+        this.obraLista = new ArrayList<>();
 
         SharedPreferences pref = this.appService.getContext().getSharedPreferences("AuthUser", MODE_PRIVATE);
 

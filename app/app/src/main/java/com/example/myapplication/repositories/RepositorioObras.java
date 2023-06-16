@@ -9,14 +9,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RepositorioObras implements SharedObra {
+public class RepositorioObras {
 
     private static RepositorioObras instance;
     protected ApplicationService appService;
-    protected ArrayList<Obra> obraLista;
+    public ArrayList<Obra> emAltaLista;
+    public ArrayList<Obra> emBreveLista;
+    public ArrayList<Obra> lancamentoLista;
+    public ArrayList<Obra> listaFiltro;
 
     protected RepositorioObras() {
-        this.obraLista = new ArrayList<>();
+        this.emAltaLista = new ArrayList<>();
+        this.emBreveLista = new ArrayList<>();
+        this.lancamentoLista = new ArrayList<>();
+        this.listaFiltro = new ArrayList<>();
 
         this.appService = ApplicationService.getInstance();
     }
@@ -28,27 +34,20 @@ public class RepositorioObras implements SharedObra {
         return instance;
     }
 
-    public ArrayList<Obra> getObras() {
-        return this.obraLista;
+    public void limparListas() {
+        this.emAltaLista = new ArrayList<>();
+        this.emBreveLista = new ArrayList<>();
+        this.lancamentoLista = new ArrayList<>();
+        this.listaFiltro = new ArrayList<>();
     }
 
-    public Obra getObraById(int id) {
-        return obraLista.stream().filter(obraExistente -> obraExistente.id == id).findFirst().orElse(null);
-    }
+    public Obra filtro(int idObra) {
+        ArrayList<Obra> obrasTotais = new ArrayList<>();
+        obrasTotais.addAll(this.emAltaLista);
+        obrasTotais.addAll(this.emBreveLista);
+        obrasTotais.addAll(this.lancamentoLista);
+        obrasTotais.addAll(this.listaFiltro);
 
-    public void addObra(Obra obra) {
-        if (obraLista.stream().filter(obraExistente -> obraExistente.id == obra.id).findFirst().orElse(null) == null) {
-            this.obraLista.add(obra);
-        }
-    }
-
-    @Override
-    public void sync() {
-
-    }
-
-    @Override
-    public void clear() {
-
+        return obrasTotais.stream().filter(obra -> obra.id == idObra).findFirst().orElse(null);
     }
 }
