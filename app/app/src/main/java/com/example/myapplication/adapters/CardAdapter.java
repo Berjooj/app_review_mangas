@@ -1,6 +1,7 @@
 package com.example.myapplication.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -16,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.models.Obra;
 import com.example.myapplication.repositories.RepositorioObras;
+import com.example.myapplication.views.Cadastro;
+import com.example.myapplication.views.ObraPage;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -56,6 +59,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         holder.textView.setText(titulo);
         String imageUrl = obras.get(position).urlImagem;
         Picasso.get().load(imageUrl).into(holder.imageView);
+
+        holder.imageView.setOnClickListener(view -> {
+            Intent intentObra = new Intent(context, ObraPage.class);
+            intentObra.putExtra("id_obra", obras.get(position).id);
+            context.startActivity(intentObra);
+        });
     }
 
     @Override

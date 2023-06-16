@@ -46,6 +46,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="40dp"
+        android:fontFamily="@font/outfitregular"
         android:text="@string/landing.intro"
         android:textAlignment="center"
         android:textColor="#A8A8A8"
@@ -89,7 +90,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDescricaoApp" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewDescricaoApp"
+        tools:fontFamily="@font/outfitregular" />
 
     <View
         android:id="@+id/divider2"
@@ -128,6 +130,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:clickable="true"
+        android:fontFamily="@font/outfitregular"
         android:gravity="center_horizontal|center_vertical"
         android:text="@string/landing.login"
         android:textColor="#FFFFFF"

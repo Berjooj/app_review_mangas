@@ -1,6 +1,7 @@
 package com.example.myapplication.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.models.Obra;
 import com.example.myapplication.repositories.RepositorioFavoritos;
 import com.example.myapplication.services.FavoritoService;
+import com.example.myapplication.views.ObraPage;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -49,12 +51,22 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.ViewHolder
         int posicao = position;
         Log.wtf("Banana", obras.get(position).titulo);
         holder.nomeObra.setText(obras.get(position).titulo);
-        holder.criadorObra.setText(obras.get(position).subtitulo);
+        String subTitulo = obras.get(position).titulo;
+        if (subTitulo.length() > 25) {
+            subTitulo = subTitulo.substring(0, 25);
+        }
+        holder.criadorObra.setText(subTitulo);
         holder.numPaginas.setText(String.valueOf(obras.get(position).qtVolumes));
         holder.numCurtidas.setText(String.valueOf(obras.get(position).qtAvaliacoes));
         holder.numNota.setText(String.valueOf(obras.get(position).nota));
         String imageUrl = obras.get(position).urlImagem;
         Picasso.get().load(imageUrl).into(holder.bannerImagem);
+
+        holder.bannerImagem.setOnClickListener(view -> {
+            Intent intentObra = new Intent(context, ObraPage.class);
+            intentObra.putExtra("id_obra", obras.get(position).id);
+            context.startActivity(intentObra);
+        });
 
         holder.favoritosBotao.setOnClickListener(new View.OnClickListener() {
             @Override

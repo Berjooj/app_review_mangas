@@ -14,6 +14,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
+        android:fontFamily="@font/outfitregular"
         android:text="@string/cadastro.intro"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
@@ -29,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="43dp"
         android:layout_marginEnd="40dp"
+        android:fontFamily="@font/outfitregular"
         android:text="@string/cadastro.confirmasenha"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
@@ -46,6 +48,7 @@
         android:layout_marginBottom="30dp"
         android:backgroundTint="#FFFFFF"
         android:clickable="true"
+        android:fontFamily="@font/outfitregular"
         android:text="Embarcar na Jornada"
         android:textAlignment="center"
         android:textColor="#262626"
@@ -79,11 +82,9 @@
             android:layout_height="match_parent"
             android:drawableTint="#FFFFFF"
             android:ems="10"
-            android:hint="teste"
             android:inputType="textEmailAddress"
             android:textColor="#FFFFFF"
-            android:textColorHint="@color/white"
-            app:backgroundTint="#FFFFFF"/>
+            app:backgroundTint="#FFFFFF" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!--E-mail-->
@@ -180,6 +181,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="43dp"
         android:layout_marginEnd="40dp"
+        android:fontFamily="@font/outfitregular"
         android:text="@string/cadastro.email"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
@@ -194,6 +196,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="43dp"
         android:layout_marginEnd="40dp"
+        android:fontFamily="@font/outfitregular"
         android:text="@string/cadastro.nome"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
@@ -208,6 +211,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="43dp"
         android:layout_marginEnd="40dp"
+        android:fontFamily="@font/outfitregular"
         android:text="Senha"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
@@ -223,6 +227,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="120dp"
         android:layout_marginEnd="40dp"
+        android:fontFamily="@font/outfitregular"
         android:text="@string/cadastro.cadastro"
         android:textAlignment="center"
         android:textColor="#FFFFFF"

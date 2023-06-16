@@ -39,7 +39,7 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="16dp"
             android:text="Spy x Family"
             android:textAlignment="textStart"
             android:textColor="@color/branco"
@@ -63,9 +63,9 @@
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cardViewId"
-            app:layout_constraintTop_toBottomOf="@+id/criadorObraId"
             app:srcCompat="@drawable/paginas" />
 
         <ImageView
@@ -73,9 +73,9 @@
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/numPaginasId"
-            app:layout_constraintTop_toBottomOf="@+id/criadorObraId"
             app:srcCompat="@drawable/curtido" />
 
         <ImageView
@@ -83,9 +83,9 @@
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/numCurtidasId"
-            app:layout_constraintTop_toBottomOf="@+id/criadorObraId"
             app:srcCompat="@drawable/favorito" />
 
         <TextView
@@ -93,39 +93,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginBottom="30dp"
             android:text="216p"
             android:textAlignment="textStart"
             android:textColor="@color/branco"
-            android:textSize="14dp"
-            app:layout_constraintStart_toEndOf="@+id/imageView6"
-            app:layout_constraintTop_toBottomOf="@+id/criadorObraId"></TextView>
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView6"></TextView>
 
         <TextView
             android:id="@+id/numCurtidasId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginBottom="30dp"
             android:text="12k"
             android:textAlignment="textStart"
             android:textColor="@color/branco"
-            android:textSize="14dp"
-            app:layout_constraintStart_toEndOf="@+id/imageView7"
-            app:layout_constraintTop_toBottomOf="@+id/criadorObraId"></TextView>
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView7"></TextView>
 
         <TextView
             android:id="@+id/numNotaId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginBottom="30dp"
             android:text="4.9/5"
             android:textAlignment="textStart"
             android:textColor="@color/branco"
-            android:textSize="14dp"
-            app:layout_constraintStart_toEndOf="@+id/imageView8"
-            app:layout_constraintTop_toBottomOf="@+id/criadorObraId"></TextView>
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView8"></TextView>
 
         <ImageView
             android:id="@+id/favoritosId"
