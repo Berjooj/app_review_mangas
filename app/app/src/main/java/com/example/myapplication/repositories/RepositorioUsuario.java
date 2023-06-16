@@ -57,7 +57,10 @@ public class RepositorioUsuario {
 
         SharedPreferences pref = this.appService.getContext().getSharedPreferences("AuthUser", MODE_PRIVATE);
 
-        pref.edit().putString("UserData", this.appService.gson.toJson(usuario)).apply();
+        pref.edit()
+                .remove("UserData")
+                .putString("UserData", this.appService.gson.toJson(usuario))
+                .apply();
 
         this.usuario = usuario;
     }

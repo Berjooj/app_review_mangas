@@ -46,6 +46,7 @@ public class HomeFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewId);
         List<Obra> obras = repositorioFavoritos.obraLista;
 
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false) {
             @Override
             public boolean canScrollVertically() {
