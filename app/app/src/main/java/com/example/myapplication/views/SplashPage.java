@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.example.myapplication.R;
 import com.example.myapplication.interfaces.InitContext;
 import com.example.myapplication.repositories.RepositorioFavoritos;
+import com.example.myapplication.repositories.RepositorioObras;
 import com.example.myapplication.repositories.RepositorioUsuario;
 import com.example.myapplication.services.ApplicationService;
 import com.example.myapplication.services.FavoritoService;
@@ -46,20 +47,11 @@ public class SplashPage extends AppCompatActivity implements InitContext {
     }
 
     private void mostrarLogado() {
-        RepositorioFavoritos repositorioFavoritos = RepositorioFavoritos.getInstance();
+        ApplicationService service = ApplicationService.getInstance();
 
-        if (repositorioFavoritos.getObras().size() == 0) {
-            FavoritoService.getFavoritos(
-                    onSuccess -> {
-                        this.initHomeActivity();
-                    },
-                    onError -> {
-                        Toast.makeText(this, "Erro ao carregar a lista de favoritos", Toast.LENGTH_SHORT).show();
-                    }
-            );
-        } else {
+        service.initApp(onServiceDone -> {
             this.initHomeActivity();
-        }
+        });
     }
 
     private void initHomeActivity() {

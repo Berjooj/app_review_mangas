@@ -1,6 +1,9 @@
 package com.example.myapplication.models;
 
+import java.util.ArrayList;
+
 public class Obra {
+    public boolean favoritada = false;
     public int id;
     public int idFavorito;
     public int idTipo;
@@ -14,6 +17,7 @@ public class Obra {
     public String urlImagem;
     public String dataLancamento;
     public String criacao;
+    public ArrayList<String> categorias;
 
     public Obra(int id, int idFavorito, int idTipo, String titulo, String subtitulo, int qtEpisodios, int qtVolumes, float qtFavoritos, double nota, int qtAvaliacoes, String urlImagem, String dataLancamento, String criacao) {
         this.id = id;
@@ -29,8 +33,11 @@ public class Obra {
         this.urlImagem = urlImagem;
         this.dataLancamento = dataLancamento;
         this.criacao = criacao;
+
+        this.categorias = new ArrayList<>();
     }
 
     public Obra() {
+        this.categorias = new ArrayList<>();
     }
 }

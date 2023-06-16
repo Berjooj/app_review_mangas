@@ -64,7 +64,7 @@ public class FavoritoService {
                     obra.dataLancamento = favorito.getObra().getDataLancamento();
                     obra.criacao = favorito.getObra().getCreatedAt();
 
-                    repositorioFavoritos.addObra(obra);
+                    repositorioFavoritos.obraLista.add(obra);
                 }
 
                 repositorioFavoritos.sync();
