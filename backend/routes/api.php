@@ -39,7 +39,7 @@ Route::middleware(['auth:api'])->prefix('usuario')->group(function () {
 });
 
 Route::middleware(['auth:api'])->prefix('feed')->group(function () {
-    Route::get('/', [FeedController::class, 'index']);
+    Route::post('/', [FeedController::class, 'index']);
 });
 
 Route::middleware(['auth:api'])->prefix('favoritos')->group(function () {

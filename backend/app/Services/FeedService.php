@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Categoria;
 use App\Models\Obra;
+use Illuminate\Support\Facades\DB;
 
 class FeedService {
     private static $instance;
@@ -52,7 +53,7 @@ class FeedService {
                 break;
             case 'em_breve':
                 $data['sort'] = '-startDate';
-                $obras->whereNull('data_lancamento')
+                $obras->where('data_lancamento', '>', DB::raw('NOW()'))
                     ->orderBy('id', 'desc');
                 break;
         }
@@ -60,8 +61,6 @@ class FeedService {
         if (!empty($data['filtro'])) {
             $obras->where('lower(titulo)', 'like', '%' . mb_strtolower($data['filtro']) . '%');
         }
-
-        $obras = $obras->get();
 
         if ($obras->count() == 10) {
             return $obras->toArray();
