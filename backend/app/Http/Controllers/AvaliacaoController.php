@@ -11,7 +11,8 @@ use App\Utils\APIResponse;
 class AvaliacaoController extends Controller {
     public function index(int $idObra): \Illuminate\Http\JsonResponse {
         try {
-            $avaliacoes = Avaliacao::where('id_obra', $idObra)
+            $avaliacoes = Avaliacao::select('avaliacaos.*','users.nome')->where('id_obra', $idObra)
+                ->join('users', 'avaliacaos.id_usuario', '=', 'users.id')
                 ->with('curtidas')
                 ->orderBy('created_at', 'desc')
                 ->get();
