@@ -41,7 +41,6 @@ public class HomePage extends AppCompatActivity implements InitContext {
 
         setContentView(R.layout.home_page);
 
-
         bottomNavigationView = findViewById(R.id.bottomNavigationViewId);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.layoutId, homeFragment).commit();

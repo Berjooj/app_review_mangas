@@ -50,13 +50,12 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull BannerAdapter.ViewHolder holder, int position) {
         RepositorioFavoritos repositorioFavoritos = RepositorioFavoritos.getInstance();
-        RepositorioObras repositorioObras = RepositorioObras.getInstance();
-        FavoritoService favoritoService;
+
         int posicao = position;
-        Log.wtf("Banana", obras.get(position).titulo);
+
         holder.nomeObra.setText(obras.get(position).titulo);
         holder.criadorObra.setText(obras.get(position).subtitulo);
-        if(obras.get(position).subtitulo != null){
+        if (obras.get(position).subtitulo != null) {
             Log.wtf("TAG", obras.get(position).subtitulo);
             holder.criadorObra.setText(obras.get(position).subtitulo);
         }
@@ -68,6 +67,12 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.ViewHolder
         holder.numPaginas.setText(String.valueOf(obras.get(position).qtVolumes));
         holder.numCurtidas.setText(String.valueOf(obras.get(position).qtAvaliacoes));
         holder.numNota.setText(String.valueOf(obras.get(position).nota));
+
+        if (!obras.get(position).categorias.isEmpty() && obras.get(position).categorias.size() > 2) {
+            String categorias = "Categorias: " + obras.get(position).categorias.get(0) + ", " + obras.get(position).categorias.get(1);
+            holder.categorias.setText(String.valueOf(categorias));
+        }
+
         String imageUrl = obras.get(position).urlImagem;
         Picasso.get().load(imageUrl).resize(1600, 2272).onlyScaleDown().into(holder.bannerImagem);
 
@@ -158,6 +163,7 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.ViewHolder
         TextView numPaginas;
         TextView numCurtidas;
         TextView numNota;
+        TextView categorias;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -169,6 +175,7 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.ViewHolder
             numPaginas = itemView.findViewById(R.id.numPaginasId);
             numCurtidas = itemView.findViewById(R.id.numCurtidasId);
             numNota = itemView.findViewById(R.id.numNotaId);
+            categorias = itemView.findViewById(R.id.categorias);
         }
     }
 

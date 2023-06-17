@@ -140,6 +140,18 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/baseline_bookmark_24" />
 
+        <TextView
+            android:id="@+id/categorias"
+            android:layout_width="213dp"
+            android:layout_height="27dp"
+            android:textColor="@color/branco"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/numCurtidasId"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cardViewId"
+            app:layout_constraintTop_toBottomOf="@+id/criadorObraId"
+            app:layout_constraintVertical_bias="0.79" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>

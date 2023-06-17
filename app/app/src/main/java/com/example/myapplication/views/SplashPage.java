@@ -53,18 +53,12 @@ public class SplashPage extends AppCompatActivity implements InitContext {
 
         // Exibição do resultado
         service.initApp(onServiceDone -> {
-            Log.wtf("BRUH", "ok");
-
             LocalDateTime postDate = LocalDateTime.now();
             Duration duration = Duration.between(currentDate, postDate);
 
             long seconds = duration.getSeconds();
 
-            Log.wtf("BRUH", seconds + " segundos.");
-
-            RepositorioObras repoObra = RepositorioObras.getInstance();
-
-            Log.wtf("BRUH", String.valueOf(repoObra.lancamentoLista.size()));
+            Log.wtf("Tempo de busca", seconds + " segundos.");
 
             this.initHomeActivity();
         }, error -> {
