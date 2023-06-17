@@ -50,7 +50,7 @@ public class FeedService {
                             Toast.makeText(applicationService.getContext(), "Erro ao carregar a lista 'lançamentos'", Toast.LENGTH_SHORT).show();
                         }
                     }, onErrorEmBreve -> {
-                        Toast.makeText(applicationService.getContext(), onErrorEmBreve.mensagem, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(applicationService.getContext(), "Erro ao carregar a lista 'em breve'", Toast.LENGTH_SHORT).show();
                     });
                 } catch (JSONException e) {
                     Toast.makeText(applicationService.getContext(), "Erro ao carregar a lista 'lançamentos'", Toast.LENGTH_SHORT).show();

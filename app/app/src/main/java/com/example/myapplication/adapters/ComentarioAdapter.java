@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
@@ -19,6 +20,7 @@ import com.example.myapplication.repositories.RepositorioAvalicao;
 import com.example.myapplication.repositories.RepositorioFavoritos;
 import com.example.myapplication.repositories.RepositorioObras;
 import com.example.myapplication.repositories.RepositorioUsuario;
+import com.example.myapplication.services.ApplicationService;
 import com.example.myapplication.services.FavoritoService;
 import com.example.myapplication.views.ObraPage;
 import com.squareup.picasso.Picasso;
@@ -35,7 +37,6 @@ public class ComentarioAdapter extends RecyclerView.Adapter<ComentarioAdapter.Vi
     private List<Avaliacao> avaliacoes;
 
     public Context context;
-
 
     public ComentarioAdapter(Context context, List<Avaliacao> avaliacoes) {
         this.context = context;
@@ -58,11 +59,23 @@ public class ComentarioAdapter extends RecyclerView.Adapter<ComentarioAdapter.Vi
         FavoritoService favoritoService;
 
         Avaliacao avaliacao = repositorioAvalicao.avaliacaoLista.get(position);
+
         holder.nomeUsuarioComentario.setText(avaliacao.nome);
         holder.comentario.setText(avaliacao.comentario);
         LocalDate dataComentario = LocalDate.parse((avaliacao.created_at).substring(0, 10));
         LocalDate dataAtual = LocalDate.now();
         Period periodo = Period.between(dataComentario, dataAtual);
+
+        Log.wtf("Amendoim", String.valueOf(avaliacao.nota));
+
+        ApplicationService service = ApplicationService.getInstance();
+
+        holder.estrelaUmId.setColorFilter(ContextCompat.getColor(service.getContext(), avaliacao.nota >= 1 ? R.color.amarelo : R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+        holder.estrelaDoisId.setColorFilter(ContextCompat.getColor(service.getContext(), avaliacao.nota >= 2 ? R.color.amarelo : R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+        holder.estrelaTresId.setColorFilter(ContextCompat.getColor(service.getContext(), avaliacao.nota >= 3 ? R.color.amarelo : R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+        holder.estrelaQuatroId.setColorFilter(ContextCompat.getColor(service.getContext(), avaliacao.nota >= 4 ? R.color.amarelo : R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+        holder.estrelaCincoId.setColorFilter(ContextCompat.getColor(service.getContext(), avaliacao.nota >= 5
+                ? R.color.amarelo : R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
 
         String periodoFormatado;
         if (periodo.getYears() >= 1) {
@@ -90,6 +103,12 @@ public class ComentarioAdapter extends RecyclerView.Adapter<ComentarioAdapter.Vi
         TextView comentario;
         TextView periodoComentario;
 
+        ImageView estrelaUmId;
+        ImageView estrelaDoisId;
+        ImageView estrelaTresId;
+        ImageView estrelaQuatroId;
+        ImageView estrelaCincoId;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             curtirIcone = itemView.findViewById(R.id.curtirIconeId);
@@ -97,6 +116,12 @@ public class ComentarioAdapter extends RecyclerView.Adapter<ComentarioAdapter.Vi
             nomeUsuarioComentario = itemView.findViewById(R.id.nomeUsuarioComentarioId);
             comentario = itemView.findViewById(R.id.comentarioId);
             periodoComentario = itemView.findViewById(R.id.periodoComentarioId);
+
+            estrelaUmId = itemView.findViewById(R.id.estrelaUmId2);
+            estrelaDoisId = itemView.findViewById(R.id.estrelaDoisId2);
+            estrelaTresId = itemView.findViewById(R.id.estrelaTresId2);
+            estrelaQuatroId = itemView.findViewById(R.id.estrelaQuatroId2);
+            estrelaCincoId = itemView.findViewById(R.id.estrelaCincoId2);
         }
     }
 
