@@ -22,6 +22,7 @@ import com.example.myapplication.models.Obra;
 import com.example.myapplication.repositories.RepositorioAvalicao;
 import com.example.myapplication.repositories.RepositorioFavoritos;
 import com.example.myapplication.repositories.RepositorioObras;
+import com.example.myapplication.services.ApplicationService;
 import com.example.myapplication.services.AvaliacaoService;
 import com.google.android.material.textfield.TextInputLayout;
 import com.squareup.picasso.Picasso;
@@ -87,7 +88,11 @@ public class ObraPage extends AppCompatActivity {
             Log.wtf("Beijinho", newComentario);
             try {
                 AvaliacaoService.criarComentario(onServiceDone -> {
-
+                    ApplicationService service = ApplicationService.getInstance();
+                    finish();
+                    Intent intentObra = new Intent(service.getContext(), ObraPage.class);
+                    intentObra.putExtra("id_obra", id_obra);
+                    service.getContext().startActivity(intentObra);
                 }, onError -> {
                     Log.wtf("Goiabinha", onError.mensagem);
                 });
@@ -107,7 +112,7 @@ public class ObraPage extends AppCompatActivity {
             publicarLayout.setVisibility(View.GONE);
             comentario.setVisibility(View.VISIBLE);
             Avaliacao avaliacao = repositorioAvalicao.comentarioUsuarioLogado;
-            nomeUsuarioComentario.setText(repositorioAvalicao.comentarioUsuarioLogado.nome);
+            //nomeUsuarioComentario.setText(repositorioAvalicao.comentarioUsuarioLogado.nome);
             comentarioText.setText(avaliacao.comentario);
             LocalDate dataComentario = LocalDate.parse((avaliacao.created_at).substring(0, 10));
             LocalDate dataAtual = LocalDate.now();
@@ -150,7 +155,6 @@ public class ObraPage extends AppCompatActivity {
         RepositorioObras repositorioObras = RepositorioObras.getInstance();
         int id = getIntent().getIntExtra("id_obra", 0);
         Log.wtf("Feijoada", String.valueOf(id));
-        ;
         return id;
     }
 }

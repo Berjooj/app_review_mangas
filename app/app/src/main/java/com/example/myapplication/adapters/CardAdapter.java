@@ -65,7 +65,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         Picasso.get().load(imageUrl).resize(1600, 2272).onlyScaleDown().into(holder.imageView);
 
         holder.imageView.setOnClickListener(view -> {
-
             AvaliacaoService.buscarComentarios(obras.get(position).id, onServiceDone -> {
                 Intent intentObra = new Intent(context, ObraPage.class);
                 intentObra.putExtra("id_obra", obras.get(position).id);
