@@ -25,6 +25,9 @@ class Avaliacao extends Model {
         // ID da obra
         'id_obra' => 'integer',
 
+        // Comentário da obra
+        'comentario' => 'string',
+
         // Nota da avaliação
         'nota' => 'integer',
 
@@ -59,6 +62,9 @@ class Avaliacao extends Model {
 
         // ID da obra
         'id_obra',
+
+        // Comentário
+        'comentario',
 
         // Nota da avaliação
         'nota'

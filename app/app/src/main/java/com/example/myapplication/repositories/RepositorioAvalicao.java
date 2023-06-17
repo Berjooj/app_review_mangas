@@ -14,6 +14,7 @@ public class RepositorioAvalicao implements SharedObra {
 
     private RepositorioAvalicao() {
         avaliacaoLista = new ArrayList<>();
+        comentarioUsuarioLogado = new Avaliacao();
     }
 
     public static synchronized RepositorioAvalicao getInstance() {

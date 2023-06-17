@@ -1,5 +1,7 @@
 package com.example.myapplication.services;
 
+import android.util.Log;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -97,7 +99,7 @@ public class AvaliacaoService {
         requestQueue.add(request);
     }
 
-    public static void criarComentario(String comentario,int nota,int id_obra,ServiceDone onSuccess, ServiceDone onError) throws JSONException {
+    public static void criarComentario(ServiceDone onSuccess, ServiceDone onError) throws JSONException {
         ApplicationService appService = ApplicationService.getInstance();
 
         RepositorioAvalicao repositorioAvalicao = RepositorioAvalicao.getInstance();
@@ -107,9 +109,9 @@ public class AvaliacaoService {
         Usuario usuario = repositorioUsuario.getUsuario();
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id_obra", id_obra);
-        jsonObject.put("nota", nota);
-        jsonObject.put("comentario", comentario);
+        jsonObject.put("id_obra", novaAvaliacao.idObra);
+        jsonObject.put("nota", novaAvaliacao.nota);
+        jsonObject.put("comentario", novaAvaliacao.comentario);
 
         String url = "https://api.berjooj.cloud/api/avaliar";
 

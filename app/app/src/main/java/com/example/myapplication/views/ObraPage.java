@@ -79,17 +79,17 @@ public class ObraPage extends AppCompatActivity {
 
         publicar.setOnClickListener(view -> {
             String newComentario = comentarioTextView.getText().toString();
-            Log.wtf("Beijinho", newComentario);
-            repositorioAvalicao.comentarioUsuarioLogado.comentario = "newComentario";
+
+            repositorioAvalicao.comentarioUsuarioLogado.comentario = newComentario;
             repositorioAvalicao.comentarioUsuarioLogado.idObra = id_obra;
 
-
-
+            Log.wtf("Beijinho", repositorioAvalicao.comentarioUsuarioLogado.comentario);
+            Log.wtf("Beijinho", newComentario);
             try {
-                AvaliacaoService.criarComentario(newComentario, 5, id_obra,onServiceDone -> {
+                AvaliacaoService.criarComentario(onServiceDone -> {
 
-                },onError ->{
-                    Log.wtf("Goiabinha", onError.mensagem );
+                }, onError -> {
+                    Log.wtf("Goiabinha", onError.mensagem);
                 });
             } catch (JSONException e) {
                 throw new RuntimeException(e);
@@ -100,10 +100,10 @@ public class ObraPage extends AppCompatActivity {
             String imagemObra = obra.urlImagem;
             Picasso.get().load(imagemObra).resize(1600, 2272).onlyScaleDown().transform(new BlurTransformation(this)).into(fundo);
             Picasso.get().load(imagemObra).resize(1600, 2272).onlyScaleDown().into(card);
-        }else {
+        } else {
             card.setImageResource(R.drawable.blank);
         }
-        if(repositorioAvalicao.comentarioUsuarioLogado != null && repositorioAvalicao.comentarioUsuarioLogado.created_at != null){
+        if (repositorioAvalicao.comentarioUsuarioLogado != null && repositorioAvalicao.comentarioUsuarioLogado.created_at != null) {
             publicarLayout.setVisibility(View.GONE);
             comentario.setVisibility(View.VISIBLE);
             Avaliacao avaliacao = repositorioAvalicao.comentarioUsuarioLogado;
@@ -125,7 +125,6 @@ public class ObraPage extends AppCompatActivity {
             }
             periodoComentario.setText(periodoFormatado);
         }
-
 
 
         descricao.setText(repositorioObras.filtro(id_obra).titulo);
