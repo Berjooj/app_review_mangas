@@ -48,16 +48,14 @@ public class Login extends AppCompatActivity implements InitContext {
                 UsuarioService.loginRequest(
                         new Usuario(newEmail, newSenha),
                         success -> {
-                            service.loader.showDialog();
-
                             Intent intentSplashPage = new Intent(getApplicationContext(), SplashPage.class);
                             intentSplashPage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intentSplashPage);
 
                             finish();
                         }, error -> {
-                            service.loader.showDialog();
                             Toast.makeText(this, "Erro ao autenticar o usuário", Toast.LENGTH_LONG).show();
+                            service.loader.dismiss();
                         });
             } catch (Exception e) {
                 Toast.makeText(this, "Puts ai deu ruim :/", Toast.LENGTH_LONG).show();

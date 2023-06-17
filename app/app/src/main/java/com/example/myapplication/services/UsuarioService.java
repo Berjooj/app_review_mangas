@@ -148,9 +148,10 @@ public class UsuarioService {
         ApplicationService appService = ApplicationService.getInstance();
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("nome", usuario.email);
+        jsonObject.put("nome", usuario.nome);
         jsonObject.put("password", usuario.password);
-        jsonObject.put("id_foto_perfil", usuario.idFotoPerfil);
+        jsonObject.put("id_foto_perfil", null);
+        jsonObject.put("id", usuario.id);
 
         String url = "https://api.berjooj.cloud/api/usuario";
 

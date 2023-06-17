@@ -44,41 +44,50 @@ public class Cadastro extends AppCompatActivity implements InitContext {
             String newSenha = newSenhaEditText.getText().toString();
             String newSenhaConfirm = newSenhaCEditText.getText().toString();
 
-            ApplicationService service = ApplicationService.getInstance();
-            service.loader.showDialog();
+            if (newName.isEmpty() || newEmail.isEmpty() || newSenha.isEmpty() || newSenhaConfirm.isEmpty()) {
+                Toast.makeText(this, "Por favor, preencha todos os campos", Toast.LENGTH_LONG).show();
+            } else if (!newSenha.equals(newSenhaConfirm)) {
+                Toast.makeText(this, "Erro, as senhas não são iguais", Toast.LENGTH_LONG).show();
+            } else {
+                ApplicationService service = ApplicationService.getInstance();
+                service.loader.showDialog();
 
-            try {
-                UsuarioService.cadastroUsuario(
-                        new Usuario(newName, newEmail, newSenha),
-                        onSuccess -> {
-                            try {
-                                UsuarioService.loginRequest(
-                                        onSuccess.data,
-                                        success -> {
-                                            service.loader.dismiss();
+                try {
+                    UsuarioService.cadastroUsuario(
+                            new Usuario(newName, newEmail, newSenha),
+                            onSuccess -> {
+                                try {
+                                    UsuarioService.loginRequest(
+                                            onSuccess.data,
+                                            success -> {
+                                                service.loader.dismiss();
 
-                                            Intent intentSplashPage = new Intent(getApplicationContext(), SplashPage.class);
-                                            intentSplashPage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            startActivity(intentSplashPage);
+                                                Intent intentSplashPage = new Intent(getApplicationContext(), SplashPage.class);
+                                                intentSplashPage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                startActivity(intentSplashPage);
 
-                                            finish();
-                                        }, error -> {
-                                            service.loader.dismiss();
-                                            Toast.makeText(this, "Erro ao autenticar o usuário", Toast.LENGTH_LONG).show();
-                                        });
-                            } catch (Exception e) {
+                                                finish();
+                                            }, error -> {
+                                                service.loader.dismiss();
+                                                Toast.makeText(this, "Erro ao autenticar o usuário", Toast.LENGTH_LONG).show();
+                                            });
+
+                                } catch (Exception e) {
+                                    service.loader.dismiss();
+                                    Toast.makeText(this, "Puts ai deu ruim :/", Toast.LENGTH_LONG).show();
+                                }
+                            },
+                            onError -> {
                                 service.loader.dismiss();
-                                Toast.makeText(this, "Puts ai deu ruim :/", Toast.LENGTH_LONG).show();
+                                Toast.makeText(this, "Erro ao cadastrar o usuário", Toast.LENGTH_LONG).show();
                             }
-                        },
-                        onError -> {
-                            service.loader.dismiss();
-                            Toast.makeText(this, "Erro ao cadastrar o usuário", Toast.LENGTH_LONG).show();
-                        }
-                );
-            } catch (Exception exception) {
-                service.loader.dismiss();
-                Toast.makeText(this, exception.getMessage(), Toast.LENGTH_LONG).show();
+                    );
+
+
+                } catch (Exception exception) {
+                    service.loader.dismiss();
+                    Toast.makeText(this, exception.getMessage(), Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

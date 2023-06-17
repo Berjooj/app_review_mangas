@@ -9,7 +9,7 @@
     <string name="landing.login">Já possui conta? <b>Log in</b></string>
 
     <!-- Login  -->
-    <string name="login.acessar">Acessar o HablaOtaku</string>
+    <string name="login.acessar">Acessar o FalaOtaku</string>
     <string name="login.bemvinde">Bem vinde de volta! Realize o login para acessar sua conta!</string>
     <string name="login.email">Seu email</string>
     <string name="login.emailplaceholder">email@email.com</string>

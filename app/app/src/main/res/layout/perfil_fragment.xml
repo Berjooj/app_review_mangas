@@ -118,7 +118,7 @@
             tools:expandedHintEnabled="false">
 
             <EditText
-                android:id="@+id/perfilNovaSenhaId"
+                android:id="@+id/perfilConfNovaSenhaId"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:ems="10"
@@ -198,7 +198,7 @@
             app:passwordToggleTint="@color/white">
 
             <EditText
-                android:id="@+id/perfilConfNovaSenhaId"
+                android:id="@+id/perfilNovaSenhaId"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:ems="10"
@@ -217,8 +217,7 @@
             android:id="@+id/btnSalvarUsuario"
             android:layout_width="328dp"
             android:layout_height="51dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginTop="20dp"
             android:height="4dp"
             android:backgroundTint="@color/verde"
             android:fontFamily="@font/outfitregular"
@@ -226,7 +225,6 @@
             android:textAlignment="gravity"
             android:textSize="20sp"
             app:cornerRadius="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fragConfSenhaLayout" />
