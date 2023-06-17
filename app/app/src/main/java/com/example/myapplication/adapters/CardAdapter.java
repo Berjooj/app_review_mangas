@@ -15,14 +15,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.models.Avaliacao;
 import com.example.myapplication.models.Obra;
+import com.example.myapplication.repositories.RepositorioAvalicao;
 import com.example.myapplication.repositories.RepositorioObras;
+import com.example.myapplication.services.AvaliacaoService;
 import com.example.myapplication.views.Cadastro;
 import com.example.myapplication.views.ObraPage;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -33,7 +38,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     private List<Obra> obras;
 
     public Context context;
-
 
 
     public CardAdapter(Context context, List<Obra> obras) {
@@ -51,7 +55,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull CardAdapter.ViewHolder holder, int position) {
         //Obra obra = Objects.requireNonNull(obras.get((obras.keySet().toArray())[position]));
-        Log.wtf("Banana", obras.get(position).titulo );
+        Log.wtf("Banana", obras.get(position).titulo);
         String titulo = obras.get(position).titulo;
         if (titulo.length() > 25) {
             titulo = titulo.substring(0, 25);
@@ -61,9 +65,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         Picasso.get().load(imageUrl).resize(1600, 2272).onlyScaleDown().into(holder.imageView);
 
         holder.imageView.setOnClickListener(view -> {
-            Intent intentObra = new Intent(context, ObraPage.class);
-            intentObra.putExtra("id_obra", obras.get(position).id);
-            context.startActivity(intentObra);
+
+            AvaliacaoService.buscarComentarios(obras.get(position).id, onServiceDone -> {
+                Intent intentObra = new Intent(context, ObraPage.class);
+                intentObra.putExtra("id_obra", obras.get(position).id);
+                context.startActivity(intentObra);
+            }, null);
         });
     }
 

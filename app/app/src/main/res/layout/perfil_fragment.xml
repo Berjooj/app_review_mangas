@@ -165,7 +165,7 @@
             tools:layout_editor_absoluteY="60dp">
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/imagemIconeId"
                 android:layout_width="220dp"
                 android:layout_height="220dp"
                 android:background="@drawable/circle"

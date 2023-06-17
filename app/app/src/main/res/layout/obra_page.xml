@@ -23,7 +23,7 @@
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:srcCompat="@drawable/banner" />
+            app:srcCompat="@drawable/head" />
 
         <ImageButton
             android:id="@+id/voltarId2"
@@ -53,6 +53,18 @@
             app:layout_constraintEnd_toEndOf="@+id/imageView2"
             app:layout_constraintStart_toStartOf="@+id/voltarId2"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/favoritosId2"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/baseline_bookmark_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -106,7 +118,7 @@
 
                 <TextView
                     android:id="@+id/numeroPaginasId"
-                    android:layout_width="32dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/outfitregular"
@@ -213,7 +225,7 @@
                     android:layout_height="match_parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:srcCompat="@drawable/banner"
+                    app:srcCompat="@drawable/fundo_obra"
                     tools:layout_editor_absoluteY="450dp" />
 
                 <TextView
@@ -298,7 +310,7 @@
                         tools:layout_editor_absoluteX="20dp">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/des"
+                            android:id="@+id/comentarioTextViewId"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -349,7 +361,7 @@
                         app:srcCompat="@drawable/favorito" />
 
                     <Button
-                        android:id="@+id/button"
+                        android:id="@+id/publicarId"
                         android:layout_width="0dp"
                         android:layout_height="38dp"
                         android:layout_marginTop="10dp"
@@ -365,14 +377,159 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutComentarioId"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:padding="8dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/recyclerViewComentariosId"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/publicarLayoutId">
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="20dp"
+                        android:background="@drawable/circle"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/imagemIconeId"
+                            android:layout_width="52dp"
+                            android:layout_height="52dp"
+                            android:background="@drawable/circle"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/icone_fofo" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/nomeUsuarioComentarioId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="20dp"
+                        android:fontFamily="@font/outfitregular"
+                        android:text="Jean Gunnhildr"
+                        android:textColor="@color/branco"
+                        android:textSize="16dp"
+                        app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/periodoComentarioId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:text="Há 2 semanas"
+                        android:textColor="#797C7B"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/comentarioId"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="40dp"
+                        android:text="Lorem Ipsum is simply dummy  text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and...   "
+                        android:textColor="#797C7B"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+                        app:layout_constraintTop_toBottomOf="@+id/notaLayoutId" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/notaLayoutId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+                        app:layout_constraintTop_toBottomOf="@+id/nomeUsuarioComentarioId">
+
+                        <ImageView
+                            android:id="@+id/estrelaUmId2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/favorito" />
+
+                        <ImageView
+                            android:id="@+id/estrelaDoisId2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/estrelaUmId2"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/favorito" />
+
+                        <ImageView
+                            android:id="@+id/estrelaTresId2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/estrelaDoisId2"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/favorito" />
+
+                        <ImageView
+                            android:id="@+id/estrelaQuatroId2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/estrelaTresId2"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/favorito" />
+
+                        <ImageView
+                            android:id="@+id/estrelaCincoId2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/estrelaQuatroId2"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/favorito" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <ImageView
+                        android:id="@+id/curtirIconeId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/periodoComentarioId"
+                        app:srcCompat="@drawable/baseline_thumb_up_24" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewComentariosId"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/publicarLayoutId"
+                    app:layout_constraintTop_toBottomOf="@+id/layoutComentarioId"
                     tools:layout_editor_absoluteX="20dp" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
