@@ -58,7 +58,7 @@ public class BuscaFragment extends Fragment {
                     // Aqui vou atualizar o array da View
                     obras = repositorioObras.listaFiltro;
                 });
-                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false) {
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false) {
                     @Override
                     public boolean canScrollVertically() {
                         return false;

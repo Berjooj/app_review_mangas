@@ -80,6 +80,9 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.ViewHolder
                         assert obra != null;
                         FavoritoService.removerFavoritos(obra.idFavorito, obras.get(posicao).id,
                                 onSuccess -> {
+                                    // TODO: 16/06/2023
+                                    //obras.remove(position);
+                                    //notifyItemRemoved(position);
                                     holder.favoritosBotao.setColorFilter(R.color.azul);
                                     Log.wtf("Biscoito", "deu bom");
                                 },
