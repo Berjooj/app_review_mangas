@@ -135,6 +135,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginRight="20dp"
             android:clickable="true"
+            android:tint="@color/cinza_2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/baseline_bookmark_24" />

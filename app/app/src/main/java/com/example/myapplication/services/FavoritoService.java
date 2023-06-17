@@ -100,6 +100,7 @@ public class FavoritoService {
     public static void addFavoritos(int idObra, ObraServiceDone onSuccess, ObraServiceDone onError) throws JSONException {
         ApplicationService appService = ApplicationService.getInstance();
         RepositorioObras repositorioObras = RepositorioObras.getInstance();
+        RepositorioFavoritos repositorioFavoritos = RepositorioFavoritos.getInstance();
         RepositorioUsuario repositorioUsuario = RepositorioUsuario.getInstance();
         Usuario usuario = repositorioUsuario.getUsuario();
 
@@ -118,6 +119,7 @@ public class FavoritoService {
                 }
 
                 repositorioObras.filtro(idObra).favoritada = true;
+                repositorioFavoritos.obraLista.add(repositorioObras.filtro(idObra));
                 FavoritoService.getFavoritos(onSuccess, onError);
 
             } catch (Exception e) {

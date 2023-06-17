@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.myapplication.adapters.CardAdapter;
 import com.example.myapplication.interfaces.ServiceDone;
 import com.example.myapplication.repositories.RepositorioFavoritos;
 import com.example.myapplication.repositories.RepositorioObras;
@@ -20,10 +21,13 @@ public class ApplicationService {
 
     private Context context;
 
+    public CardAdapter cardAdapter;
+
     public Gson gson;
 
     private ApplicationService() {
         this.gson = new Gson();
+        this.cardAdapter = null;
     }
 
     public static synchronized ApplicationService getInstance() {

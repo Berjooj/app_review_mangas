@@ -18,7 +18,9 @@ import com.example.myapplication.R;
 import com.example.myapplication.models.Avaliacao;
 import com.example.myapplication.models.Obra;
 import com.example.myapplication.repositories.RepositorioAvalicao;
+import com.example.myapplication.repositories.RepositorioFavoritos;
 import com.example.myapplication.repositories.RepositorioObras;
+import com.example.myapplication.services.ApplicationService;
 import com.example.myapplication.services.AvaliacaoService;
 import com.example.myapplication.views.Cadastro;
 import com.example.myapplication.views.ObraPage;
@@ -41,8 +43,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
 
     public CardAdapter(Context context, List<Obra> obras) {
+        ApplicationService applicationService = ApplicationService.getInstance();
+        applicationService.cardAdapter = this;
+
         this.context = context;
-        this.obras = obras;
+        this.obras = RepositorioFavoritos.getInstance().obraLista;
     }
 
 
@@ -55,27 +60,29 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull CardAdapter.ViewHolder holder, int position) {
         //Obra obra = Objects.requireNonNull(obras.get((obras.keySet().toArray())[position]));
-        Log.wtf("Banana", obras.get(position).titulo);
-        String titulo = obras.get(position).titulo;
-        if (titulo.length() > 25) {
-            titulo = titulo.substring(0, 25);
-        }
-        holder.textView.setText(titulo);
-        String imageUrl = obras.get(position).urlImagem;
-        Picasso.get().load(imageUrl).resize(1600, 2272).onlyScaleDown().into(holder.imageView);
+        if (RepositorioFavoritos.getInstance().obraLista.get(position) != null) {
+            Log.wtf("Banana", obras.get(position).titulo);
+            String titulo = obras.get(position).titulo;
+            if (titulo.length() > 25) {
+                titulo = titulo.substring(0, 25);
+            }
+            holder.textView.setText(titulo);
+            String imageUrl = obras.get(position).urlImagem;
+            Picasso.get().load(imageUrl).resize(1600, 2272).onlyScaleDown().into(holder.imageView);
 
-        holder.imageView.setOnClickListener(view -> {
-            AvaliacaoService.buscarComentarios(obras.get(position).id, onServiceDone -> {
-                Intent intentObra = new Intent(context, ObraPage.class);
-                intentObra.putExtra("id_obra", obras.get(position).id);
-                context.startActivity(intentObra);
-            }, null);
-        });
+            holder.imageView.setOnClickListener(view -> {
+                AvaliacaoService.buscarComentarios(obras.get(position).id, onServiceDone -> {
+                    Intent intentObra = new Intent(context, ObraPage.class);
+                    intentObra.putExtra("id_obra", obras.get(position).id);
+                    context.startActivity(intentObra);
+                }, null);
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
-        return obras.size();
+        return RepositorioFavoritos.getInstance().obraLista.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
