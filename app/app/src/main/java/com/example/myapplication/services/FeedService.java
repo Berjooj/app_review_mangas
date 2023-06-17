@@ -75,6 +75,10 @@ public class FeedService {
                     callback.onServiceDone(new ObraResponse("Feed carregado", 200, null));
                 }
             }, onErrorEmAlta -> {
+                if (callback != null) {
+                    callback.onServiceDone(new ObraResponse("Erro ao carregar a busca", 500, null));
+                }
+
                 Toast.makeText(applicationService.getContext(), "Erro ao carregar a busca", Toast.LENGTH_SHORT).show();
             });
         } catch (JSONException e) {
@@ -132,22 +136,22 @@ public class FeedService {
                     for (int j = 0; j < obraToken.getCategorias().size(); j++) {
                         obra.categorias.add(obraToken.getCategorias().get(j).getNome());
                     }
-
                     obra.favoritada = repositorioFavoritos.obraLista.stream().anyMatch(_obra -> _obra.id == obra.id);
 
-                    switch (tipoFiltro) {
-                        case "lancamentos":
-                            repositorioObras.lancamentoLista.add(obra);
-                            break;
-                        case "em_breve":
-                            repositorioObras.emBreveLista.add(obra);
-                            break;
-                        case "em_alta":
-                            repositorioObras.emAltaLista.add(obra);
-                            break;
-                        default:
-                            repositorioObras.listaFiltro.add(obra);
-                            break;
+                    if (tipoFiltro == null) {
+                        repositorioObras.listaFiltro.add(obra);
+                    } else {
+                        switch (tipoFiltro) {
+                            case "lancamentos":
+                                repositorioObras.lancamentoLista.add(obra);
+                                break;
+                            case "em_breve":
+                                repositorioObras.emBreveLista.add(obra);
+                                break;
+                            case "em_alta":
+                                repositorioObras.emAltaLista.add(obra);
+                                break;
+                        }
                     }
                 }
 
