@@ -260,7 +260,7 @@
 
                 <TextView
                     android:id="@+id/descricaoInfoId"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
@@ -290,9 +290,7 @@
                     android:id="@+id/publicarLayoutId"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginRight="20dp"
                     android:visibility="visible"
                     app:layout_constraintTop_toBottomOf="@+id/suaAvalicaoId"
                     tools:layout_editor_absoluteX="10dp">
@@ -301,6 +299,8 @@
                         android:id="@+id/textInputLayoutReviewId"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
                         app:boxBackgroundColor="@color/branco"
                         app:boxCornerRadiusBottomEnd="20dp"
                         app:boxCornerRadiusBottomStart="20dp"
@@ -312,15 +312,18 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/comentarioTextViewId"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <ImageView
-                        android:id="@+id/estrelaQuatroId"
+                        android:id="@+id/estrelaCincoId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        app:layout_constraintStart_toEndOf="@+id/estrelaTresId"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintStart_toEndOf="@+id/estrelaQuatroId"
                         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutReviewId"
                         app:srcCompat="@drawable/favorito" />
 
@@ -328,26 +331,9 @@
                         android:id="@+id/estrelaUmId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="4dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutReviewId"
-                        app:srcCompat="@drawable/favorito" />
-
-                    <ImageView
-                        android:id="@+id/estrelaCincoId"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        app:layout_constraintStart_toEndOf="@+id/estrelaQuatroId"
-                        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutReviewId"
-                        app:srcCompat="@drawable/favorito" />
-
-                    <ImageView
-                        android:id="@+id/estrelaDoisId"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        app:layout_constraintStart_toEndOf="@+id/estrelaUmId"
                         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutReviewId"
                         app:srcCompat="@drawable/favorito" />
 
@@ -355,16 +341,39 @@
                         android:id="@+id/estrelaTresId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
                         app:layout_constraintStart_toEndOf="@+id/estrelaDoisId"
+                        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutReviewId"
+                        app:srcCompat="@drawable/favorito" />
+
+                    <ImageView
+                        android:id="@+id/estrelaQuatroId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintStart_toEndOf="@+id/estrelaTresId"
+                        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutReviewId"
+                        app:srcCompat="@drawable/favorito" />
+
+                    <ImageView
+                        android:id="@+id/estrelaDoisId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintStart_toEndOf="@+id/estrelaUmId"
                         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutReviewId"
                         app:srcCompat="@drawable/favorito" />
 
                     <Button
                         android:id="@+id/publicarId"
                         android:layout_width="0dp"
-                        android:layout_height="38dp"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="12dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginRight="12dp"
                         android:autoSizeTextType="uniform"
                         android:backgroundTint="@color/verde"
                         android:fontFamily="@font/outfitregular"
@@ -508,18 +517,6 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/favorito" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <ImageView
-                        android:id="@+id/curtirIconeId"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="5dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/periodoComentarioId"
-                        app:srcCompat="@drawable/baseline_thumb_up_24" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

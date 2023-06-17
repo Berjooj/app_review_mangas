@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BlurMaskFilter;
@@ -22,6 +23,7 @@ import com.example.myapplication.models.Obra;
 import com.example.myapplication.repositories.RepositorioAvalicao;
 import com.example.myapplication.repositories.RepositorioFavoritos;
 import com.example.myapplication.repositories.RepositorioObras;
+import com.example.myapplication.services.ApplicationService;
 import com.example.myapplication.services.AvaliacaoService;
 import com.google.android.material.textfield.TextInputLayout;
 import com.squareup.picasso.Picasso;
@@ -39,32 +41,53 @@ import java.util.List;
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 public class ObraPage extends AppCompatActivity {
-    ImageView fundo;
-    ImageView card;
-    TextView descricao;
-    TextView numeroPaginas;
-    TextView numeroCurtidas;
-    TextView nota;
-    View publicarLayout;
-    View comentario;
+    private ImageView fundo;
+    private ImageView card;
+    private TextView descricao;
+    private TextView numeroPaginas;
+    private TextView numeroCurtidas;
+    private TextView nota;
+    private TextView tituloObraId;
+    private View publicarLayout;
+    private View comentario;
 
-    ImageView curtirIcone;
-    ImageView imagemIcone;
-    TextView nomeUsuarioComentario;
-    TextView comentarioText;
-    TextView periodoComentario;
-    Button publicar;
-    TextView comentarioTextView;
+    private ImageView voltarId2;
+    private ImageView curtirIcone;
+    private ImageView imagemIcone;
+    private TextView nomeUsuarioComentario;
+    private TextView comentarioText;
+    private TextView periodoComentario;
+    private Button publicar;
+    private TextView comentarioTextView;
 
+    RepositorioObras repositorioObras;
+    RepositorioAvalicao repositorioAvalicao;
+
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.obra_page);
-        RepositorioObras repositorioObras = RepositorioObras.getInstance();
-        RepositorioAvalicao repositorioAvalicao = RepositorioAvalicao.getInstance();
+
         int id_obra = getIncomingIntentId();
+
+        this.repositorioObras = RepositorioObras.getInstance();
+        this.repositorioAvalicao = RepositorioAvalicao.getInstance();
+
+        if (repositorioAvalicao.comentarioUsuarioLogado == null) {
+            AvaliacaoService.buscarComentarios(id_obra, onSuccess -> {
+                this.init();
+            }, null);
+        } else {
+            this.init();
+        }
+    }
+
+    private void init() {
+        int id_obra = getIncomingIntentId();
+
         Obra obra = repositorioObras.filtro(id_obra);
-        Log.wtf("pao de batata", String.valueOf(id_obra));
+
         repositorioObras.filtro(id_obra);
         fundo = findViewById(R.id.ImagemFundoId);
         card = findViewById(R.id.imagemPrincipalId);
@@ -76,6 +99,13 @@ public class ObraPage extends AppCompatActivity {
         comentario = findViewById(R.id.layoutComentarioId);
         publicar = findViewById(R.id.publicarId);
         comentarioTextView = findViewById(R.id.comentarioTextViewId);
+        nomeUsuarioComentario = findViewById(R.id.nomeUsuarioComentarioId);
+        periodoComentario = findViewById(R.id.periodoComentarioId);
+        comentarioText = findViewById(R.id.comentarioId);
+        tituloObraId = findViewById(R.id.tituloObraId);
+        voltarId2 = findViewById(R.id.voltarId2);
+
+        voltarId2.setOnClickListener(v -> finish());
 
         publicar.setOnClickListener(view -> {
             String newComentario = comentarioTextView.getText().toString();
@@ -87,7 +117,11 @@ public class ObraPage extends AppCompatActivity {
             Log.wtf("Beijinho", newComentario);
             try {
                 AvaliacaoService.criarComentario(onServiceDone -> {
-
+                    ApplicationService service = ApplicationService.getInstance();
+                    finish();
+                    Intent intentObra = new Intent(service.getContext(), ObraPage.class);
+                    intentObra.putExtra("id_obra", id_obra);
+                    service.getContext().startActivity(intentObra);
                 }, onError -> {
                     Log.wtf("Goiabinha", onError.mensagem);
                 });
@@ -103,12 +137,16 @@ public class ObraPage extends AppCompatActivity {
         } else {
             card.setImageResource(R.drawable.blank);
         }
-        if (repositorioAvalicao.comentarioUsuarioLogado != null && repositorioAvalicao.comentarioUsuarioLogado.created_at != null) {
+        if (repositorioAvalicao.comentarioUsuarioLogado != null && repositorioAvalicao.comentarioUsuarioLogado.id != 0) {
             publicarLayout.setVisibility(View.GONE);
             comentario.setVisibility(View.VISIBLE);
+
             Avaliacao avaliacao = repositorioAvalicao.comentarioUsuarioLogado;
+            Log.wtf("aaa", avaliacao.comentario + " aquiii");
+
             nomeUsuarioComentario.setText(repositorioAvalicao.comentarioUsuarioLogado.nome);
             comentarioText.setText(avaliacao.comentario);
+
             LocalDate dataComentario = LocalDate.parse((avaliacao.created_at).substring(0, 10));
             LocalDate dataAtual = LocalDate.now();
             Period periodo = Period.between(dataComentario, dataAtual);
@@ -126,8 +164,8 @@ public class ObraPage extends AppCompatActivity {
             periodoComentario.setText(periodoFormatado);
         }
 
-
-        descricao.setText(repositorioObras.filtro(id_obra).titulo);
+        descricao.setText(repositorioObras.filtro(id_obra).descricao);
+        tituloObraId.setText(repositorioObras.filtro(id_obra).titulo.substring(0, 15) + "...");
 
         numeroPaginas.setText(String.valueOf(repositorioObras.filtro(id_obra).qtVolumes));
 
@@ -150,7 +188,6 @@ public class ObraPage extends AppCompatActivity {
         RepositorioObras repositorioObras = RepositorioObras.getInstance();
         int id = getIntent().getIntExtra("id_obra", 0);
         Log.wtf("Feijoada", String.valueOf(id));
-        ;
         return id;
     }
 }

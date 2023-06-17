@@ -11,12 +11,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.models.Obra;
 import com.example.myapplication.repositories.RepositorioFavoritos;
 import com.example.myapplication.repositories.RepositorioObras;
+import com.example.myapplication.services.ApplicationService;
 import com.example.myapplication.services.AvaliacaoService;
 import com.example.myapplication.services.FavoritoService;
 import com.example.myapplication.views.ObraPage;
@@ -32,7 +34,6 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.ViewHolder
     private List<Obra> obras;
 
     public Context context;
-
 
     public BannerAdapter(Context context, List<Obra> obras) {
         this.context = context;
@@ -54,11 +55,12 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.ViewHolder
         int posicao = position;
         Log.wtf("Banana", obras.get(position).titulo);
         holder.nomeObra.setText(obras.get(position).titulo);
-        //String subTitulo = obras.get(position).titulo;
-        //if (subTitulo.length() > 25) {
-        //   subTitulo = subTitulo.substring(0, 25);
-        //}
-        //holder.criadorObra.setText(subTitulo);
+
+        if (obras.get(position).favoritada)
+            holder.favoritosBotao.setColorFilter(ContextCompat.getColor(context, R.color.amarelo), android.graphics.PorterDuff.Mode.MULTIPLY);
+        else
+            holder.favoritosBotao.setColorFilter(ContextCompat.getColor(context, R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+
         holder.numPaginas.setText(String.valueOf(obras.get(position).qtVolumes));
         holder.numCurtidas.setText(String.valueOf(obras.get(position).qtAvaliacoes));
         holder.numNota.setText(String.valueOf(obras.get(position).nota));
@@ -67,49 +69,74 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.ViewHolder
 
         holder.bannerImagem.setOnClickListener(view -> {
 
-                    AvaliacaoService.buscarComentarios(obras.get(position).id, onServiceDone -> {
-                        Intent intentObra = new Intent(context, ObraPage.class);
-                        intentObra.putExtra("id_obra", obras.get(position).id);
-                        context.startActivity(intentObra);
-                    }, null);
-                });
+            AvaliacaoService.buscarComentarios(obras.get(position).id, onServiceDone -> {
+                Intent intentObra = new Intent(context, ObraPage.class);
+                intentObra.putExtra("id_obra", obras.get(position).id);
+                context.startActivity(intentObra);
+            }, null);
+        });
 
-        holder.favoritosBotao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    if (obras.get(position).favoritada) {
-                        Obra obra = repositorioFavoritos.obraLista.stream().filter(obraFavoritada ->
-                                obraFavoritada.id == obras.get(position).id).findFirst().orElse(null);
-                        assert obra != null;
+        holder.favoritosBotao.setOnClickListener(v -> {
+            try {
+                ApplicationService applicationService = ApplicationService.getInstance();
+
+                CardAdapter cardAdapter = applicationService.cardAdapter;
+                if (obras.get(position).favoritada) {
+                    Obra obra = repositorioFavoritos.obraLista.stream().filter(obraFavoritada ->
+                            obraFavoritada.id == obras.get(position).id).findFirst().orElse(null);
+
+                    if (obra != null) {
+                        applicationService.loader.showDialog();
+
                         FavoritoService.removerFavoritos(obra.idFavorito, obras.get(posicao).id,
                                 onSuccess -> {
-                                    // TODO: 16/06/2023
-                                    //obras.remove(position);
-                                    //notifyItemRemoved(position);
-                                    holder.favoritosBotao.setColorFilter(R.color.azul);
-                                    Log.wtf("Biscoito", "deu bom");
+                                    FavoritoService.getFavoritos(success -> {
+                                        applicationService.loader.dismiss();
+
+                                        if (cardAdapter != null)
+                                            cardAdapter.notifyDataSetChanged();
+                                        holder.favoritosBotao.setColorFilter(ContextCompat.getColor(context, R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+                                        Log.wtf("Biscoito", "deu bom (removeu)");
+                                        Log.wtf("bolacha", String.valueOf(repositorioFavoritos.obraLista.size()));
+                                    }, error -> {
+                                        applicationService.loader.dismiss();
+                                    });
                                 },
                                 onError -> {
-                                    holder.favoritosBotao.setColorFilter(R.color.amarelo);
+                                    applicationService.loader.dismiss();
+
+                                    holder.favoritosBotao.setColorFilter(ContextCompat.getColor(context, R.color.amarelo), android.graphics.PorterDuff.Mode.MULTIPLY);
                                     Log.wtf("Biscoito", "deu ruim");
                                 }
                         );
-                    } else {
-                        FavoritoService.addFavoritos(obras.get(posicao).id,
-                                onSuccess -> {
-                                    holder.favoritosBotao.setColorFilter(R.color.azul);
-                                    Log.wtf("bolacha", "deu bom");
-                                },
-                                onError -> {
-                                    holder.favoritosBotao.setColorFilter(R.color.amarelo);
-                                    Log.wtf("bolacha", "deu ruim");
-                                }
-                        );
                     }
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
+                } else {
+                    applicationService.loader.showDialog();
+
+                    FavoritoService.addFavoritos(obras.get(posicao).id,
+                            onSuccess -> {
+                                FavoritoService.getFavoritos(success -> {
+                                    applicationService.loader.dismiss();
+
+                                    if (cardAdapter != null)
+                                        cardAdapter.notifyDataSetChanged();
+                                    holder.favoritosBotao.setColorFilter(ContextCompat.getColor(context, R.color.amarelo), android.graphics.PorterDuff.Mode.MULTIPLY);
+                                    Log.wtf("bolacha", "deu bom (adicionou)");
+                                    Log.wtf("bolacha", String.valueOf(repositorioFavoritos.obraLista.size()));
+                                }, error -> {
+                                    applicationService.loader.dismiss();
+                                });
+                            },
+                            onError -> {
+                                applicationService.loader.dismiss();
+
+                                holder.favoritosBotao.setColorFilter(ContextCompat.getColor(context, R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+                                Log.wtf("bolacha", "deu ruim");
+                            }
+                    );
                 }
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
             }
         });
     }

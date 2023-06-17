@@ -48,14 +48,16 @@ public class Login extends AppCompatActivity implements InitContext {
                 UsuarioService.loginRequest(
                         new Usuario(newEmail, newSenha),
                         success -> {
+                            service.loader.dismiss();
+
                             Intent intentSplashPage = new Intent(getApplicationContext(), SplashPage.class);
                             intentSplashPage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intentSplashPage);
 
                             finish();
                         }, error -> {
-                            Toast.makeText(this, "Erro ao autenticar o usuário", Toast.LENGTH_LONG).show();
                             service.loader.dismiss();
+                            Toast.makeText(this, "Credenciais inválidas", Toast.LENGTH_LONG).show();
                         });
             } catch (Exception e) {
                 Toast.makeText(this, "Puts ai deu ruim :/", Toast.LENGTH_LONG).show();

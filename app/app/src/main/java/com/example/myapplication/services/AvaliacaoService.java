@@ -65,11 +65,10 @@ public class AvaliacaoService {
 
                     if (usuario.id == avaliacao.idUsuario) {
                         repositorioAvalicao.comentarioUsuarioLogado = avaliacao;
+                    } else {
+                        avaliacao.curtiu = token.getCurtidas().stream().anyMatch(curtidaToken -> curtidaToken.getId_usuario() == usuario.id);
+                        repositorioAvalicao.avaliacaoLista.add(avaliacao);
                     }
-
-                    avaliacao.curtiu = token.getCurtidas().stream().anyMatch(curtidaToken -> curtidaToken.getId_usuario() == usuario.id);
-
-                    repositorioAvalicao.avaliacaoLista.add(avaliacao);
                 }
 
                 if (onSuccess != null) {

@@ -55,9 +55,13 @@ class UsuarioController extends Controller {
      */
     public function update(UpdateUsuarioRequest $request): \Illuminate\Http\JsonResponse {
         try {
-            $usuario = User::findOrFail($request->validated()['id']);
+            $requestValidatedFields = $request->validated();
 
-            $usuario->update($request->validated());
+            $usuario = User::findOrFail($requestValidatedFields['id']);
+
+            $requestValidatedFields['password'] = bcrypt($requestValidatedFields['password']);
+
+            $usuario->update($requestValidatedFields);
 
             return APIResponse::success($usuario, 'Usuário atualizado com sucesso!');
         } catch (\Exception $e) {
