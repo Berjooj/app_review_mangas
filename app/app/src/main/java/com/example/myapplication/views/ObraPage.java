@@ -26,6 +26,7 @@ import com.example.myapplication.repositories.RepositorioFavoritos;
 import com.example.myapplication.repositories.RepositorioObras;
 import com.example.myapplication.services.ApplicationService;
 import com.example.myapplication.services.AvaliacaoService;
+import com.example.myapplication.services.FavoritoService;
 import com.google.android.material.textfield.TextInputLayout;
 import com.squareup.picasso.Picasso;
 
@@ -55,11 +56,14 @@ public class ObraPage extends AppCompatActivity {
     private ImageView voltarId2;
     private ImageView curtirIcone;
     private ImageView imagemIcone;
+    private ImageView favoritosId2;
     private TextView nomeUsuarioComentario;
     private TextView comentarioText;
     private TextView periodoComentario;
     private Button publicar;
     private TextView comentarioTextView;
+    private TextView categoriaUm;
+    private TextView categoriaDois;
 
     private ImageView estrelaUmId;
     private ImageView estrelaDoisId;
@@ -71,6 +75,7 @@ public class ObraPage extends AppCompatActivity {
 
     RepositorioObras repositorioObras;
     RepositorioAvalicao repositorioAvalicao;
+    RepositorioFavoritos repositorioFavoritos;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -81,6 +86,7 @@ public class ObraPage extends AppCompatActivity {
         int id_obra = getIncomingIntentId();
 
         this.repositorioObras = RepositorioObras.getInstance();
+        this.repositorioFavoritos = RepositorioFavoritos.getInstance();
         this.repositorioAvalicao = RepositorioAvalicao.getInstance();
 
         if (repositorioAvalicao.comentarioUsuarioLogado == null) {
@@ -113,6 +119,9 @@ public class ObraPage extends AppCompatActivity {
         comentarioText = findViewById(R.id.comentarioId);
         tituloObraId = findViewById(R.id.tituloObraId);
         voltarId2 = findViewById(R.id.voltarId2);
+        favoritosId2 = findViewById(R.id.favoritosId2);
+        categoriaUm = findViewById(R.id.categoriaUmId);
+        categoriaDois = findViewById(R.id.categoriaDoisId);
 
         estrelaUmId = findViewById(R.id.estrelaUmId);
         estrelaDoisId = findViewById(R.id.estrelaDoisId);
@@ -121,6 +130,80 @@ public class ObraPage extends AppCompatActivity {
         estrelaCincoId = findViewById(R.id.estrelaCincoId);
 
         ApplicationService service = ApplicationService.getInstance();
+
+        if(repositorioObras.filtro(id_obra).categorias != null){
+            categoriaUm.setText(repositorioObras.filtro(id_obra).categorias.get(0));
+            if (repositorioObras.filtro(id_obra).categorias.get(1) != null){
+                categoriaDois.setText(repositorioObras.filtro(id_obra).categorias.get(1));
+            }
+        }
+
+        if(repositorioObras.filtro(id_obra).favoritada){
+            favoritosId2.setColorFilter(ContextCompat.getColor(this, R.color.amarelo), android.graphics.PorterDuff.Mode.MULTIPLY);
+        }else{
+            favoritosId2.setColorFilter(ContextCompat.getColor(this, R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+        }
+        favoritosId2.setOnClickListener(v -> {
+            try {
+                ApplicationService applicationService = ApplicationService.getInstance();
+
+                CardAdapter cardAdapter = applicationService.cardAdapter;
+                if (repositorioObras.filtro(id_obra).favoritada) {
+                    Log.wtf("Favorito", String.valueOf(repositorioObras.filtro(id_obra).favoritada));
+                    Obra obraFavorita = repositorioFavoritos.obraLista.stream().filter(obraFavoritada ->
+                            obraFavoritada.id == repositorioObras.filtro(id_obra).id).findFirst().orElse(null);
+                    Log.wtf("Favorito", obraFavorita.titulo.toString());
+
+                    if (obraFavorita != null) {
+                        applicationService.loader.showDialog();
+
+                        FavoritoService.removerFavoritos(obraFavorita.idFavorito, repositorioObras.filtro(id_obra).id,
+                                onSuccess -> {
+                                    FavoritoService.getFavoritos(success -> {
+                                        applicationService.loader.dismiss();
+                                        if (cardAdapter != null)
+                                            cardAdapter.notifyDataSetChanged();
+                                        favoritosId2.setColorFilter(ContextCompat.getColor(this, R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+                                        Log.wtf("Biscoito", "deu bom (removeu)");
+                                        Log.wtf("bolacha", String.valueOf(repositorioFavoritos.obraLista.size()));
+                                    }, error -> {
+                                        applicationService.loader.dismiss();
+                                    });
+                                },
+                                onError -> {
+                                    applicationService.loader.dismiss();
+
+                                    Log.wtf("bolacha", onError.mensagem);
+                                }
+                        );
+                    }
+                } else {
+                    applicationService.loader.showDialog();
+
+                    FavoritoService.addFavoritos(repositorioObras.filtro(id_obra).id,
+                            onSuccess -> {
+                                FavoritoService.getFavoritos(success -> {
+                                    applicationService.loader.dismiss();
+                                    if (cardAdapter != null)
+                                        cardAdapter.notifyDataSetChanged();
+                                    favoritosId2.setColorFilter(ContextCompat.getColor(this, R.color.amarelo), android.graphics.PorterDuff.Mode.MULTIPLY);
+                                    Log.wtf("bolacha", "deu bom (adicionou)");
+                                    Log.wtf("bolacha", String.valueOf(repositorioFavoritos.obraLista.size()));
+                                }, error -> {
+                                    applicationService.loader.dismiss();
+                                });
+                            },
+                            onError -> {
+                                applicationService.loader.dismiss();
+
+                                Log.wtf("bolacha", onError.mensagem);
+                            }
+                    );
+                }
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         estrelaUmId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
         estrelaDoisId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
