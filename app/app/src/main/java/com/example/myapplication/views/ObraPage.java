@@ -1,6 +1,7 @@
 package com.example.myapplication.views;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -60,6 +61,14 @@ public class ObraPage extends AppCompatActivity {
     private Button publicar;
     private TextView comentarioTextView;
 
+    private ImageView estrelaUmId;
+    private ImageView estrelaDoisId;
+    private ImageView estrelaTresId;
+    private ImageView estrelaQuatroId;
+    private ImageView estrelaCincoId;
+
+    private int notaAtual = 0;
+
     RepositorioObras repositorioObras;
     RepositorioAvalicao repositorioAvalicao;
 
@@ -105,6 +114,71 @@ public class ObraPage extends AppCompatActivity {
         tituloObraId = findViewById(R.id.tituloObraId);
         voltarId2 = findViewById(R.id.voltarId2);
 
+        estrelaUmId = findViewById(R.id.estrelaUmId);
+        estrelaDoisId = findViewById(R.id.estrelaDoisId);
+        estrelaTresId = findViewById(R.id.estrelaTresId);
+        estrelaQuatroId = findViewById(R.id.estrelaQuatroId);
+        estrelaCincoId = findViewById(R.id.estrelaCincoId);
+
+        ApplicationService service = ApplicationService.getInstance();
+
+        estrelaUmId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+        estrelaDoisId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+        estrelaTresId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+        estrelaQuatroId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+        estrelaCincoId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+
+        estrelaUmId.setOnClickListener(v -> {
+            estrelaUmId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.amarelo), android.graphics.PorterDuff.Mode.MULTIPLY);
+            estrelaDoisId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+            estrelaTresId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+            estrelaQuatroId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+            estrelaCincoId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+
+            notaAtual = 1;
+        });
+
+        estrelaDoisId.setOnClickListener(v -> {
+            estrelaUmId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.amarelo), android.graphics.PorterDuff.Mode.MULTIPLY);
+            estrelaDoisId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.amarelo), android.graphics.PorterDuff.Mode.MULTIPLY);
+            estrelaTresId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+            estrelaQuatroId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+            estrelaCincoId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+
+            notaAtual = 2;
+        });
+
+        estrelaTresId.setOnClickListener(v -> {
+            estrelaUmId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.amarelo), android.graphics.PorterDuff.Mode.MULTIPLY);
+            estrelaDoisId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.amarelo), android.graphics.PorterDuff.Mode.MULTIPLY);
+            estrelaTresId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.amarelo), android.graphics.PorterDuff.Mode.MULTIPLY);
+            estrelaQuatroId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+            estrelaCincoId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+
+            notaAtual = 3;
+        });
+
+        estrelaQuatroId.setOnClickListener(v -> {
+            estrelaUmId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.amarelo), android.graphics.PorterDuff.Mode.MULTIPLY);
+            estrelaDoisId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.amarelo), android.graphics.PorterDuff.Mode.MULTIPLY);
+            estrelaTresId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.amarelo), android.graphics.PorterDuff.Mode.MULTIPLY);
+            estrelaQuatroId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.amarelo), android.graphics.PorterDuff.Mode.MULTIPLY);
+            estrelaCincoId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+
+            notaAtual = 4;
+        });
+
+        estrelaCincoId.setOnClickListener(v -> {
+            estrelaUmId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.amarelo), android.graphics.PorterDuff.Mode.MULTIPLY);
+            estrelaDoisId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.amarelo), android.graphics.PorterDuff.Mode.MULTIPLY);
+            estrelaTresId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.amarelo), android.graphics.PorterDuff.Mode.MULTIPLY);
+            estrelaQuatroId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.amarelo), android.graphics.PorterDuff.Mode.MULTIPLY);
+            estrelaCincoId.setColorFilter(ContextCompat.getColor(service.getContext(), R.color.amarelo), android.graphics.PorterDuff.Mode.MULTIPLY);
+
+            notaAtual = 5;
+        });
+
+
         voltarId2.setOnClickListener(v -> finish());
 
         publicar.setOnClickListener(view -> {
@@ -112,12 +186,12 @@ public class ObraPage extends AppCompatActivity {
 
             repositorioAvalicao.comentarioUsuarioLogado.comentario = newComentario;
             repositorioAvalicao.comentarioUsuarioLogado.idObra = id_obra;
+            repositorioAvalicao.comentarioUsuarioLogado.nota = notaAtual;
 
             Log.wtf("Beijinho", repositorioAvalicao.comentarioUsuarioLogado.comentario);
             Log.wtf("Beijinho", newComentario);
             try {
                 AvaliacaoService.criarComentario(onServiceDone -> {
-                    ApplicationService service = ApplicationService.getInstance();
                     finish();
                     Intent intentObra = new Intent(service.getContext(), ObraPage.class);
                     intentObra.putExtra("id_obra", id_obra);
@@ -165,7 +239,11 @@ public class ObraPage extends AppCompatActivity {
         }
 
         descricao.setText(repositorioObras.filtro(id_obra).descricao);
-        tituloObraId.setText(repositorioObras.filtro(id_obra).titulo.substring(0, 15) + "...");
+
+        if (repositorioObras.filtro(id_obra).titulo.length() > 15)
+            tituloObraId.setText(repositorioObras.filtro(id_obra).titulo.substring(0, 15) + "...");
+        else
+            tituloObraId.setText(repositorioObras.filtro(id_obra).titulo);
 
         numeroPaginas.setText(String.valueOf(repositorioObras.filtro(id_obra).qtVolumes));
 
