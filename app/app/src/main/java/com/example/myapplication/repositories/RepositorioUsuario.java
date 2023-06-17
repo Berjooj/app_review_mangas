@@ -70,6 +70,12 @@ public class RepositorioUsuario {
     }
 
     public void logout() {
+        RepositorioObras repositorioObras = RepositorioObras.getInstance();
+        repositorioObras.limparListas();
+
+        RepositorioFavoritos repositorioFavoritos = RepositorioFavoritos.getInstance();
+        repositorioFavoritos.clear();
+
         SharedPreferences pref = this.appService.getContext().getSharedPreferences("AuthUser", MODE_PRIVATE);
 
         pref.edit().clear().apply();

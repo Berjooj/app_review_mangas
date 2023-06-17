@@ -17,9 +17,10 @@ public class Obra {
     public String urlImagem;
     public String dataLancamento;
     public String criacao;
+    public String descricao;
     public ArrayList<String> categorias;
 
-    public Obra(int id, int idFavorito, int idTipo, String titulo, String subtitulo, int qtEpisodios, int qtVolumes, float qtFavoritos, double nota, int qtAvaliacoes, String urlImagem, String dataLancamento, String criacao) {
+    public Obra(int id, int idFavorito, int idTipo, String titulo, String subtitulo, int qtEpisodios, int qtVolumes, float qtFavoritos, double nota, int qtAvaliacoes, String urlImagem, String dataLancamento, String criacao, String descricao) {
         this.id = id;
         this.idFavorito = idFavorito;
         this.idTipo = idTipo;
@@ -33,6 +34,7 @@ public class Obra {
         this.urlImagem = urlImagem;
         this.dataLancamento = dataLancamento;
         this.criacao = criacao;
+        this.descricao = descricao;
 
         this.categorias = new ArrayList<>();
     }

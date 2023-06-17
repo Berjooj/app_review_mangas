@@ -63,6 +63,8 @@ public class RepositorioFavoritos implements SharedObra {
 
     @Override
     public void clear() {
+        this.obraLista = new ArrayList<>();
+
         SharedPreferences pref = this.appService.getContext().getSharedPreferences("AuthUser", MODE_PRIVATE);
 
         pref.edit().remove("FavList").apply();

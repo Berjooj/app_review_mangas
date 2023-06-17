@@ -127,6 +127,7 @@ public class FeedService {
                     obra.urlImagem = obraToken.getUrl_imagem();
                     obra.dataLancamento = obraToken.getData_lancamento();
                     obra.criacao = obraToken.getCreated_at();
+                    obra.descricao = obraToken.getDescricao();
 
                     for (int j = 0; j < obraToken.getCategorias().size(); j++) {
                         obra.categorias.add(obraToken.getCategorias().get(j).getNome());

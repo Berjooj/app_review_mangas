@@ -32,6 +32,9 @@ class Obra extends Model {
         // Subtítulo da obra
         'subtitulo' => 'string',
 
+        // Descrição da obra
+        'descricao' => 'string',
+
         // Quantidade de episódios da obra
         'qt_episodios' => 'integer',
 
@@ -125,6 +128,9 @@ class Obra extends Model {
 
         // Data que o registro foi excluido lógicamente
         'deleted_at',
+
+        // Descrição da obra
+        'descricao',
     ];
 
 

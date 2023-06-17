@@ -12,12 +12,13 @@ public class ObraToken {
     private String titulo;
     private String subtitulo;
     private String data_lancamento;
-    private int qt_episodios;
-    private int qt_volumes;
-    private int qt_favoritos;
-    private double nota;
-    private int qt_avaliacoes;
+    private Integer qt_episodios;
+    private Integer qt_volumes;
+    private Integer qt_favoritos;
+    private Double nota;
+    private Integer qt_avaliacoes;
     private String url_imagem;
+    private String descricao;
     private ArrayList<CategoriaToken> categorias;
 
     public ObraToken() {
@@ -28,6 +29,14 @@ public class ObraToken {
 
     public int getId_tipo() {
         return id_tipo;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public void setId_tipo(int id_tipo) {
@@ -59,6 +68,9 @@ public class ObraToken {
     }
 
     public String getTitulo() {
+        if (titulo == null) {
+            return "";
+        }
         return titulo;
     }
 
@@ -67,6 +79,9 @@ public class ObraToken {
     }
 
     public String getSubtitulo() {
+        if (subtitulo == null) {
+            return "";
+        }
         return subtitulo;
     }
 
@@ -75,6 +90,9 @@ public class ObraToken {
     }
 
     public String getData_lancamento() {
+        if (data_lancamento == null) {
+            return "";
+        }
         return data_lancamento;
     }
 
@@ -83,46 +101,64 @@ public class ObraToken {
     }
 
     public int getQt_episodios() {
+        if (qt_episodios == null) {
+            return 0;
+        }
         return qt_episodios;
     }
 
-    public void setQt_episodios(int qt_episodios) {
+    public void setQt_episodios(Integer qt_episodios) {
         this.qt_episodios = qt_episodios;
     }
 
     public int getQt_volumes() {
+        if (qt_volumes == null) {
+            return 0;
+        }
         return qt_volumes;
     }
 
-    public void setQt_volumes(int qt_volumes) {
+    public void setQt_volumes(Integer qt_volumes) {
         this.qt_volumes = qt_volumes;
     }
 
     public int getQt_favoritos() {
+        if (qt_favoritos == null) {
+            return 0;
+        }
         return qt_favoritos;
     }
 
-    public void setQt_favoritos(int qt_favoritos) {
+    public void setQt_favoritos(Integer qt_favoritos) {
         this.qt_favoritos = qt_favoritos;
     }
 
     public double getNota() {
+        if (nota == null) {
+            return 0.0;
+        }
         return nota;
     }
 
-    public void setNota(double nota) {
+    public void setNota(Double nota) {
         this.nota = nota;
     }
 
     public int getQt_avaliacoes() {
+        if (qt_avaliacoes == null) {
+            return 0;
+        }
         return qt_avaliacoes;
     }
 
-    public void setQt_avaliacoes(int qt_avaliacoes) {
+    public void setQt_avaliacoes(Integer qt_avaliacoes) {
         this.qt_avaliacoes = qt_avaliacoes;
     }
 
     public String getUrl_imagem() {
+        if (url_imagem == null) {
+            return "";
+        }
         return url_imagem;
     }
 

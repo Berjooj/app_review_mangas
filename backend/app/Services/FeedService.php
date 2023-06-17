@@ -59,7 +59,7 @@ class FeedService {
         }
 
         if (!empty($data['filtro'])) {
-            $obras->where('lower(titulo)', 'like', '%' . mb_strtolower($data['filtro']) . '%');
+            $obras->where(DB::raw('lower(titulo)'), 'like', '%' . mb_strtolower($data['filtro']) . '%');
         }
 
         if ($obras->count() == 10) {
@@ -84,9 +84,7 @@ class FeedService {
 
         foreach ($obras as $obra) {
             /** @var \App\Models\Obra */
-            $obraLocal = Obra::firstOrCreate(['id_externo' => $obra['id'], 'id_tipo' => $obra['type'] == 'anime' ? 1 : 2]);
-
-            $jsonLocal = json_decode($obraLocal->json_info);
+            $obraLocal = Obra::firstOrCreate(['id_externo' => $obra['id']]);
 
             /** @var array */
             $obraCategorias = $obra['relationships']['categories']['data'] ?? [];
@@ -124,9 +122,9 @@ class FeedService {
                 ?? $obra['attributes']['titles']['canonicalTitle']
                 ?? null;
 
-            $obraLocal->subtitulo = $obra['attributes']['titles']['ja_jp']
-                ?? $obra['attributes']['titles']['en_jp']
-                ?? null;
+            $obraLocal->subtitulo = $obra['attributes']['serialization']
+                ?? $obra['attributes']['serialization']
+                ?? $obra['attributes']['showType'] ?? null;
 
             $obraLocal->data_lancamento = $obra['attributes']['startDate']
                 ?? $obra['attributes']['startDate']
@@ -138,19 +136,22 @@ class FeedService {
             $obraLocal->qt_volumes = $obra['attributes']['pageCount']
                 ?? rand(90, 400);
 
-            $obraLocal->qt_favoritos = $jsonLocal->favCount
+            $obraLocal->qt_favoritos = $obraLocal->qt_favoritos
                 ?? $obra['attributes']['favoritesCount'];
 
-            $obraLocal->nota = $jsonLocal->nota
+            $obraLocal->nota = $obraLocal->nota
                 ?? ($obra['attributes']['averageRating']
                     ? round((($obra['attributes']['averageRating'] * 5) / 100), 2)
                     : 0
                 );
 
-            $obraLocal->qt_avaliacoes = $jsonLocal->qtAvaliacoes
+            $obraLocal->descricao = $obra['attributes']['synopsis']
+                ?? null;
+
+            $obraLocal->qt_avaliacoes = $obraLocal->qt_avaliacoes
                 ?? rand(1, 1000);
 
-            $obraLocal->url_imagem = $obra['attributes']['posterImage']['original'];
+            $obraLocal->url_imagem = $obra['attributes']['posterImage']['original'] ?? null;
 
             $obraLocal->update();
 
