@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -31,7 +32,9 @@ import java.util.List;
 
 
 public class BuscaFragment extends Fragment {
-    List<Obra>obras = new ArrayList<>();
+    List<Obra> obras = new ArrayList<>();
+    private ProgressBar progressBar;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,34 +42,46 @@ public class BuscaFragment extends Fragment {
         View view = inflater.inflate(R.layout.busca_fragment, container, false);
         TextView nomeUsuario = view.findViewById(R.id.nomeUsuarioId);
         EditText editTextBusca = view.findViewById(R.id.editTextBusca);
-        editTextBusca.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
+
+        progressBar = view.findViewById(R.id.progressBar2);
+        progressBar.setVisibility(View.GONE);
+
+        editTextBusca.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    String searchText = editTextBusca.getText().toString();
 
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String searchText = editable.toString();
-                RepositorioObras repositorioObras = RepositorioObras.getInstance();
-                RecyclerView recyclerView = view.findViewById(R.id.recyclerViewBusca);
+                    if (searchText.length() > 3) {
+                        progressBar.setVisibility(View.VISIBLE);
 
-                FeedService.carregarPesquisa(searchText,onServiceDone -> {
-                    // Aqui vou atualizar o array da View
-                    obras = repositorioObras.listaFiltro;
-                });
-                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false) {
-                    @Override
-                    public boolean canScrollVertically() {
-                        return false;
+                        RepositorioObras repositorioObras = RepositorioObras.getInstance();
+                        RecyclerView recyclerView = view.findViewById(R.id.recyclerViewBusca);
+
+                        FeedService.carregarPesquisa(searchText, onServiceDone -> {
+                            progressBar.setVisibility(View.GONE);
+
+                            if (onServiceDone.codigo != 500) {
+                                // Aqui vou atualizar o array da View
+                                obras = repositorioObras.listaFiltro;
+
+                                Log.wtf("MEH", "onFocusChange: puts");
+
+                                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false) {
+                                    @Override
+                                    public boolean canScrollVertically() {
+                                        return false;
+                                    }
+                                });
+                                recyclerView.setAdapter(new BannerAdapter(getActivity(), obras));
+                            }
+                        });
                     }
-                });
-                recyclerView.setAdapter(new BannerAdapter(getActivity(), obras));
+                }
             }
         });
+
 
         return view;
     }
