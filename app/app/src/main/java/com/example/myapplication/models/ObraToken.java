@@ -18,6 +18,7 @@ public class ObraToken {
     private Double nota;
     private Integer qt_avaliacoes;
     private String url_imagem;
+    private String descricao;
     private ArrayList<CategoriaToken> categorias;
 
     public ObraToken() {
@@ -28,6 +29,14 @@ public class ObraToken {
 
     public int getId_tipo() {
         return id_tipo;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public void setId_tipo(int id_tipo) {

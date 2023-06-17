@@ -20,7 +20,7 @@ class FeedController extends Controller {
 
             return APIResponse::success($obras, 'Feed carregado com sucesso');
         } catch (\Exception $e) {
-            return APIResponse::error($e->getMessage());
+            return APIResponse::error($e->getMessage() . " " . $e->getFile() . " " . $e->getLine());
         }
     }
 }

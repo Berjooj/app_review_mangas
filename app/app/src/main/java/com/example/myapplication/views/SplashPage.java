@@ -62,6 +62,10 @@ public class SplashPage extends AppCompatActivity implements InitContext {
 
             Log.wtf("BRUH", seconds + " segundos.");
 
+            RepositorioObras repoObra = RepositorioObras.getInstance();
+
+            Log.wtf("BRUH", String.valueOf(repoObra.lancamentoLista.size()));
+
            this.initHomeActivity();
         });
     }
