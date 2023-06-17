@@ -18,18 +18,18 @@ import com.example.myapplication.R;
 import com.example.myapplication.adapters.CardAdapter;
 import com.example.myapplication.models.Obra;
 import com.example.myapplication.repositories.RepositorioFavoritos;
+import com.example.myapplication.repositories.RepositorioUsuario;
 
 import java.util.List;
 
 
 public class FavoritosFragment extends Fragment {
-    SharedPreferences pref;
-    SharedPreferences.Editor editor;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         RepositorioFavoritos repositorioFavoritos = RepositorioFavoritos.getInstance();
+
         View view = inflater.inflate(R.layout.favoritos_fragment, container, false);
         TextView nomeUsuario = view.findViewById(R.id.nomeUsuarioId);
 

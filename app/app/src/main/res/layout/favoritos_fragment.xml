@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="36dp"
                     android:fontFamily="@font/outfitregular"
-                    android:text="Nome Usuário"
+                    android:text="Favoritos"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"

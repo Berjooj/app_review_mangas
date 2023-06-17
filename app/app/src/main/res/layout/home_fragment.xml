@@ -137,12 +137,12 @@
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/menuListaId"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:background="@color/sombra"
                 app:itemActiveIndicatorStyle="@android:color/transparent"
                 app:itemTextColor="@drawable/icon_tint"
                 app:menu="@menu/lista_menu"
-                tools:layout_marginTop="10dp">
+                tools:layout_marginTop="16dp">
 
             </com.google.android.material.bottomnavigation.BottomNavigationView>
 

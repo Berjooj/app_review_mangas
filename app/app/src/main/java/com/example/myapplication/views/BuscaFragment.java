@@ -25,6 +25,7 @@ import com.example.myapplication.adapters.BannerAdapter;
 import com.example.myapplication.adapters.CardAdapter;
 import com.example.myapplication.models.Obra;
 import com.example.myapplication.repositories.RepositorioObras;
+import com.example.myapplication.repositories.RepositorioUsuario;
 import com.example.myapplication.services.ApplicationService;
 import com.example.myapplication.services.FeedService;
 
@@ -42,7 +43,6 @@ public class BuscaFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.busca_fragment, container, false);
-        TextView nomeUsuario = view.findViewById(R.id.nomeUsuarioId);
         EditText editTextBusca = view.findViewById(R.id.editTextBusca);
 
         editTextBusca.setOnEditorActionListener((v, actionId, event) -> {
