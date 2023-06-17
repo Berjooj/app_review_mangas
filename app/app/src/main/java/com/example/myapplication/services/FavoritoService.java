@@ -10,6 +10,7 @@ import com.example.myapplication.models.Obra;
 import com.example.myapplication.models.ObraResponse;
 import com.example.myapplication.models.Usuario;
 import com.example.myapplication.repositories.RepositorioFavoritos;
+import com.example.myapplication.repositories.RepositorioObras;
 import com.example.myapplication.repositories.RepositorioUsuario;
 
 import org.json.JSONArray;
@@ -98,7 +99,7 @@ public class FavoritoService {
 
     public static void addFavoritos(int idObra, ObraServiceDone onSuccess, ObraServiceDone onError) throws JSONException {
         ApplicationService appService = ApplicationService.getInstance();
-
+        RepositorioObras repositorioObras = RepositorioObras.getInstance();
         RepositorioUsuario repositorioUsuario = RepositorioUsuario.getInstance();
         Usuario usuario = repositorioUsuario.getUsuario();
 
@@ -116,6 +117,7 @@ public class FavoritoService {
                     throw new Exception(message);
                 }
 
+                repositorioObras.filtro(idObra).favoritada = true;
                 FavoritoService.getFavoritos(onSuccess, onError);
 
             } catch (Exception e) {
@@ -141,9 +143,9 @@ public class FavoritoService {
         requestQueue.add(request);
     }
 
-    public static void removerFavoritos(int idFavorito, ObraServiceDone onSuccess, ObraServiceDone onError) {
+    public static void removerFavoritos(int idFavorito, int idObra, ObraServiceDone onSuccess, ObraServiceDone onError) {
         ApplicationService appService = ApplicationService.getInstance();
-
+        RepositorioObras repositorioObras = RepositorioObras.getInstance();
         RepositorioUsuario repositorioUsuario = RepositorioUsuario.getInstance();
         Usuario usuario = repositorioUsuario.getUsuario();
 
@@ -162,6 +164,7 @@ public class FavoritoService {
                     throw new Exception(message);
                 }
 
+                repositorioObras.filtro(idObra).favoritada = false;
                 repositorioFavoritos.removeObraFavoritos(idFavorito);
 
                 if (onSuccess != null) {

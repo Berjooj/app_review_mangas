@@ -14,9 +14,53 @@
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/capa_fullmetal_alchemist_esp_01_g" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/topBarId"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/banner" />
+
+        <ImageButton
+            android:id="@+id/voltarId2"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="10dp"
+            android:background="#00FFFFFF"
+            android:scaleType="centerCrop"
+            android:src="?attr/actionModeCloseDrawable"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView2"
+            app:tint="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/tituloObraId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:fontFamily="@font/outfitregular"
+            android:text="Chainsaw Man Vol. 1"
+            android:textColor="@color/branco"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imageView2"
+            app:layout_constraintStart_toStartOf="@+id/voltarId2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollViewId"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/topBarId"
         android:fillViewport="true">
 
         <LinearLayout
@@ -44,6 +88,7 @@
                     android:layout_width="165dp"
                     android:layout_height="90dp"
                     android:layout_marginTop="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imagemPrincipalId"
@@ -233,12 +278,12 @@
                     android:id="@+id/publicarLayoutId"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
                     android:visibility="visible"
                     app:layout_constraintTop_toBottomOf="@+id/suaAvalicaoId"
-                    tools:layout_editor_absoluteX="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
+                    tools:layout_editor_absoluteX="10dp">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputLayoutReviewId"

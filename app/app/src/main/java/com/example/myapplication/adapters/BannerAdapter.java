@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.models.Obra;
 import com.example.myapplication.repositories.RepositorioFavoritos;
+import com.example.myapplication.repositories.RepositorioObras;
 import com.example.myapplication.services.FavoritoService;
 import com.example.myapplication.views.ObraPage;
 import com.squareup.picasso.Picasso;
@@ -47,15 +48,16 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull BannerAdapter.ViewHolder holder, int position) {
         RepositorioFavoritos repositorioFavoritos = RepositorioFavoritos.getInstance();
+        RepositorioObras repositorioObras = RepositorioObras.getInstance();
         FavoritoService favoritoService;
         int posicao = position;
         Log.wtf("Banana", obras.get(position).titulo);
         holder.nomeObra.setText(obras.get(position).titulo);
-        String subTitulo = obras.get(position).titulo;
-        if (subTitulo.length() > 25) {
-            subTitulo = subTitulo.substring(0, 25);
-        }
-        holder.criadorObra.setText(subTitulo);
+        //String subTitulo = obras.get(position).titulo;
+        //if (subTitulo.length() > 25) {
+        //   subTitulo = subTitulo.substring(0, 25);
+        //}
+        //holder.criadorObra.setText(subTitulo);
         holder.numPaginas.setText(String.valueOf(obras.get(position).qtVolumes));
         holder.numCurtidas.setText(String.valueOf(obras.get(position).qtAvaliacoes));
         holder.numNota.setText(String.valueOf(obras.get(position).nota));
@@ -64,7 +66,7 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.ViewHolder
 
         holder.bannerImagem.setOnClickListener(view -> {
             Intent intentObra = new Intent(context, ObraPage.class);
-            intentObra.putExtra("id_obra",obras.get(position).id);
+            intentObra.putExtra("id_obra", obras.get(position).id);
             context.startActivity(intentObra);
         });
 
@@ -72,17 +74,32 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 try {
-                    FavoritoService.addFavoritos(obras.get(posicao).id,
-                            onSuccess -> {
-                                holder.favoritosBotao.setColorFilter(R.color.azul);
-                                Log.wtf("bolacha", "deu bom");
-                            },
-                            onError -> {
-                                holder.favoritosBotao.setColorFilter(R.color.amarelo);
-                                Log.wtf("bolacha", "deu ruim");
-
-                            }
-                    );
+                    if (obras.get(position).favoritada) {
+                        Obra obra = repositorioFavoritos.obraLista.stream().filter(obraFavoritada ->
+                                obraFavoritada.id == obras.get(position).id).findFirst().orElse(null);
+                        assert obra != null;
+                        FavoritoService.removerFavoritos(obra.idFavorito, obras.get(posicao).id,
+                                onSuccess -> {
+                                    holder.favoritosBotao.setColorFilter(R.color.azul);
+                                    Log.wtf("Biscoito", "deu bom");
+                                },
+                                onError -> {
+                                    holder.favoritosBotao.setColorFilter(R.color.amarelo);
+                                    Log.wtf("Biscoito", "deu ruim");
+                                }
+                        );
+                    } else {
+                        FavoritoService.addFavoritos(obras.get(posicao).id,
+                                onSuccess -> {
+                                    holder.favoritosBotao.setColorFilter(R.color.azul);
+                                    Log.wtf("bolacha", "deu bom");
+                                },
+                                onError -> {
+                                    holder.favoritosBotao.setColorFilter(R.color.amarelo);
+                                    Log.wtf("bolacha", "deu ruim");
+                                }
+                        );
+                    }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
