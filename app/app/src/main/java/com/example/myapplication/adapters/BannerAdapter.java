@@ -55,7 +55,11 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.ViewHolder
         int posicao = position;
         Log.wtf("Banana", obras.get(position).titulo);
         holder.nomeObra.setText(obras.get(position).titulo);
-
+        holder.criadorObra.setText(obras.get(position).subtitulo);
+        if(obras.get(position).subtitulo != null){
+            Log.wtf("TAG", obras.get(position).subtitulo);
+            holder.criadorObra.setText(obras.get(position).subtitulo);
+        }
         if (obras.get(position).favoritada)
             holder.favoritosBotao.setColorFilter(ContextCompat.getColor(context, R.color.amarelo), android.graphics.PorterDuff.Mode.MULTIPLY);
         else
