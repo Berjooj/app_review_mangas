@@ -45,8 +45,8 @@ public class ObraPage extends AppCompatActivity {
         nota = findViewById(R.id.notaId);
 
         String imagemObra = obra.urlImagem;
-        Picasso.get().load(imagemObra).transform(new BlurTransformation(this)).into(fundo);
-        Picasso.get().load(imagemObra).into(card);
+        Picasso.get().load(imagemObra).resize(1600, 2272).onlyScaleDown().transform(new BlurTransformation(this)).into(fundo);
+        Picasso.get().load(imagemObra).resize(1600, 2272).onlyScaleDown().into(card);
 
         descricao.setText(repositorioObras.filtro(id_obra).titulo);
 

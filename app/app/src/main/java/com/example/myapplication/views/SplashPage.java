@@ -79,6 +79,7 @@ public class SplashPage extends AppCompatActivity implements InitContext {
     @Override
     public void setInstance() {
         ApplicationService service = ApplicationService.getInstance();
+        service.loader = new LoadingDialog(SplashPage.this);
         service.setContext(this);
     }
 }

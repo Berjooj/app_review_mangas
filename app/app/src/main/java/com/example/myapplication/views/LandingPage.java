@@ -38,6 +38,7 @@ public class LandingPage extends AppCompatActivity implements InitContext {
     @Override
     public void setInstance() {
         ApplicationService service = ApplicationService.getInstance();
+        service.loader = new LoadingDialog(LandingPage.this);
         service.setContext(this);
     }
 }

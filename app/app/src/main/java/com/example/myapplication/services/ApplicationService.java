@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.example.myapplication.interfaces.ServiceDone;
 import com.example.myapplication.repositories.RepositorioFavoritos;
 import com.example.myapplication.repositories.RepositorioObras;
+import com.example.myapplication.views.LoadingDialog;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -15,6 +16,7 @@ import org.json.JSONException;
 public class ApplicationService {
 
     private static ApplicationService instance;
+    public LoadingDialog loader;
 
     private Context context;
 
@@ -40,20 +42,14 @@ public class ApplicationService {
     }
 
     public void initApp(ServiceDone callback) {
-        RepositorioFavoritos repositorioFavoritos = RepositorioFavoritos.getInstance();
-
-        if (repositorioFavoritos.obraLista.size() == 0) {
-            FavoritoService.getFavoritos(
-                    onSuccess -> {
-                        FeedService.carregaFeedCompleto(callback);
-                    },
-                    onError -> {
-                        Toast.makeText(this.context, "Erro ao carregar a lista de favoritos", Toast.LENGTH_SHORT).show();
-                    }
-            );
-        } else {
-            FeedService.carregaFeedCompleto(callback);
-        }
+        FavoritoService.getFavoritos(
+                onSuccess -> {
+                    FeedService.carregaFeedCompleto(callback);
+                },
+                onError -> {
+                    Toast.makeText(this.context, "Erro ao carregar a lista de favoritos", Toast.LENGTH_SHORT).show();
+                }
+        );
     }
 }
 

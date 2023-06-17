@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -23,6 +25,7 @@ import com.example.myapplication.adapters.BannerAdapter;
 import com.example.myapplication.adapters.CardAdapter;
 import com.example.myapplication.models.Obra;
 import com.example.myapplication.repositories.RepositorioObras;
+import com.example.myapplication.services.ApplicationService;
 import com.example.myapplication.services.FeedService;
 
 import java.time.Duration;
@@ -33,7 +36,6 @@ import java.util.List;
 
 public class BuscaFragment extends Fragment {
     List<Obra> obras = new ArrayList<>();
-    private ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,45 +45,43 @@ public class BuscaFragment extends Fragment {
         TextView nomeUsuario = view.findViewById(R.id.nomeUsuarioId);
         EditText editTextBusca = view.findViewById(R.id.editTextBusca);
 
-        progressBar = view.findViewById(R.id.progressBar2);
-        progressBar.setVisibility(View.GONE);
+        editTextBusca.setOnEditorActionListener((v, actionId, event) -> {
+            boolean handled = false;
 
-        editTextBusca.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                ApplicationService applicationService = ApplicationService.getInstance();
 
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    String searchText = editTextBusca.getText().toString();
+                String searchText = editTextBusca.getText().toString();
 
-                    if (searchText.length() > 3) {
-                        progressBar.setVisibility(View.VISIBLE);
+                if (searchText.length() > 3) {
+                    applicationService.loader.showDialog();
 
-                        RepositorioObras repositorioObras = RepositorioObras.getInstance();
-                        RecyclerView recyclerView = view.findViewById(R.id.recyclerViewBusca);
+                    RepositorioObras repositorioObras = RepositorioObras.getInstance();
+                    RecyclerView recyclerView = view.findViewById(R.id.recyclerViewBusca);
 
-                        FeedService.carregarPesquisa(searchText, onServiceDone -> {
-                            progressBar.setVisibility(View.GONE);
+                    FeedService.carregarPesquisa(searchText, onServiceDone -> {
+                        applicationService.loader.dismiss();
 
-                            if (onServiceDone.codigo != 500) {
-                                // Aqui vou atualizar o array da View
-                                obras = repositorioObras.listaFiltro;
+                        if (onServiceDone.codigo != 500) {
+                            // Aqui vou atualizar o array da View
+                            obras = repositorioObras.listaFiltro;
 
-                                Log.wtf("MEH", "onFocusChange: puts");
+                            Log.wtf("MEH", "onFocusChange: puts");
 
-                                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false) {
-                                    @Override
-                                    public boolean canScrollVertically() {
-                                        return false;
-                                    }
-                                });
-                                recyclerView.setAdapter(new BannerAdapter(getActivity(), obras));
-                            }
-                        });
-                    }
+                            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false) {
+                                @Override
+                                public boolean canScrollVertically() {
+                                    return false;
+                                }
+                            });
+                            recyclerView.setAdapter(new BannerAdapter(getActivity(), obras));
+                        }
+                    });
                 }
             }
-        });
 
+            return handled;
+        });
 
         return view;
     }

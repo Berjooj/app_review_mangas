@@ -62,7 +62,7 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.ViewHolder
         holder.numCurtidas.setText(String.valueOf(obras.get(position).qtAvaliacoes));
         holder.numNota.setText(String.valueOf(obras.get(position).nota));
         String imageUrl = obras.get(position).urlImagem;
-        Picasso.get().load(imageUrl).into(holder.bannerImagem);
+        Picasso.get().load(imageUrl).resize(1600, 2272).onlyScaleDown().into(holder.bannerImagem);
 
         holder.bannerImagem.setOnClickListener(view -> {
             Intent intentObra = new Intent(context, ObraPage.class);

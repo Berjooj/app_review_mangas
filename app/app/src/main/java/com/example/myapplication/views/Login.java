@@ -42,10 +42,13 @@ public class Login extends AppCompatActivity implements InitContext {
             String newSenha = newSenhaEditText.getText().toString();
 
             try {
+                ApplicationService service = ApplicationService.getInstance();
+                service.loader.showDialog();
+
                 UsuarioService.loginRequest(
                         new Usuario(newEmail, newSenha),
                         success -> {
-                            Log.wtf("BlablaLogCat", "ok");
+                            service.loader.showDialog();
 
                             Intent intentSplashPage = new Intent(getApplicationContext(), SplashPage.class);
                             intentSplashPage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -53,6 +56,7 @@ public class Login extends AppCompatActivity implements InitContext {
 
                             finish();
                         }, error -> {
+                            service.loader.showDialog();
                             Toast.makeText(this, "Erro ao autenticar o usuário", Toast.LENGTH_LONG).show();
                         });
             } catch (Exception e) {
@@ -64,6 +68,7 @@ public class Login extends AppCompatActivity implements InitContext {
     @Override
     public void setInstance() {
         ApplicationService service = ApplicationService.getInstance();
+        service.loader = new LoadingDialog(Login.this);
         service.setContext(this);
     }
 }

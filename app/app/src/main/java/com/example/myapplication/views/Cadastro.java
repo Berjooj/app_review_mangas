@@ -42,6 +42,10 @@ public class Cadastro extends AppCompatActivity implements InitContext {
             String newName = newNameEditText.getText().toString();
             String newEmail = newEmailEditText.getText().toString();
             String newSenha = newSenhaEditText.getText().toString();
+            String newSenhaConfirm = newSenhaCEditText.getText().toString();
+
+            ApplicationService service = ApplicationService.getInstance();
+            service.loader.showDialog();
 
             try {
                 UsuarioService.cadastroUsuario(
@@ -51,23 +55,29 @@ public class Cadastro extends AppCompatActivity implements InitContext {
                                 UsuarioService.loginRequest(
                                         onSuccess.data,
                                         success -> {
+                                            service.loader.dismiss();
+
                                             Intent intentSplashPage = new Intent(getApplicationContext(), SplashPage.class);
                                             intentSplashPage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                             startActivity(intentSplashPage);
 
                                             finish();
                                         }, error -> {
+                                            service.loader.dismiss();
                                             Toast.makeText(this, "Erro ao autenticar o usuário", Toast.LENGTH_LONG).show();
                                         });
                             } catch (Exception e) {
+                                service.loader.dismiss();
                                 Toast.makeText(this, "Puts ai deu ruim :/", Toast.LENGTH_LONG).show();
                             }
                         },
                         onError -> {
+                            service.loader.dismiss();
                             Toast.makeText(this, "Erro ao cadastrar o usuário", Toast.LENGTH_LONG).show();
                         }
                 );
             } catch (Exception exception) {
+                service.loader.dismiss();
                 Toast.makeText(this, exception.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
@@ -76,6 +86,7 @@ public class Cadastro extends AppCompatActivity implements InitContext {
     @Override
     public void setInstance() {
         ApplicationService service = ApplicationService.getInstance();
+        service.loader = new LoadingDialog(Cadastro.this);
         service.setContext(this);
     }
 }

@@ -9,6 +9,7 @@
 
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
@@ -16,7 +17,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayoutTopBar"
@@ -77,6 +78,7 @@
                     android:ems="10"
                     android:fontFamily="@font/outfitregular"
                     android:hint="Digite alguma coisa"
+                    android:imeOptions="actionSearch"
                     android:inputType="text"
                     android:state_focused="true"
                     android:textColor="#FFFFFF"
@@ -111,15 +113,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/editTextBusca"
                     app:layout_constraintVertical_bias="0.0" />
 
-                <ProgressBar
-                    android:id="@+id/progressBar2"
-                    style="?android:attr/progressBarStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/editTextBusca" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>

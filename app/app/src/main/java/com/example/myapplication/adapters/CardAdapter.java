@@ -58,7 +58,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         }
         holder.textView.setText(titulo);
         String imageUrl = obras.get(position).urlImagem;
-        Picasso.get().load(imageUrl).into(holder.imageView);
+        Picasso.get().load(imageUrl).resize(1600, 2272).onlyScaleDown().into(holder.imageView);
 
         holder.imageView.setOnClickListener(view -> {
             Intent intentObra = new Intent(context, ObraPage.class);
