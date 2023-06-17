@@ -66,8 +66,18 @@ public class SplashPage extends AppCompatActivity implements InitContext {
 
             Log.wtf("BRUH", String.valueOf(repoObra.lancamentoLista.size()));
 
-           this.initHomeActivity();
+            this.initHomeActivity();
+        }, error -> {
+            this.retry();
         });
+    }
+
+    private void retry() {
+        finish();
+
+        Intent intentSplashPage = new Intent(getApplicationContext(), SplashPage.class);
+        intentSplashPage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intentSplashPage);
     }
 
     private void initHomeActivity() {

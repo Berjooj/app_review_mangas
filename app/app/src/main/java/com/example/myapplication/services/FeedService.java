@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class FeedService {
 
-    public static void carregaFeedCompleto(ServiceDone callback) {
+    public static void carregaFeedCompleto(ServiceDone callback, ServiceDone error) {
         ApplicationService applicationService = ApplicationService.getInstance();
 
         try {
@@ -44,21 +44,45 @@ public class FeedService {
                                     callback.onServiceDone(new ObraResponse("Feed carregado", 200, null));
                                 }
                             }, onErrorLancamento -> {
-                                Toast.makeText(applicationService.getContext(), onErrorLancamento.mensagem, Toast.LENGTH_SHORT).show();
+                                if (error != null) {
+                                    error.onServiceDone(new ObraResponse("Feed carregado", 500, null));
+                                }
+
+                                Toast.makeText(applicationService.getContext(), "Erro ao carregar o feed. Servidor sem resposta", Toast.LENGTH_SHORT).show();
                             });
                         } catch (JSONException e) {
+                            if (error != null) {
+                                error.onServiceDone(new ObraResponse("Feed carregado", 500, null));
+                            }
+
                             Toast.makeText(applicationService.getContext(), "Erro ao carregar a lista 'lançamentos'", Toast.LENGTH_SHORT).show();
                         }
                     }, onErrorEmBreve -> {
+                        if (error != null) {
+                            error.onServiceDone(new ObraResponse("Feed carregado", 500, null));
+                        }
+
                         Toast.makeText(applicationService.getContext(), "Erro ao carregar a lista 'em breve'", Toast.LENGTH_SHORT).show();
                     });
                 } catch (JSONException e) {
-                    Toast.makeText(applicationService.getContext(), "Erro ao carregar a lista 'lançamentos'", Toast.LENGTH_SHORT).show();
+                    if (error != null) {
+                        error.onServiceDone(new ObraResponse("Feed carregado", 500, null));
+                    }
+
+                    Toast.makeText(applicationService.getContext(), "Erro ao carregar o feed. Servidor sem resposta", Toast.LENGTH_SHORT).show();
                 }
             }, onErrorEmAlta -> {
-                Toast.makeText(applicationService.getContext(), onErrorEmAlta.mensagem, Toast.LENGTH_SHORT).show();
+                if (error != null) {
+                    error.onServiceDone(new ObraResponse("Feed carregado", 500, null));
+                }
+
+                Toast.makeText(applicationService.getContext(), "Erro ao carregar o feed. Servidor sem resposta", Toast.LENGTH_SHORT).show();
             });
         } catch (JSONException e) {
+            if (error != null) {
+                error.onServiceDone(new ObraResponse("Feed carregado", 500, null));
+            }
+
             Toast.makeText(applicationService.getContext(), "Erro ao carregar a lista 'em alta'", Toast.LENGTH_SHORT).show();
         }
     }

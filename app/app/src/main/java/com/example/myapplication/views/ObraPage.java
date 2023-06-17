@@ -67,6 +67,12 @@ public class ObraPage extends AppCompatActivity {
     private ImageView estrelaQuatroId;
     private ImageView estrelaCincoId;
 
+    private ImageView estrelaUmId2;
+    private ImageView estrelaDoisId2;
+    private ImageView estrelaTresId2;
+    private ImageView estrelaQuatroId2;
+    private ImageView estrelaCincoId2;
+
     private int notaAtual = 0;
 
     RepositorioObras repositorioObras;
@@ -119,6 +125,12 @@ public class ObraPage extends AppCompatActivity {
         estrelaTresId = findViewById(R.id.estrelaTresId);
         estrelaQuatroId = findViewById(R.id.estrelaQuatroId);
         estrelaCincoId = findViewById(R.id.estrelaCincoId);
+
+        estrelaUmId2 = findViewById(R.id.estrelaUmId2);
+        estrelaDoisId2 = findViewById(R.id.estrelaDoisId2);
+        estrelaTresId2 = findViewById(R.id.estrelaTresId2);
+        estrelaQuatroId2 = findViewById(R.id.estrelaQuatroId2);
+        estrelaCincoId2 = findViewById(R.id.estrelaCincoId2);
 
         ApplicationService service = ApplicationService.getInstance();
 
@@ -236,6 +248,13 @@ public class ObraPage extends AppCompatActivity {
                 periodoFormatado = "Há " + periodo.getDays() + " dias";
             }
             periodoComentario.setText(periodoFormatado);
+
+            estrelaUmId2.setColorFilter(ContextCompat.getColor(service.getContext(), avaliacao.nota >= 1 ? R.color.amarelo : R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+            estrelaDoisId2.setColorFilter(ContextCompat.getColor(service.getContext(), avaliacao.nota >= 2 ? R.color.amarelo : R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+            estrelaTresId2.setColorFilter(ContextCompat.getColor(service.getContext(), avaliacao.nota >= 3 ? R.color.amarelo : R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+            estrelaQuatroId2.setColorFilter(ContextCompat.getColor(service.getContext(), avaliacao.nota >= 4 ? R.color.amarelo : R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
+            estrelaCincoId2.setColorFilter(ContextCompat.getColor(service.getContext(), avaliacao.nota >= 5
+                    ? R.color.amarelo : R.color.cinza_2), android.graphics.PorterDuff.Mode.MULTIPLY);
         }
 
         descricao.setText(repositorioObras.filtro(id_obra).descricao);

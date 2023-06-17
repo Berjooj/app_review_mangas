@@ -45,10 +45,10 @@ public class ApplicationService {
         this.context = context;
     }
 
-    public void initApp(ServiceDone callback) {
+    public void initApp(ServiceDone callback, ServiceDone error) {
         FavoritoService.getFavoritos(
                 onSuccess -> {
-                    FeedService.carregaFeedCompleto(callback);
+                    FeedService.carregaFeedCompleto(callback, error);
                 },
                 onError -> {
                     Toast.makeText(this.context, "Erro ao carregar a lista de favoritos", Toast.LENGTH_SHORT).show();
