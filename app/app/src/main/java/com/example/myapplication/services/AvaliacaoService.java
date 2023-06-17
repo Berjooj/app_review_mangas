@@ -58,6 +58,8 @@ public class AvaliacaoService {
                     avaliacao.comentario = token.getComentario();
 
                     avaliacao.qtCurtidas = token.getComentario().length();
+                    avaliacao.created_at = token.getCreated_at();
+                    avaliacao.nome = token.getNome();
 
                     if (usuario.id == avaliacao.idUsuario) {
                         repositorioAvalicao.comentarioUsuarioLogado = avaliacao;
@@ -95,7 +97,7 @@ public class AvaliacaoService {
         requestQueue.add(request);
     }
 
-    public static void criarComentario(ServiceDone onSuccess, ServiceDone onError) throws JSONException {
+    public static void criarComentario(String comentario,int nota,int id_obra,ServiceDone onSuccess, ServiceDone onError) throws JSONException {
         ApplicationService appService = ApplicationService.getInstance();
 
         RepositorioAvalicao repositorioAvalicao = RepositorioAvalicao.getInstance();
@@ -105,9 +107,9 @@ public class AvaliacaoService {
         Usuario usuario = repositorioUsuario.getUsuario();
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id_obra", novaAvaliacao.idObra);
-        jsonObject.put("nota", novaAvaliacao.nota);
-        jsonObject.put("comentario", novaAvaliacao.comentario);
+        jsonObject.put("id_obra", id_obra);
+        jsonObject.put("nota", nota);
+        jsonObject.put("comentario", comentario);
 
         String url = "https://api.berjooj.cloud/api/avaliar";
 

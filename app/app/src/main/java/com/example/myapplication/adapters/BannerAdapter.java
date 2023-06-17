@@ -17,6 +17,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.models.Obra;
 import com.example.myapplication.repositories.RepositorioFavoritos;
 import com.example.myapplication.repositories.RepositorioObras;
+import com.example.myapplication.services.AvaliacaoService;
 import com.example.myapplication.services.FavoritoService;
 import com.example.myapplication.views.ObraPage;
 import com.squareup.picasso.Picasso;
@@ -65,10 +66,13 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.ViewHolder
         Picasso.get().load(imageUrl).into(holder.bannerImagem);
 
         holder.bannerImagem.setOnClickListener(view -> {
-            Intent intentObra = new Intent(context, ObraPage.class);
-            intentObra.putExtra("id_obra", obras.get(position).id);
-            context.startActivity(intentObra);
-        });
+
+                    AvaliacaoService.buscarComentarios(obras.get(position).id, onServiceDone -> {
+                        Intent intentObra = new Intent(context, ObraPage.class);
+                        intentObra.putExtra("id_obra", obras.get(position).id);
+                        context.startActivity(intentObra);
+                    }, null);
+                });
 
         holder.favoritosBotao.setOnClickListener(new View.OnClickListener() {
             @Override

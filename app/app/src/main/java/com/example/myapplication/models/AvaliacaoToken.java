@@ -11,6 +11,9 @@ public class AvaliacaoToken {
     private String comentario;
     private String created_at;
     private String updated_at;
+
+    private String nome;
+
     private List<CurtidaToken> curtidas;
 
     public AvaliacaoToken() {
@@ -18,6 +21,14 @@ public class AvaliacaoToken {
     }
 
     // Getters e Setters
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
     public int getId() {
         return id;
