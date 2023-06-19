@@ -62,11 +62,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         //Obra obra = Objects.requireNonNull(obras.get((obras.keySet().toArray())[position]));
         if (RepositorioFavoritos.getInstance().obraLista.get(position) != null) {
             Log.wtf("Banana", obras.get(position).titulo);
-            String titulo = obras.get(position).titulo;
-            if (titulo.length() > 25) {
-                titulo = titulo.substring(0, 25);
-            }
-            holder.textView.setText(titulo);
+            holder.textView.setText(obras.get(position).titulo);
             String imageUrl = obras.get(position).urlImagem;
             Picasso.get().load(imageUrl).resize(1600, 2272).onlyScaleDown().into(holder.imageView);
 
