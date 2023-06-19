@@ -2,6 +2,7 @@ package com.example.myapplication.views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -79,6 +80,7 @@ public class Cadastro extends AppCompatActivity implements InitContext {
                             },
                             onError -> {
                                 service.loader.dismiss();
+                                Log.wtf("Erro Cadastro", onError.mensagem);
                                 Toast.makeText(this, "Erro ao cadastrar o usuário", Toast.LENGTH_LONG).show();
                             }
                     );
