@@ -143,11 +143,14 @@ public class ObraPage extends AppCompatActivity {
 
         ApplicationService service = ApplicationService.getInstance();
 
-        if(repositorioObras.filtro(id_obra).categorias != null){
+        if(repositorioObras.filtro(id_obra).categorias.size() != 0){
             categoriaUm.setText(repositorioObras.filtro(id_obra).categorias.get(0));
             if (repositorioObras.filtro(id_obra).categorias.get(1) != null){
                 categoriaDois.setText(repositorioObras.filtro(id_obra).categorias.get(1));
             }
+        }else{
+            categoriaUm.setText("");
+            categoriaDois.setText("");
         }
 
         if(repositorioObras.filtro(id_obra).favoritada){
